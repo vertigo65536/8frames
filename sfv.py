@@ -60,6 +60,10 @@ def fuzzyDict(search, d):
 
 def findByPlnCmd(search, d):
     search = search.translate(str.maketrans('', '', string.punctuation)).lower().replace("st", "").replace("dp", "fddf")
+    if search in ["vs1", "vs2"]:
+        search = "mpmk " + search
+    elif search in ["vt1", "vt2"]:
+        search = "hphk " + search
     plnArray = []
     keyDict = {}
     for key in d.keys():
@@ -132,6 +136,8 @@ def getMinusMovesEmbed(character, punishable=0):
 def createMoveEmbed(dictionary, title, description):
     e = discord.Embed(title=title.title(), description=description.title())
     for key, value in dictionary.items():
+        if len(str(value)) > 1024:
+            continue
         e.add_field(
             name = key,
             value = value
