@@ -15,8 +15,6 @@ async def handleMessage(message):
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-intents = discord.Intents.default()
-intents.members = True
 client = discord.Client(intents=intents)
 
 @client.event
