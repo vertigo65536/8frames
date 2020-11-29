@@ -1,5 +1,5 @@
 import tools
-import os, discord, csv, tabulate
+import os, discord, csv
 from fuzzy_match import match, algorithims
 from tabulate import tabulate
 

@@ -1,10 +1,12 @@
 import discord, os
-import tools, t7
+import tools, t7, sfv
 from dotenv import load_dotenv
 
 def getGame(string):
     if string == "t7":
         return t7
+    if string == "sfv":
+        return sfv
 
 async def handleMessage(message):
    prefix = tools.getMessagePrefix(message.content)
