@@ -32,6 +32,7 @@ client = discord.Client()
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
+    await client.change_presence(activity=discord.Game(name="type 8f!man for help"))
     
 @client.event    
 async def on_message(message):
