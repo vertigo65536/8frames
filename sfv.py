@@ -26,7 +26,7 @@ def parseCommand(command):
     if len(vtTest) == 1 or vtTest[0].lower() == 'normal':
         vtrigger = 'normal'
         if len(vtTest) == 1:
-            search = vtTest
+            search = vtTest[0]
         else:
             search = vtTest[1]
     elif vtTest[0].lower() in ['vt1', 'vtone', 1]:
