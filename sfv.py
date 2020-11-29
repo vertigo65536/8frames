@@ -90,6 +90,10 @@ def getMinusMoves(character, punishable=0):
                 continue
             for i in range(len(block)):
                 block[i] = block[i].replace(")", "")
+                try:
+                    int(block[i])
+                except:
+                    continue
                 if int(block[i]) <= minimum and int(block[i]) >= maximum:
                     try:
                         outputValues[vt].append({
