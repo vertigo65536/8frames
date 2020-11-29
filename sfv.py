@@ -60,10 +60,11 @@ def fuzzyDict(search, d):
 
 def findByPlnCmd(search, d):
     search = search.translate(str.maketrans('', '', string.punctuation)).lower().replace("st", "").replace("dp", "fddf")
-    if search in ["vs1", "vs2"]:
-        search = "mpmk " + search
-    elif search in ["vt1", "vt2"]:
-        search = "hphk " + search
+    #if search in ["vs1", "vs2"]:
+    if any(x in search for x in ["vs1", "vs2"]):
+        search = search.replace("vs", "mpmk vs")
+    elif any(x in search for x in ["vt1", "vt2"]):
+        search = search.replace("vt", "hphk vt")
     plnArray = []
     keyDict = {}
     for key in d.keys():

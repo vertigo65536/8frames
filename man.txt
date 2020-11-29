@@ -21,5 +21,6 @@ examples of valid commands:
 > 8frames!t7 dj df2
 > 8frames!sfv bison punishable
 > 8f!sfv chunli vt1:sthp
+> 8f!sfv akuma vs1
 
 report bugs to @Vertigo#2894
