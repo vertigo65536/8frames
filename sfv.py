@@ -13,9 +13,12 @@ def parseCommand(command):
     character = tools.getMessagePrefix(command)
     content = tools.getMessageContent(command)
     frameData = getFrameDataArray()
-    #print(frameData['Alex']['moves']['normal']['Stand LP'])
     character = fuzzyDict(character, frameData)
     dataType = 'moves'
+    if content.lower() == "punishable":
+        return getMinusMovesEmbed(character, 1)
+    if content.lower() == "lose turn":
+        return getMinusMovesEmbed(character, 0)
     vtTest = content.split(":")
     vtrigger = 'normal'
     if len(vtTest) == 1 or vtTest[0].lower() == 'normal':
@@ -63,6 +66,60 @@ def findByPlnCmd(search, d):
         return keyDict[selectedKey[0]]
     else:
         return -1
+
+def getMinusMoves(character, punishable=0):
+    array = getFrameDataArray()[character]['moves']
+    outputValues = {}
+    if punishable == 1:
+        minimum = -3
+        maximum = -2000
+    else:
+        minimum = -1
+        maximum = -2
+    for vt, moves in array.items():
+        outputValues[vt] = []
+        for key, move in moves.items():
+            try:
+                block = move['onBlock']
+                block = str(block).split("(")
+                if not isinstance(block, list):
+                    block = [block]
+            except:
+                continue
+            for i in range(len(block)):
+                block[i] = block[i].replace(")", "")
+                if int(block[i]) <= minimum and int(block[i]) >= maximum:
+                    try:
+                        outputValues[vt].append({
+                            'move': key,
+                            'onBlock': move['onBlock'],
+                            'vtcOnBlock': move['vtcOnBlock']
+                        })
+                    except:
+                        outputValues[vt].append({
+                            'move': key,
+                            'onBlock': move['onBlock']
+                        })
+
+                    break
+    return outputValues
+
+def getMinusMovesEmbed(character, punishable=0):
+    d = getMinusMoves(character, punishable)
+    e = discord.Embed(title=character)
+    headers = ["Move", "On Block", "VTC On Block"]
+    string = ""
+    for key, items in d.items():
+        valuesArray = []
+        string = string + key + "\n"
+        for i in range(len(items)):
+            try:
+                valuesArray.append([items[i]['move'], items[i]['onBlock'], items[i]['vtcOnBlock']])
+            except:
+                valuesArray.append([items[i]['move'], items[i]['onBlock'], ""])
+
+        string = string + "```" + tabulate(valuesArray, headers=headers) + "```\n"
+    return string
 
 def createMoveEmbed(dictionary, title, description):
     e = discord.Embed(title=title.title(), description=description.title())
