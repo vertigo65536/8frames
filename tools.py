@@ -37,6 +37,8 @@ def getStoredRowByInput(id, file):
                     continue
                 moveKeys.append(row[0].translate(str.maketrans('', '', string.punctuation)))
                 moveData[moveKeys[counter]] = row
+                if moveKeys[counter] == id:
+                    return row
                 counter += 1
             return moveData[match.extractOne(id, moveKeys)[0]]
     except:
