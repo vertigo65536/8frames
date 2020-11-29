@@ -26,15 +26,19 @@ async def on_message(message):
     if message.author == client.user:
         return
     response = await handleMessage(message)
-    e = None
-    content = response
-    if isinstance(response, discord.embeds.Embed):
-        e = response
-        content = None
-    if response != "" and response != None:
-        await message.channel.send(content, embed=e)
-    else:
-        return
+    if not isinstance(response, list):
+        response = [response]
+    for i in range(len(response)):
+        e = None
+        content = response[i]
+        if isinstance(response[i], discord.embeds.Embed):
+            e = response[i]
+            content = None
+        if response[i] not in ["", None]:
+            await message.channel.send(content, embed=e)
+        else:
+            continue
+    return
 
 @client.event
 async def on_message_delete(message):
