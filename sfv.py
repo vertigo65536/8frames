@@ -81,7 +81,7 @@ def getMinusMoves(character, punishable=0):
         for key, move in moves.items():
             try:
                 block = move['onBlock']
-                block = str(block).split("(")
+                block = str(block).replace("/", "(").split("(")
                 if not isinstance(block, list):
                     block = [block]
             except:
