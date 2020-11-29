@@ -121,17 +121,17 @@ def getMinusMovesEmbed(character, punishable=0):
     d = getMinusMoves(character, punishable)
     e = discord.Embed(title=character)
     headers = ["Move", "On Block", "VTC On Block"]
-    string = ""
+    string = []
+    counter = 0
     for key, items in d.items():
         valuesArray = []
-        string = string + key + "\n"
         for i in range(len(items)):
             try:
                 valuesArray.append([items[i]['move'], items[i]['onBlock'], items[i]['vtcOnBlock']])
             except:
                 valuesArray.append([items[i]['move'], items[i]['onBlock'], ""])
-
-        string = string + "```" + tabulate(valuesArray, headers=headers) + "```\n"
+        if valuesArray != []:
+            string.append("**" + key + "**\n" + "```" + tabulate(valuesArray, headers=headers) + "```")
     return string
 
 def createMoveEmbed(dictionary, title, description):
