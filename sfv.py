@@ -52,6 +52,7 @@ def fuzzyDict(search, d):
         return -1
 
 def findByPlnCmd(search, d):
+    search = search.translate(str.maketrans('', '', string.punctuation)).lower()
     plnArray = []
     keyDict = {}
     for key in d.keys():
