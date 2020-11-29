@@ -14,6 +14,8 @@ def parseCommand(command):
     content = tools.getMessageContent(command)
     frameData = getFrameDataArray()
     character = fuzzyDict(character, frameData)
+    if character == -1:
+        return "Could not find character"
     dataType = 'moves'
     if content.lower() == "punishable":
         return getMinusMovesEmbed(character, 1)
@@ -49,13 +51,13 @@ def fuzzyDict(search, d):
     for key in d.keys():
        keyArray.append(key)
     selectedKey = match.extractOne(search, keyArray)
-    if selectedKey[1] >= 0.7:
+    if selectedKey[1] >= 0.5:
         return selectedKey[0]
     else:
         return -1
 
 def findByPlnCmd(search, d):
-    search = search.translate(str.maketrans('', '', string.punctuation)).lower()
+    search = search.translate(str.maketrans('', '', string.punctuation)).lower().replace("st", "")
     plnArray = []
     keyDict = {}
     for key in d.keys():

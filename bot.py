@@ -8,11 +8,21 @@ def getGame(string):
     if string == "sfv":
         return sfv
 
+def getManPage():
+    f = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "man.txt"), "r")
+    if f.mode == "r":
+        return f.read()
+    print("Failed to open man file")
+    return
+
+
 async def handleMessage(message):
    prefix = tools.getMessagePrefix(message.content)
    content = tools.getMessageContent(message.content)
    commandSplit = prefix.split("!")
    if commandSplit[0] in ["8frames", "8f"]:
+       if commandSplit[1] in "man, help":
+           return getManPage()
        return getGame(commandSplit[1]).parseCommand(content)
 
 load_dotenv()
