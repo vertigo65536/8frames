@@ -48,21 +48,23 @@ def parseCommand(command):
 
 def fuzzyDict(search, d):
     keyArray = []
+    keyDict = {}
     for key in d.keys():
-       keyArray.append(key)
+       keyArray.append(removePunctuation(key))
+       keyDict[removePunctuation(key)] = key
     selectedKey = match.extractOne(search, keyArray)
-    if selectedKey[1] >= 0.5:
-        return selectedKey[0]
+    if selectedKey[1] >= 0.7:
+        return keyDict[selectedKey[0]]
     else:
         return -1
 
 def findByPlnCmd(search, d):
-    search = search.translate(str.maketrans('', '', string.punctuation)).lower().replace("st", "")
+    search = search.translate(str.maketrans('', '', string.punctuation)).lower().replace("st", "").replace("dp", "fddf")
     plnArray = []
     keyDict = {}
     for key in d.keys():
-        plnArray.append(d[key]['plnCmd'].translate(str.maketrans('', '', string.punctuation)).lower())
-        keyDict[d[key]['plnCmd'].translate(str.maketrans('', '', string.punctuation)).lower()] = key
+        plnArray.append(removePunctuation(d[key]['plnCmd']))
+        keyDict[removePunctuation(d[key]['plnCmd'])] = key
     selectedKey = match.extractOne(search, plnArray)
     if selectedKey[1] >= 0.7:
         return keyDict[selectedKey[0]]
@@ -135,3 +137,6 @@ def createMoveEmbed(dictionary, title, description):
             value = value
         )
     return e
+
+def removePunctuation(s):
+   return s.translate(str.maketrans('', '', string.punctuation)).lower()
