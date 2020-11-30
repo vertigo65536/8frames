@@ -74,21 +74,23 @@ def findSpecialCommand(string, soup):
     buttonParse = removeButton(string)
     string = buttonParse[0]
     button = buttonParse[1]
-    for td in soup.findAll("td", text=string):
-        nextTd = td.findNext("td")
-        #print(">" + nextTd.getText().lower().rstrip() + "<")
-        if nextTd.getText().lower().rstrip() == string.lower().rstrip():
-            nextTd = nextTd.findNext("td")
-        elif nextTd.getText().lower().rstrip() == "-":
-            nextTd = nextTd.findNext("td")
-        else:
-            try:
-                int(nextTd.getText().lower().rstrip())
-                continue
-            except:
-                pass
-            if string.lower().rstrip() in nextTd.getText().lower().rstrip():
-                continue
+    for td in soup.findAll("td"):
+        if string.lower().rstrip() not in  td.getText().lower().rstrip():
+            continue
+        try:
+            td.find('b').findNext('p').find('b')
+        except:
+            continue
+        nextTd = td.findNext("td").findNext("td")
+        if any(substring in nextTd.getText().lower().rstrip() for substring in ["-", "*"]) or nextTd.getText().lower().rstrip() == "":
+            continue
+        try:
+            int(nextTd.getText().lower().rstrip())
+            continue
+        except:
+            pass
+        if string.lower().rstrip() in nextTd.getText().lower().rstrip():
+            continue
         moveInput = removeButton(parseTableEntry(nextTd))[0]
         if button == "Ex":
             moveInput = moveInput.replace("+ K", "+ 2K")
@@ -108,6 +110,8 @@ def findMoveCommand(string, soup):
         return "Lp + Mp + Mk"
     for td in soup.findAll("td", text=string):
         nextTd = td.findNext("td")
+        if "Super Combo" in nextTd.getText():
+            continue
         if nextTd.getText().lower().rstrip() == string.lower().rstrip():
             nextTd = nextTd.findNext("td")
         else:
@@ -142,22 +146,6 @@ for character, link in characterLinks.items():
     soup = BeautifulSoup(page.text, features='html.parser')
     counter = 0
     keyDict = {}
-    #for tbody in soup.findAll("table", {"class": "wikitable"}):
-    #    #try:
-    #    data = convertHtmlTableToArray(tbody)
-    #    if len(data) < 1 or len(data[0]) < 4:
-    #        continue
-    #    if data[0][1].replace("\n", "") == "Name":
-    #        if data[0][3].replace("\n", "") == "Command":
-    #            print(data)
-    #            for i in range(1, len(data) - 1):
-    #                #print(data[i])
-    #                keyDict[data[i][1]] = data[i][3]
-    #    #except:
-    #    #    pass
-    #    #break
-    #print(keyDict)
-    #break
 
     table = soup.find("h2", text="Frame Data (At A Glance)").findNext("table")
     tableArray = convertHtmlTableToArray(table)
@@ -165,8 +153,16 @@ for character, link in characterLinks.items():
     #try:
     with open(os.path.join(folder, character + ".csv"), 'a') as csv_file:
         for i in range(len(tableArray)):
-            print(tableArray[i][1] + " _ " + str(findMoveCommand(tableArray[i][1], soup)))
+            if tableArray[i][0] == "":
+                tableArray[i][0] = tableArray[i-1][1]
+            if "Super Combo" in tableArray[i][1]:
+                moveName = tableArray[i][1].replace("Super Combo", tableArray[i][0])
+            else:
+                moveName = tableArray[i][0]
+            command = str(findMoveCommand(moveName, soup))
+            if command == "couldn't find move":
+                print(command + " - " + moveName)
+            tableArray[i].insert(0, command)
             csv_file.write('`'.join(tableArray[i]) + "\n")
     #except:
     #    print("Failed to open " + os.path.join(folder, character + ".csv"))
-    break
