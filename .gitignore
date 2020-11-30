@@ -1,0 +1,6 @@
+t7/
+.env
+__pycache__/
+*.swp
+fatsfvframedatajson
+sf4/
