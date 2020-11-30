@@ -1,0 +1,66 @@
+Close LP`Close`30`50`20`HL`sp/su`4`2`7`2`5
+Close MP`Close`70`100`40`HL`sp/su`7`2`11`1`4
+Close HP`Close`90`150`60`HL`sp/su`8`2`17`-1`3
+Close LK`Close`30`50`20`HL`sp/su`5`2`7`3`6
+Close MK`Close`70`100`40`HL`-`11`2`5 + After landing 7`0`3
+Close HK`Close`80`150`60`HL`sp/su`10`2`16`0`-
+Far LP`Far`30`50`20`HL`sp/su`4`3`6`2`5
+Far MP`Far`80`100`40`HL`sp/su`7`3`10`2`5
+Far HP`Far`120`200`60`HL`-`17`2`11`5`9
+Far LK`Far`30`50`20`HL`sp/su`5`2`7`3`6
+Far MK`Far`70`100`40`HL`sp/su`11`3`14`-3`0
+Far HK`Far`110*100`200`60`HL*H`-`19`2(6)3`After landing 12`-5`-1[+7]
+Crouch LP`Crouch`30`50`20`HL`ch/sp/su`4`3`7`1`4
+Crouch MP`Crouch`70`100`40`HL`sp/su`9`2`12`0`3
+Crouch HP`Crouch`100`200`60`HL`-`8`4`15`-1`4
+Crouch LK`Crouch`20`50`20`L`sp/su`5`2`6`3`6
+Crouch MK`Crouch`70`100`40`L`sp/su`6`2`13`-1`2
+Crouch HK`Crouch`80`150`60`L`-`17`10`9`-1`-
+Shower Kick`Shower Kick`50`100`40`H`-`16`2`11`1`5
+Target Combo`(far)  >`70`100`40`HL`-`14`2`5 + After landing 10`-3`0
+Jump LP`Jump`50`50`20`H`-`5`8`-`-`-
+Jump MP`Jump`80`100`40`H`-`8`4`-`-`-
+Jump HP`Jump`100`200`60`H`-`9`6`-`-`-
+Jump LK`Jump`40`50`20`H`-`5`9`-`-`-
+Jump MK`Jump`80`100`40`H`-`6`9`-`-`-
+Jump HK`Jump`100`200`60`H`-`7`10`-`-`-
+Wall Jump`Wall Jump`-`-`-`-`-`-`-`-`-`-
+Tostada Press`Tostada Press (Wall Jump)`100`100`20/30`H`-`2+12`until ground`After landing 35`-15`-
+Fajita Buster`Fajita Buster (Wall Jump)`180`150`20/60`1.91`-`2+12`until ground`After landing 36`-`-
+Focus Attack (Level 1)`Level 1 Focus`60`100`20`HL`-`10+11`3`34`-21`-21
+Focus Attack (Level 2)`Level 2 Focus`80`150`40`HL`-`18+11`3`34`-15`-
+Focus Attack (Level 3)`Level 3 Focus`140`200`60`-`-`65`3`34`-`-
+Red Focus Attack (Level 1)`Level 1 Red Focus`90`100`20`HL`-`10+11`3`34`-21`-21
+Red Focus Attack (Level 2)`Level 2 Red Focus`120`150`40`HL`-`18+11`3`34`-15`-
+Red Focus Attack (Level 3)`Level 3 Red Focus`210`200`60`-`-`65`3`34`-`-
+EX Red Focus Attack (Level 1)`Level 1 EX Red Focus`90`100`20`HL`-`10+11`3`34`-15`-
+Tepache Bomb`Forward Throw`120`120`40`0.9`-`3`2`20`-`-
+Chili Mexicano`Back Throw`120`120`40`0.9`-`3`2`20`-`-
+Sky Sopressa Drop`Air Throw`140`150`40`1.15`-`3`2`-`-`-
+Habañero Dash`Habañero Dash`-`-`-`-`-`-`-`Total 71`-`-
+EX Habañero Dash`Habañero Dash`-`-`-250/0`-`-`-`-`Total 49`-`-
+Sudden Stop`Sudden Stop`-`-`0/0`-`-`-`-`Total 3`-`-
+Tostada Press`Tostada Press`100`100`20/30`H`-`6+19`8`After landing 34`-21`-
+Fajita Buster`Fajita Buster`180`150`20/60`1.8`-`6+23`6`2 + After landing 34`-`-
+Back Step`Back Step`-`-`-`-`-`-`-`Total 17`-`-
+Gordita Sobat`Gordita Sobat`80`100`20/30`HL`su`6+14`2`17`2`6
+Calamari Slide`Calamari Slide`100`200`20/30`L`-`6+12`6`24`-9`-
+Habañero Back Dash`Habañero Back Dash`-`-`-`-`-`-`-`See notes`-`-
+EX Habañero Back Dash`Habañero Back Dash`-`-`-250/0`-`-`-`-`See notes`-`-
+Sudden Stop`Sudden Stop`-`-`0/0`-`-`-`-`Total 3`-`-
+Tostada Press`Tostada Press`100`100`20/30`H`-`6+19`8`After landing 30`-21`-
+Propeller Tortilla`Propeller Tortilla`132`150`20/60`1.73`-`6+22`4`4 + After landing 16`-`-
+Picadillo Jump`Picadillo Jump`-`-`-`-`-`-`-`Total 40`-`-
+Quesadilla Bomb`Quesadilla Bomb LVL1`80`100`30/40`HL`su`14`11`14`-17`-13
+`Quesadilla Bomb LVL2`120`150`30/40`HL`su`14`11`14`-17`-
+`Quesadilla Bomb LVL3`150`200`30/40`HL`su`14`11`14`-17`-
+EX Quesadilla Bomb`Quesadilla Bomb`200`300`-250/0`HL`su`14`11`14`-17`-
+Guacamole Leg Throw`Guacamole Leg Throw`0*120`100`20/0*60`-`-`7`6`17 + After landing 11`-`-
+`Guacamole Leg Throw`0*130`100`20/0*60`-`-`9`6`20 + After landing 11`-`-
+`Guacamole Leg Throw`0*140`100`20/0*60`-`-`11`9`16 + After landing 11`-`-
+EX Guacamole Throw`Guacamole Leg Throw`0*180`200`-250/0`-`-`11`9`12 + After landing 6`-`-
+El Fuerte Dynamite`Super Combo`35x4*190`0`-1000/0`HL`-`1+3`4(8)5(14)5(13)4`32`-15`-
+`Super Combo`35x4*190`0`-1000/0`HL`-`1+4`5(8)5(14)5(13)4`32`-15`-
+`Super Combo`35x4*190`0`-1000/0`HL`-`1+5`6(8)5(14)5(13)4`32`-15`-
+El Fuerte Flying Giga Buster`Ultra Combo 1`470`0`0/0`2.14`-`0+5`12`After landing 54`-`-
+El Fuerte Ultra Spark`Ultra Combo 2`450`0`0/0`1.55`-`0+4`11`65`-`-

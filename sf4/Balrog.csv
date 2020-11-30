@@ -1,0 +1,78 @@
+Close LP`Close`20`50`20`HL`ch/sp/su`4`2`7`2`5
+Close MP`Close`70`100`40`HL`sp/su`6`4`12`-2`4
+Close HP`Close`120`200`60`HL`su`5`5`16`-3`2
+Close LK`Close`40`50`20`HL`ch/sp/su`3`2`7`2`5
+Close MK`Close`90`100`40`HL`sp/su`5`4`13`-3`0
+Close HK`Close`100`200`60`HL`su`7`2`13`3`7
+Far LP`Far`20`50`20`HL`ch/sp/su`4`2`4`5`8
+Far MP`Far`90`100`40`HL`su`7`2`16`-4`-1
+Far HP`Far`100`200`60`HL`-`9`4`21`-7`-3
+Far LK`Far`40`50`20`HL`ch/su`4`2`10`-1`2
+Far MK`Far`90`100`40`HL`su`9`3`12`-1`2
+Far HK`Far`110`200`60`HL`-`8`2`20`-4`0
+Crouch LP`Crouch`20`50`20`HL`ch/sp/su`3`2`5`4`7
+Crouch MP`Crouch`70`100`40`HL`sp/su`7`4`12`-2`1
+Crouch HP`Crouch`90`200`60`HL`su`7`5`21`-8`-3
+Crouch LK`Crouch`30`50`20`L`sp/su`4`2`9`0`3
+Crouch MK`Crouch`70`100`40`L`su`8`2`8`4`7
+Crouch HK`Crouch`90`120`60`L`su`8`2`22`-6`-
+Neutral Jump LP`Neutral Jump`50`50`20`H`-`5`2`-`-`-
+Neutral Jump MP`Neutral Jump`90`100`40`H`-`5`4`-`-`-
+Neutral Jump HP`Neutral Jump`110`200`60`H`-`5`9`-`-`-
+Neutral Jump LK`Neutral Jump`50`50`20`H`-`5`3`-`-`-
+Neutral Jump MK`Neutral Jump`80`100`40`H`-`6`2`-`-`-
+Neutral Jump HK`Neutral Jump`110`200`60`H`-`5`2`-`-`-
+Angled Jump LP`Angled Jump`50`50`20`H`-`4`3`-`-`-
+Angled Jump MP`Angled Jump`80`100`40`H`-`7`3`-`-`-
+Angled Jump HP`Angled Jump`90`200`60`H`-`6`7`-`-`-
+Angled Jump LK`Angled Jump`50`50`20`H`-`5`6`-`-`-
+Angled Jump MK`Angled Jump`80`100`40`H`-`7`2`-`-`-
+Angled Jump HK`Angled Jump`100`200`60`H`-`8`6`-`-`-
+Focus Attack (Level 1)`Level 1 Focus`90`100`20`HL`-`10+11`2`35`-21`-21
+Focus Attack (Level 2)`Level 2 Focus`120`150`40`HL`-`18+11`2`35`-15`-
+Focus Attack (Level 3)`Level 3 Focus`170`200`60`-`-`65`2`35`-`-
+Red Focus Attack (Level 1)`Level 1 Red Focus`135`100`-500/0`HL`-`10+11`2`35`-21`-21
+Red Focus Attack (Level 3)`Level 2 Red Focus`180`150`0/0`HL`-`18+11`2`35`-15`-
+Red Focus Attack (Level 3)`Level 3 Red Focus`255`200`0/0`-`-`65`2`35`-`-
+EX Red Focus Attack (Level 1)`Level 1 EX Red Focus`135`100`-750/0`HL`-`10+11`2`35`-15`-
+Head Bomber`Forward Throw`130`160`40`0.934`-`3`2`20`-`-
+Lever Break`Back Throw`130`100`40`0.934`-`3`2`20`-`-
+Dash Straight`Dash Straight`100`100`20/30`HL`su`13[4]`7`17`-3`-1
+`Dash Straight`110`150`20/30`HL`su`22[7]`6`19`-6`-1
+`Dash Straight`120`200`20/30`HL`su`35[7]`6`20`-8`-1
+EX Dash Straight`Dash Straight`120`200`-250/0`HL`su`35[7]`6`17`-2`2
+Dash Upper`Dash Upper`100`100`20/30`HL`su`14[5]`4`20`-3`-1
+`Dash Upper`110`150`20/30`HL`su`22[7]`4`20`-5`1
+`Dash Upper`120`200`20/30`HL`su`35[7]`4`21`-7`1
+EX Dash Upper`Dash Upper`120`200`-250/0`HL`su`35[7]`4`18`-1`4
+Dash Low Straight`Dash Low Straight`90`100`20/30`L`su`22[13]`8`21`-8`-
+`Dash Low Straight`100`150`20/30`L`su`29[14]`8`21`-10`-
+`Dash Low Straight`110`200`20/30`L`su`42[14]`8`21`-11`-
+EX Dash Low Straight`Dash Low Straight`110`200`-250/0`L`su`42[14]`8`17`-3`-
+Dash Swing Blow`Dash Swing Blow`70`70`20/30`H`su`31[22]`5`21`-2`0
+`Dash Swing Blow`90`150`20/30`H`su`38[23]`5`21`-6`2
+`Dash Swing Blow`100`200`20/30`H`su`51[23]`5`21`-8`10
+EX Dash Swing Blow`Dash Swing Blow`100`200`-250/0`H`su`51[23]`5`21`-5`10
+Dash Low Smash`Dash Low Smash`100`100`20/30`HL`su`21[12]`8`20`-5`-
+`Dash Low Smash`110`150`20/30`HL`su`28[13]`8`20`-7`-
+`Dash Low Smash`120`200`20/30`HL`su`41[13]`8`20`-9`-
+EX Dash Low Smash`Dash Low Smash`120`200`-250/0`HL`su`41[13]`8`16`-3`-
+Buffalo Headbutt`Headbutt`100`200`30/40`HL`-`8`11`10+22`-22`-
+`Headbutt`120`200`30/40`HL`-`10`11`10+22`-22`-
+`Headbutt`140`200`30/40`HL`-`12`11`10+22`-21`-
+EX Buffalo Headbutt`Headbutt`150`200`-250/0`HL`-`12`11`10+22`-21`-
+Turn Punch`Turn Punch LVL1`130`200`30/40`HL`su`30`7`13`-2`2
+`Turn Punch LVL2`150`210`30/40`HL`su`30`7`16`-4`0
+`Turn Punch LVL3`180`220`30/40`HL`su`30`8`18`-7`-3
+`Turn Punch LVL4`210`230`30/40`HL`su`30`9`21`-9`-5
+`Turn Punch LVL5`250`240`30/40`HL`su`30`10`22`-14`-10
+`Turn Punch LVL6`280`250`30/40`HL`su`30`11`24`-17`-13
+`Turn Punch LVL7`410`260`30/40`HL`su`30`12`26`-20`-16
+`Turn Punch LVL8`460`270`30/40`HL`su`30`13`29`-24`-20
+`Turn Punch LVL9`510`280`30/40`HL`su`30`15`32`-29`-25
+`Turn Punch Final`560`290`30/40`HL`su`30`16`36`-34`-30
+Crazy Buffalo (Punch)`Super Combo (punch)`60x4*105`0`-1000/0`HL`-`1+9`6(8)6(7)6(8)6(15)3`31`-14`-
+Crazy Buffalo (Kick)`Super Combo (kick)`60x4*105`0`-1000/0`HL`-`1+7`6(8)6(8)6(8)6(16)3`31`-14`-
+Violent Buffalo (Punch)`Ultra Combo 1 (punches)`45x2*38x2*45x2*38x2*53x3`0`0/0`HL`-`0+11`3*3(8)3*3(7)3*3(8)3*3(15)1x3`39`-26`-
+Violent Buffalo (Kick)`Ultra Combo 1 (kicks)`45x2*38x2*45x2*38x2*53x3`0`0/0`HL`-`0+8`3*3(8)3*3(7)3*3(8)3*3(16)1x3`39`-26`-
+Dirty Bull`Ultra Combo 2`250`700`0/0`1.394`-`0+1`3`48`-`-

@@ -1,0 +1,60 @@
+Close LP`Close`20`50`20`HL`ch/sp/su`4`2`10`-1`2
+Close MP`Close`70`100`40`HL`sp/su`6`2`11`1`4
+Close HP`Close`90`200`60`HL`sp/su`6`2`19`-3`1
+Close LK`Close`40`50`20`HL`sp/su`4`2`10`-1`2
+Close MK`Close`70`100`40`HL`sp/su`7`3`11`0`4
+Close HK`Close`100`200`60`HL`sp/su`7`2`18`-2`3
+Far LP`Far`20`50`20`HL`ch/sp/su`4`2`11`-2`1
+Far MP`Far`70`100`40`HL`sp/su`7`2`12`0`3
+Far HP`Far`100`200`60`HL`-`11`5`18`-5`-1
+Far LK`Far`30`50`20`HL`-`4`2`10`-1`2
+Far MK`Far`70`100`40`HL`-`6`2`13`-1`2
+Far HK`Far`100`200`60`HL`-`9`2`19`-3`1
+Crouch LP`Crouch`30`50`20`HL`ch/sp/su`3`3`8`0`3
+Crouch MP`Crouch`70`100`40`HL`sp/su`4`3`14`-3`0
+Crouch HP`Crouch`100`150`60`HL`sp/su`5`5`28`-15`-10
+Crouch LK`Crouch`40`50`20`L`-`4`4`6`1`4
+Crouch MK`Crouch`60`100`40`L`sp/su`7`2`12`0`3
+Crouch HK`Crouch`90`200`60`L`-`9`2`26`-10`-
+Slide`Slide`60`100`40`L`-`7`8`12`-6`-3
+Soul Piede`+`100`200`60`HL`-`11`2`17`-1`3
+Neutral Jump LP`Neutral Jump`40`50`20`H`-`4`6`-`-`-
+Neutral Jump MP`Neutral Jump`70`100`40`H`-`6`6`-`-`-
+Neutral Jump HP`Neutral Jump`90`150`60`H`-`9`6`-`-`-
+Neutral Jump LK`Neutral Jump`50`50`20`H`-`4`7`-`-`-
+Neutral Jump MK`Neutral Jump`80`100`40`H`-`7`6`-`-`-
+Neutral Jump HK`Neutral Jump`90`200`60`H`-`11`5`-`-`-
+Angled Jump LP`Angled Jump`40`50`20`H`-`4`6`-`-`-
+Angled Jump MP`Angled Jump`70`100`40`H`-`7`3`-`-`-
+Angled Jump HP`Angled Jump`90`150`60`H`-`7`7`-`-`-
+Angled Jump LK`Angled Jump`30`50`20`H`-`4`7`-`-`-
+Angled Jump MK`Angled Jump`60`100`40`H`-`7`5`-`-`-
+Angled Jump HK`Angled Jump`100`200`60`H`-`6`5`-`-`-
+Focus Attack (Level 1)`Level 1 Focus`60`100`20`HL`-`10+11`2`35`-21`-21
+Focus Attack (Level 2)`Level 2 Focus`80`150`40`HL`-`18+13`2`35`-15`-
+Focus Attack (Level 3)`Level 3 Focus`120`200`60`-`-`65`2`35`-`-
+Red Focus Attack (Level 1)`Level 1 Red Focus`90`100`20`HL`-`10+11`2`35`-21`-21
+Red Focus Attack (Level 2)`Level 2 Red Focus`120`150`40`HL`-`18+13`2`35`-15`-
+Red Focus Attack (Level 3)`Level 3 Red Focus`180`200`60`-`-`65`2`35`-`-
+EX Red Focus Attack (Level 1)`Level 1 EX Red Focus`90`100`20`HL`-`10+11`2`35`-15`-
+Soul Fall`Forward Throw`140`100`40`1.004`-`3`2`20`-`-
+Soul Loop`Back Throw`140`100`40`1.004`-`3`2`20`-`-
+Soul Spark`Soul Spark`80`50`30/20`HL`su`14`-`38`-12`-8
+`Soul Spark`80`50`30/20`HL`su`20`-`30`-4`0
+`Soul Spark`80`50`30/20`HL`su`27`-`24`2`6
+EX Soul Spark`Soul Spark`30*70`50*50`-250/0`HL`su`14`-`34`0`4
+Soul Spiral`Soul Spiral`110`100`20/40`HL`su`12`6`23`-8`-
+`Soul Spiral`110`100`20/40`HL`su`15`6`21`-6`-
+`Soul Spiral`110`100`20/40`HL`su`16`6`19`-4`-
+EX Soul Spiral`Soul Spiral`130`200`-250/0`HL`su`13`6`21`-6`-
+Soul Reflect`Soul Reflect`50`100`20/30`HL`su`13`2`27`-8`-
+`Soul Reflect`50`100`20/30`HL`su`13`3`25`-7`-
+`Soul Reflect`50`100`20/30`HL`su`12`2`26`-7`-
+EX Soul Reflect`Soul Reflect`50`100`-250/0`HL`su`8`2`24`-5`-
+Soul Throw`Soul Throw`160`100`40/40`0.55`-`6`10`26+8`-`-
+`Soul Throw`160`100`40/40`0.55`-`6`11`27+8`-`-
+`Soul Throw`160`100`40/40`0.55`-`6`11`30+8`-`-
+EX Soul Throw`Soul Throw`160`100`-250/0`0.55`-`6`11`30+8`-`-
+Aura Soul Spark`Super Combo`50x4*100`0`-1000/0`HL`-`1+8`-`44`16`-
+Illusion Spark`Ultra Combo 1`498`0`0/0`HL`-`0+10`14`44`-37`-
+Soul Satellite`Ultra Combo 2`120*120`0`0/0`HL`-`0+5`300~600`4`-`-

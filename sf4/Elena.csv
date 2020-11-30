@@ -1,0 +1,61 @@
+Stand LP`Stand`30`50`20`HL`sp/su`5`4`11`-4`-1
+Stand MP`Stand`40*40`50*50`40*20`HL`sp/su*-`6`2*3`17`-6`-3
+Stand HP`Stand`100`200`60`HL`sp/su`13`5`21`-8`-4
+Stand LK`Stand`30`50`20`HL`sp/su`4`2`8`-1`2
+Stand MK`Stand`60`100`40`HL`sp/su`7`4`17`-7`-4
+Stand HK`Stand`100`200`60`HL`-`11`3`16`-1`3
+Crouch LP`Crouch`30`50`20`HL`sp/su`3`2`8`2`5
+Crouch MP`Crouch`60`100`40`HL`sp/su`5`5`11`-2`1
+Crouch HP`Crouch`100`200`60`HL`-`9`3`22`-7`-2
+Crouch LK`Crouch`30`50`20`L`sp/su`4`4`5`0`3
+Crouch MK`Crouch`60`100`40`L`sp/su`6`3`15`-4`-1
+Crouch HK`Crouch`100`200`60`L`-`8`4`30`-16`-
+Handstand Kick` +`70`100`40`H`-`20`3`19`-2`3
+Handstand Whip` +`50`100`40`H`-`12`3`20`-3`2
+Round Arc` +`110`200`60`HL`-`13`4`13`0`1
+Sliding`Sliding`100`200`60`L`-`11`10`25`-10`-
+Target Combo 1`(TC1)  >`50`25`20`HL`-`9`3`19`-4`-1
+Target Combo 2`(TC2)  >  +`70`50`20`HL`-`7`2`22`-3`-
+Jump LP`Jump`30`50`20`H`-`4`10`-`-`-
+Jump MP`Jump`60`100`40`H`-`6`4`-`-`-
+Jump HP`Jump`90`150`60`H`-`6`4`-`-`-
+Jump LK`Jump`30`50`20`H`-`5`8`-`-`-
+Jump MK`Jump`60`100`40`H`-`7`4`-`-`-
+Jump HK`Jump`50*70`100*100`60x2`H`-`8`4(8)5`-`-`-
+Target Combo 3`(TC3) Air  >`60`100`40`H`-`3`6`-`-`-
+Target Combo 4`(TC4) Air  >`40`50`60`H`-`3`3`-`-`-
+Focus Attack (Level 1)`Level 1 Focus`60`100`20`HL`-`10+14`2`33`-20`-20
+Focus Attack (Level 2)`Level 2 Focus`80`150`40`HL`-`18+13`2`33`-14`-
+Focus Attack (Level 3)`Level 3 Focus`140`200`60`-`-`67`2`33`-`-
+Red Focus Attack (Level 1)`Level 1 Red Focus`90`100`-500/0`HL`-`10+14`2`33`-20`-20
+Red Focus Attack (Level 2)`Level 2 Red Focus`120`150`-500/0`HL`-`18+13`2`33`-14`-
+Red Focus Attack (Level 3)`Level 3 Red Focus`210`200`-500/0`-`-`67`2`33`-`-
+EX Red Focus Attack (Level 1)`Level 1 EX Red Focus`90`100`-750/0`HL`-`10+14`2`33`-14`-
+Leg Lift Throw`Forward Throw`120`120`60`0.885`-`3`2`20`-`-
+Leg Hook`Back Throw`120`120`40`1.045`-`3`2`20`-`-
+Mallet Smash`Mallet Smash`60*50`60x2`20/15x2`H`-`21`2*2`25`-7`0
+Mallet Smash`Mallet Smash`70*50`70*60`20/15x2`H`-`25`2*2`24`-5`3
+Mallet Smash`Mallet Smash`80*50`80*60`20/15x2`H`-`27`2*2`22`-1`6
+Mallet Smash`Mallet Smash`40x2`50x2`-250/0`H`-`15`2*2`18`-5`4
+Scratch Wheel`Scratch Wheel`60*40`80*20`30/20*10`HL`-`3`3*2`23 + After landing11`-14`-
+`Scratch Wheel`80*60`120*80`30/20*15`HL`-`5`2*2`29 + After landing 11`-19`-
+`Scratch Wheel`60*30x2`100*50x2`30/20*10x2`HL`-`4`1*1*2`35 + After landing 11`-23`-
+EX Scratch Wheel`Scratch Wheel`60*30x3`80*30x2*40`-250/0`HL`su`4`1*1*1*2`34 + After landing 11`-25`-
+Lynx Tail`Lynx Tail`60`90`20/30`L`-*su`10`3`25`-7`-
+`Lynx Tail`70*60`70*50`20/20*30`L`-*su(x2)`10`3(7)3`21`-9`-
+`Lynx Tail`60*20x2*30`50*30*20x2`25/20*15x3`L`-*su(x2)*-`8`5(6)4(22)2(4)2`28`-13`-
+EX Lynx Tail`Lynx Tail`40*10x2*20x2`50*20x3*50`-250/0`L`-(x4)*su`10`4(4)4(23)3(5)3(23)5`29`-9`-
+Rhino Horn`Rhino Horn`40x3`50x3`20/30`HL`-`14`2(2)2(8)5`7 + After Landing 15`-6`-
+`Rhino Horn`50x3`50x3`20/20*30`HL`-`18`2(2)2(9)5`9 + After Landing 12`-5`-
+`Rhino Horn`60x3`50x3`25/20*15x2`HL`-`23`2(2)2(12)5`11 + After Landing 8`-3`-
+EX Rhino Horn`Rhino Horn`50x3`50*40x2`-250/0`HL`-`12`2(2)2(8)5`5 + After Landing 14`-3`-
+Spin Scythe`Spin Scythe`30x2`75x2``HL`su*-`15`2(22)2`26`-7`-1
+Spin Scythe`Spin Scythe`50x2`80x2``HL`su*-`14`2(21)2`27`-7`-4
+Spin Scythe`Spin Scythe`60x2`90x2``HL`su*-`17`2(23)2`30`-10`-7
+Spin Scythe (Extension)`Spin Scythe (Extension)`20x2`25x2``HL`-`12`3(9)2`25`-6`-
+Spin Scythe (Extension)`Spin Scythe (Extension)`30x2`25x2``HL`-`12`3(9)2`29`-10`-
+Spin Scythe (Extension)`Spin Scythe (Extension)`30x2`25x2``HL`-`12`3(9)2`29`-10`-
+EX Spin Scythe`Spin Scythe`30x4`50x4`-250/0`HL`-`15`2(20)2(16)2(8)2`27`-8`-
+Spinning Beat`Super Combo`50*25*50*25*50*75x2`0`-1000/0`HL`-`1+3`6(33)8(33)8`36 + After Landing 25`-44`-
+Brave Dance`Ultra Combo 1`60[440]`0`0/0`HL`-`0+9`2`14 + After Landing 19`-14`-
+Healing`Ultra Combo 2`0`0`0/0`-`-`0+7`31`65[22]`-`-

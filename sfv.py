@@ -59,7 +59,7 @@ def fuzzyDict(search, d):
         return -1
 
 def findByPlnCmd(search, d):
-    search = search.translate(str.maketrans('', '', string.punctuation)).lower().replace("st", "").replace("dp", "fddf")
+    search = removePunctuation(search).replace("st", "").replace("dp", "fddf")
     #if search in ["vs1", "vs2"]:
     if any(x in search for x in ["vs1", "vs2"]):
         search = search.replace("vs", "mpmk vs")
@@ -146,4 +146,4 @@ def createMoveEmbed(dictionary, title, description):
     return e
 
 def removePunctuation(s):
-   return s.translate(str.maketrans('', '', string.punctuation)).lower()
+   return s.translate(str.maketrans('', '', string.punctuation)).lower().replace(" ", "")

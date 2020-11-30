@@ -1,0 +1,71 @@
+Close LP`Close`30[20]`50`20`HL`sp/su`4`2`10`-1`2
+Close MP`Close`70[60]`100`40`HL`sp/su`7`2`13`-1`2
+Close HP`Close`50[40]x2`50*50`60*20`HL`sp/su*-`9`3(7)3`14`1`5
+Close LK`Close`30`50`20`HL`-`4`2`10`-1`2
+Close MK`Close`70`100`40`HL`sp/su`5`2`10`2`5
+Close HK`Close`40*70`125*75`60*20`HL`su`4`2*2`23`-7`-2
+Far LP`Far`30[20]`50`20`HL`sp/su`4`2`10`-1`2
+Far MP`Far`90[80]`100`40`HL`su`7`2`14`-2`1
+Far HP`Far`120[110]`200`60`HL`-`8`3`23`-8`-4
+Far LK`Far`40`50`20`HL`-`5`2`7`2`5
+Far MK`Far`70`100`40`HL`-`8`2`15`-3`0
+Far HK`Far`40*70`125*75`60*20`HL`su*-`4`2*2`23`-7`-2
+Crouch LP`Crouch`30[20]`50`20`HL`sp/su`4`2`8`1`4
+Crouch MP`Crouch`60[50]`100`40`HL`sp/su`4`2`16`-4`-1
+Crouch HP`Crouch`110[100]`200`60`HL`-`5`4`27`-11`-6
+Crouch LK`Crouch`20`50`20`L`sp/su`4`2`9`0`3
+Crouch MK`Crouch`70`100`40`L`sp/su`6`3`9`2`5
+Crouch HK`Crouch`110`200`60`L`-`8`13`17`-12`-
+Piece of Mercury`Overhead`60`100`40`H`-`20`3`13`-4`0
+Cosmic Heel`Cosmic Heel`80`100`60`HL`-`14`5`10 + After landing 4`-3`-
+Neutral Jump LP`Neutral Jump`50[40]`50`20`H`-`6`5`-`-`-
+Neutral Jump MP`Neutral Jump`80[70]`100`40`H`-`5`3`-`-`-
+Neutral Jump HP`Neutral Jump`100[90]`200`60`H`-`6`2`-`-`-
+Neutral Jump LK`Neutral Jump`40`50`20`H`-`6`9`-`-`-
+Neutral Jump MK`Neutral Jump`80`100`40`H`-`6`7`-`-`-
+Neutral Jump HK`Neutral Jump`100`200`60`H`-`4`5`-`-`-
+Angled Jump LP`Angled Jump`50[40]`50`20`H`-`5`5`-`-`-
+Angled Jump MP`Angled Jump`80[70]`100`40`H`-`5`5`-`-`-
+Angled Jump HP`Angled Jump`100[90]`200`60`H`-`5`4`-`-`-
+Angled Jump LK`Angled Jump`40`50`20`H`-`6`7`-`-`-
+Angled Jump MK`Angled Jump`70`100`40`H`-`6`6`-`-`-
+Angled Jump HK`Angled Jump`100`200`60`H`-`6`6`-`-`-
+Wall Jump`Wall Jump`-`-`-`-`-`-`-`-`-`-
+Pick Up Mask`Pick Up Mask`-`-`-`-`-`-`-`-`-`-
+Focus Attack (Level 1)`Level 1 Focus`60[50]`100`20`HL`-`10+11`2`35`-21`-21
+Focus Attack (Level 2)`Level 2 Focus`80[70]`150`40`HL`-`18+11`2`35`-15`-
+Focus Attack (Level 3)`Level 3 Focus`140[130]`200`60`-`-`65`2`35`-`-
+Red Focus Attack (Level 1)`Level 1 Red Focus`90[75]`100`20`HL`-`10+11`2`35`-21`-21
+Red Focus Attack (Level 2)`Level 2 Red Focus`120[105]`150`40`HL`-`18+11`2`35`-15`-
+Red Focus Attack (Level 3)`Level 3 Red Focus`210[195]`200`60`-`-`65`2`35`-`-
+EX Red Focus Attack (Level 1)`Level 1 EX Red Focus`90[75]`100`20`HL`-`10+11`2`35`-15`-
+Rainbow Suplex`Forward Throw`120`120`40`1.07`-`3`2`20`-`-
+Crescent Line`Back Throw`120`120`40`1.07`-`3`2`20`-`-
+Stardust Drop`Stardust Drop`150`130`40`1.2`-`3`2`-`-`-
+Rolling Crystal Flash`Rolling Crystal Flash`20*90[80]`20*100`20/10*30`HL`su`9`9(7)4`22`-2`2
+`Rolling Crystal Flash`20x3*90[80]`20x3*100`20/10x3*30`HL`su`16`9(5)8(5)8(6)4`22`-2`2
+`Rolling Crystal Flash`20x4*90[80]`20x4*100`20/10x4*30`HL`su`20`9(5)8(5)9(5)8(6)4`22`-2`2
+EX Rolling Crystal Flash`Rolling Crystal Flash`20x4*90[80]`20x4*100`-250/0`HL`su`20`9(5)8(5)9(5)8(6)4`20`0`4
+Scarlet Terror`Scarlet Terror`100`150`30/30`HL`-`7`10`15 + After landing 8`-12`-
+`Scarlet Terror`80*60`100*100`30/20*20`HL`-`7`5*5`14 + After landing 9`-12`-
+`Scarlet Terror`100*60`100*100`30/20*20`HL`-`4`8*5`14 + After landing 9`-15`-
+EX Scarlet Terror`Scarlet Terror`110*70`150*100`-250/0`HL`-`4`8*5`14 + After landing 9`-15`-
+Sky High Claw`Sky High Claw`110[100]`200`30/40`HL`-`From Wall 15`Until edge of screen`After landing 17`-20`-
+EX Sky High Claw`EX Sky High Claw`60[50]x2`100`-250/0`HL`-`From Wall 10`Until edge of screen`After landing 17`-18`-
+Flying Barcelong Attack`Wall Dive`-`-`20/-`-`-`-`-`After landing 31`-`-
+Claw Attack`Claw Attack`90[80]`100`0/40`H`-`3`11`After landing 31`-`-
+EX Flying Barcelong Attack`Wall Dive`30`50`-250/-`HL`-`9`Until edge of screen`After landing 31`-`-
+EX Claw Attack`Claw Attack`50*90[40*80]`50*100`0/0`H`-`2`1(1)11`After landing 31`-`-
+Izuna Drop`Izuna Drop`150`150`80`0.77*H`-`2`1(1)11`After landing 31`-`-
+EX Izuna Drop`Izuna Drop`150`150`0`0.77*H`-`2`1(1)11`After landing 31`-`-
+Back Slash`Back Flip`-`-`-`-`-`-`-`Total 65`-`-
+Short Back Slash`Short Back Flip`-`-`-`-`-`-`-`Total 42`-`-
+Remove Claw`Remove Claw`-`-`-`-`-`-`-`Total 40`-`-
+Remove Mask`Remove Mask`-`-`-250/-`-`-`-`-`Total 40`-`-
+Flying Barcelona Special`Flying Barcelona Special`100`-`-1000/0`-`-`-`-`After landing 31`-`-
+Claw Attack Special`Claw Attack Special`60[50]x3*100[90]`0`0/0`H`-`2`11(2)10`After landing 31`-`-
+Rolling Izuna Drop`Rolling Izuna Drop`100*100*100`0`0/0`0.91*H`-`2`11(2)10`After landing 31`-`-
+Bloody High Claw`Ultra Combo 1 (1st Hit)`30`0`0/0`HL`-`0+8`Until edge of screen`-`-`-
+`Ultra Combo 1 (2nd Hit backwards)`90x5[75x5]`0`0/0`HL`-`After flash 1`7`31`-`-
+`Ultra Combo 1 (2nd Hit forwards)`90x5[75x5]`0`0/0`HL`-`After flash 1`9`20 + After landing 31`-`-
+Splendid Claw`Ultra Combo 2`150*300[285]`0`0/0`L`-`0+7`15`39`-36`-

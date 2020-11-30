@@ -1,0 +1,64 @@
+Close LP`Close`25`50`20`HL`ch/sp/su`3`2`5`4`7
+Close MP`Close`65`100`40`HL`sp/su`4`2`9`3`6
+Close HP`Close`90[80]`120[100]`60`HL`sp/su`3`4`20`-6`-1
+Close LK`Close`25`50`20`HL`sp/su`3`2`8`1`4
+Close MK`Close`60`100`40`HL`sp/su`4`3`15`-4`-1
+Close HK`Close`120[100]`200`60`HL`su`6`3`21`-6`-1
+Far LP`Far`25`50`20`HL`ch/sp/su`3`2`5`4`7
+Far MP`Far`75`100`40`HL`su`7`3`12`-1`2
+Far HP`Far`110`200`60`HL`sp/su`8`3`17`-2`2
+Far LK`Far`30`50`20`HL`sp/su`3`2`8`1`4
+Far MK`Far`75`100`40`HL`-`9`2`12`0`3
+Far HK`Far`110`200`60`HL`-`10`3`15`0`4
+Crouch LP`Crouch`20`50`20`HL`ch/sp/su`3`2`6`3`6
+Crouch MP`Crouch`65`80`40`HL`sp/su`5`3`11`0`3
+Crouch HP`Crouch`90[80]`120[100]`60`HL`sp/su`4`5`23`-10`-5
+Crouch LK`Crouch`20`50`20`L`ch/sp/su`3`3`8`0`3
+Crouch MK`Crouch`60`100`40`L`sp/su`5`4`13`-3`0
+Crouch HK`Crouch`90`150`60`L`-`7`3`22`-7`-
+Flower Kick`Flower Kick`80`100`40`H`-`16`2`15`-3`2[0]
+Neutral Jump LP`Neutral Jump`50`50`20`H`-`3`7`-`-`-
+Neutral Jump MP`Neutral Jump`80`100`40`H`-`4`6`-`-`-
+Neutral Jump HP`Neutral Jump`100`200`60`H`-`5`5`-`-`-
+Neutral Jump LK`Neutral Jump`30`50`20`H`-`4`5`-`-`-
+Neutral Jump MK`Neutral Jump`70`100`40`H`-`5`8`-`-`-
+Neutral Jump HK`Neutral Jump`100`200`60`H`-`6`6`-`-`-
+Angled Jump LP`Angled Jump`50`50`20`H`-`3`7`-`-`-
+Angled Jump MP`Angled Jump`80`100`40`H`-`4`5`-`-`-
+Angled Jump HP`Angled Jump`100`200`60`H`-`5`5`-`-`-
+Angled Jump LK`Angled Jump`30`50`20`H`-`4`5`-`-`-
+Angled Jump MK`Angled Jump`70`100`40`H`-`5`4`-`-`-
+Angled Jump HK`Angled Jump`100`200`60`H`-`6`5`-`-`-
+Focus Attack (Level 1)`Level 1 Focus`60`100`20`HL`-`10+11`2`35`-21`-21
+Focus Attack (Level 2)`Level 2 Focus`80`150`40`HL`-`18+11`2`35`-15`-
+Focus Attack (Level 3)`Level 3 Focus`130`200`60`-`-`65`2`35`-`-
+Red Focus Attack (Level 1)`Level 1 Red Focus`90`100`-500/0`HL`-`10+11`2`35`-21`-21
+Red Focus Attack (Level 2)`Level 2 Red Focus`120`150`-500/0`HL`-`18+11`2`35`-15`-
+Red Focus Attack (Level 3)`Level 3 Red Focus`195`200`-500/0`-`-`65`2`35`-`-
+EX Red Focus Attack (Level 1)`Level 1 EX Red Focus`90`100`-750/0`HL`-`10+11`2`35`-15`-
+Sailor Shot`Forward Throw`120`120`40`0.902`-`3`2`20`-`-
+Choba Throw`Back Throw`135`140`40`0.902`-`3`2`20`-`-
+Hadoken`Hadoken (Lv1)`60`75`10/20`HL`su`15`71`34`-7`-3
+Hadoken Lv2`Hadoken (Lv2)`80`100`10/20`HL`su`14+13`71`30`-3`1
+Hadoken Lv3`Hadoken (Lv3)`120`150`10/20`HL`su`39`44`26`1`5
+EX Hadoken`Hadoken  (Lv1)`60*60`50*50`-250/0`HL`su`15`-`30`0`-
+EX Hadoken Lv2`Hadoken  (Lv2)`60*70`60*60`-250/0`HL`su`14+13`-`30`0`-
+EX Hadoken Lv3`Hadoken  (Lv3)`60*80`75*75`-250/0`HL`su`39`-`30`0`-
+Shouoken`Shooken`90*15`50*50`30/10x2`HL`su*-`6`2*4`18 + After landing 11`-12`-
+`Shooken`90*15x3`50*35x3`30/10x4`HL`su*su*su*-`7`2x3*8`22 + After landing 11`-20`-
+`Shooken`80*15x5`50*30x5`30/10x6`HL`su(x3)*-(x3)`12`2x5*10`20 + After landing 11`-20`-
+EX Shouoken`Shooken`45*15+45*15x5`40*20*40*20x5`-250/0`HL`su(x5)*-(x3)`12`2*4(19)2x5*9`22+11`-20`-
+Shunpukyaku`Spin Kick`60`100`10/15`HL`-`16`6`After landing 15`0`4
+`Spin Kick`60*60`50*50`20/20*20`HL`-`17`3(8)6`After landing 18`-3`1
+`Spin Kick`60x3`50x3`20/15x3`HL`-`12`3(6)3(7)2`After landing 21`-2`2
+EX Shunpukyaku`Spin Kick`30x3*35`50*30x3`-250/0`HL`-*-*-*su`12`3(6)3(7)2(12)3`After landing 14`2`-
+Air Shunpukyaku`Air Spin Kick`50`50`10/40`HL`-`8`3(9)3`After landing 7`-`-
+EX Air Shunpukyaku`Air Spin Kick`70`50`-250/0`HL`-`8`3{(9)3}xN`After landing 7`-`-
+Sakura Otoshi`Sakura Otoshi`-`-`20/-`HL`-`-`-`After landing 36`-`-
+Sakura Otoshi Followups`Sakura Otoshi Followups`50*50*60`70*70*100`0/15x3`HL`-`14+4`3`After landing 16`-`-
+EX Sakura Otoshi`Sakura Otoshi`-`-`-250/-`HL`-`-`-`Total 77`-`-
+EX Sakura Otoshi Followups`Sakura Otoshi Followups`60x3`100x3`0/0`HL`-`11+5[4]`3`After landing 16`-`-
+Haru Ichiban`Super Combo`45x6*80`0`-1000/0`Lx6*HL`-`1+6`{2(5)}x5*x(13)4`24`-7`-
+Haru Ranman`Ultra Combo 1`75*75*68x2*233`0`0/0`Lx2*HL`-`0+11`2(7)2(11)2`47`-28`-
+Shinku Hadoken`Ultra Combo 2 (punches)`56x4*105`0`0/0`HL`-`0+12`-`85`-27`-
+Shinku Tengyo Hadoken`Ultra Combo 2 (kicks)`56x4*105`0`0/0`HL`-`0+8`-`85`-27`-

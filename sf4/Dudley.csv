@@ -1,0 +1,82 @@
+Stand LP`Stand`20`50`20`HL`ch/sp/su`3`2`6`3`6
+Stand MP`Stand`60`100`40`HL`sp/su`4`2`9`3`6
+Stand HP`Stand`130`200`60`HL`su`6`6`16`-4`0
+Stand LK`Stand`40`50`20`HL`sp/su`5`2`10`-1`2
+Stand MK`Stand`65`100`40`HL`-`6`5`10`-1`2
+Stand HK`Stand`80`160`60`HL`sp/su`4`3`15`0`2
+Crouch LP`Crouch`20`50`20`HL`ch/sp/su`3`2`7`2`5
+Crouch MP`Crouch`60`100`40`HL`sp/su`5`2`11`1`4
+Crouch HP`Crouch`120`200`60`HL`-`8`4`15`-1`4
+Crouch LK`Crouch`30`50`20`L`sp/su`4`4`6`1`4
+Crouch MK`Crouch`70`100`40`L`-`7`6`15`-7`-
+Crouch HK`Crouch`100`120`60`L`-`14`4`22`-8`-
+Slipping LP`+`25`50`20`HL`sp/su`5`2`10`-1`2
+Stomach Blow`+`80`100`40`HL`-`7`4`10`0`3
+Kidney Blow`+`100`100`40`HL`-`8`2`9`3`5[6]
+Step Straight`+`130`200`60`HL`su`13`7`13`-2`2
+Dart Shot`+`80`100`60`H`su`15`4`15`-1`4
+Target Combo 1`(TC1) + >`40`50`40`HL`sp/su`4`2`14`-2`1
+Target Combo 2`(TC2) + >`40`50`40`HL`sp/su`4`3`13`-2`1
+Target Combo 3`(TC3) + >`40`50`40`HL`-`4`4`13`-3`0
+Target Combo 4`(TC4)  >`40`50`40`HL`-`4`2`11`1`4
+Target Combo 4`(TC4)  >  >`30`50`40`HL`sp/su`4`3`13`-2`1
+Target Combo 5`(TC5)  or + >`40`50`40`HL`-`4`3`13`-2`1
+Target Combo 5`(TC5)  or + >  >`40`50`60`HL`su`4`3`17`-2`3
+Target Combo 6`(TC6) + > +`40`50`40`HL`-`4`2`16`-4`1
+Target Combo 6`(TC6) + > + > +`40*47`50*50`50*70`HL`-`4`1*3`16`-1`4
+Target Combo 7`(TC7)  >`50`50`60`HL`-`4`3`16`1`3
+Target Combo 7`(TC7)  >  >`20*20`50*50`50*70`HL`su`4`1*3`16`-1`4
+Target Combo 8`(TC8)  >`40`50`40`HL`-`4`3`13`-2`4
+Target Combo 8`(TC8)  >  >`30`50`40`HL`-`4`2`12`1`3
+Target Combo 8`(TC8)  >  >  >`20*20`50*50`50*90`HL`su`4`1*3`16`-1`4
+Victory Rose`Victory Rose`1`0`0`HL`su`24`55`37`-`13
+Neutral Jump LP`Neutral Jump`40`50`20`H`-`4`5`-`-`-
+Neutral Jump MP`Neutral Jump`70`100`40`H`-`5`5`-`-`-
+Neutral Jump HP`Angled Jump`120`200`60`H`-`6`4`-`-`-
+Neutral Jump LK`Neutral Jump`40`50`20`H`-`4`10`-`-`-
+Neutral Jump MK`Neutral Jump`60`100`40`H`-`5`8`-`-`-
+Neutral Jump HK`Neutral Jump`90`200`60`H`-`11`5`-`-`-
+Angled Jump LP`Angled Jump`40`50`20`H`-`4`8`-`-`-
+Angled Jump MP`Angled Jump`70`100`40`H`-`5`5`-`-`-
+Angled Jump HP`Angled Jump`120`200`60`H`-`6`4`-`-`-
+Angled Jump LK`Angled Jump`40`50`20`H`-`4`16`-`-`-
+Angled Jump MK`Angled Jump`60`100`40`H`-`5`12`-`-`-
+Angled Jump HK`Angled Jump`110`200`60`H`-`9`10`-`-`-
+Focus Attack (Level 1)`Level 1 Focus`60`100`20`HL`-`10+11`2`35`-20`-20
+Focus Attack (Level 2)`Level 2 Focus`80`150`40`HL`-`18+11`2`35`-15`-
+Focus Attack (Level 3)`Level 3 Focus`140`200`60`-`-`65`2`35`-`-
+Red Focus Attack (Level 1)`Level 1 Red Focus`90`100`-500/0`HL`-`10+11`2`35`-20`-20
+Red Focus Attack (Level 2)`Level 2 Red Focus`120`150`-500/0`HL`-`18+11`2`35`-15`-
+Red Focus Attack (Level 3)`Level 3 Red Focus`210`200`-500/0`-`-`65`2`35`-`-
+EX Red Focus Attack (Level 1)`Level 1 EX Red Focus`90`100`-750/0`HL`-`10+11`2`35`-15`-
+Kidney Crusher`Forward Throw`140`160`40`0.92`-`3`2`20`-`-
+Dynamite Throw`Back Throw`140`100`40`0.92`-`3`2`20`-`-
+Jet Upper`Jet Upper`120[80]`150[100]`30/40`HL`su`5`7`17+9`-12`-
+`Jet Upper`140[100]`170[100]`30/40`HL`su`5`14`17+12`-22`-
+`Jet Upper`100*60[70]`150*50`30/20x2`HL`su`3`2*18`18+12`-32`-
+EX Jet Upper`Jet Upper`100*80`150*50`-250/0`HL`su`4`2*18`20+12`-29`-
+Machine Gun Blow`Machinegun Blow`20x2*50`25x2*50`10/10x3`HL`-`9`2(5)2(10)4`20`-2`2
+`Machinegun Blow`20x3*60`25x3*75`15/10x4`HL`-`16`2(5)2(5)2(10)4`21`-4`1
+`Machinegun Blow`20x5*30`25x5*75`20/10x6`HL`-`18`2(5)2(5)2(5)2(5)2(6)4`22`-5`0
+EX Machine Gun Blow`Machinegun Blow`15x6*30`20x6*30`-250/0`HL`-`18`2(5)2(5)2(5)2(5)2(6)4(7)4`20`-8`-
+Cross Counter`Cross Counter`Damage Absorbed + 60`100`10/30`-`-`3`69`21`-`-
+`Cross Counter`Damage Absorbed + 60`100`10/30`-`-`3`49`21`-`-
+`Cross Counter`Damage Absorbed + 60`100`10/30`-`-`3`29`21`-`-
+EX Cross Counter`Cross Counter`Damage Absorbed + 50*50*50`50*100x2`-250/0`-`-`3`29`21`-`-
+LK Swing Blow`Short Swing Blow`120`200`20/30`HL`su`18`3`20`-2`2
+`Short Swing Blow`140`200`20/30`HL`su`21`3`22`-4`2
+`Short Swing Blow`160`200`20/30`HL`su`24`3`22`-4`2
+EX Swing Blow`Short Swing Blow`50x3`50x2*100`-25`HL`su`20`2(6)3(12)2`29`-2`-
+Duck`Duck`-`-`10/-`-`su`-`-`Total 20`-`-
+`Duck`-`-`10/-`-`su`-`-`Total 21`-`-
+`Duck`-`-`10/-`-`su`-`-`Total 25`-`-
+EX Duck`Duck`-`-`-250/0`-`su`-`-`Total 17`-`-
+Ducking Straight`Ducking Straight`100`200`May-40`HL`su`5`3`23`-5`2
+Ducking Upper`Ducking Upper`60*60`150*50`5/30*20`HL`su`3`1*2`25`-6`2
+Thunder Bolt`Thunder Bolt`40*60`100*100`20/20x2`HL`su`38`3*2`41`-22`-
+`Thunder Bolt`50*70`100*100`20/20x2`HL`su`38`3*2`41`-22`-
+`Thunder Bolt`60*80`100*100`20/20x2`HL`su`38`3*2`41`-22`-
+EX Thunder Bolt`Thunder Bolt`20x4*90`30x4*100`-250/0`HL`su`34`2x4*1`41`-21`-
+Rocket Upper`Super Combo`50*30*40*30*40*15x10*50`0`-1000/0`HL`-`1+2`3*5(22)3*9(39)3*3*{2*1}x5`21+17`-35`-
+Rolling Thunder`Ultra Combo 1`45x5*15x6*185`0`0/0`HL`-`0+8`3(8)3(10)3(8)3(10)3(12)1*3`35`-17`-
+Corkscrew Blow`Ultra Combo 2`54x6[440]`0`0/0`HL`-`0+8`24`48`-27`-

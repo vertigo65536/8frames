@@ -1,0 +1,72 @@
+Close LP`Close`20`50`20`HL`sp/su`3`2`7`2`5
+Close MP`Close`40*40`50*50`40*20`HL`sp/su`4`3(6)3`14`-3`0
+Close HP`Close`90`200`60`HL`sp/su`4`4`21`-7`-2
+Close LK`Close`40`50`20`HL`sp/su`3`2`8`1`4
+Close MK`Close`30*20*20`50*25*25`40*20*20`HL*H*H`sp/su*-*-`4`3(7)2*2`16`-4`-1
+Close HK`Close`100`200`60`HL`sp/su`4`3`18`-3`2
+Far LP`Far`20`50`20`HL`ch/sp/su`3`2`6`3`6
+Far MP`Far`60`100`40`HL`sp/su`7`2`10`2`5
+Far HP`Far`100`200`60`HL`-`6`3`16`-1`3
+Far LK`Far`30`50`20`HL`-`4`2`10`-1`2
+Far MK`Far`70`100`40`HL`-`7`3`13`-2`1
+Far HK`Far`100`200`60`HL`-`12`2`20`-4`0
+Crouch LP`Crouch`30`50`20`HL`ch/sp/su`3`3`5`3`6
+Crouch MP`Crouch`60`100`40`HL`-`10`5`12`-3`0
+Crouch HP`Crouch`50*50`100*100`60*60`HL`sp/su*-`7`2(6)2`18`-2`2
+Crouch LK`Crouch`30`50`20`L`ch`3`4`8`-1`2
+Crouch MK`Crouch`60`100`40`L`sp/su`5`3`11`0`3
+Crouch HK`Crouch`90`150`60`L`-`7`4`19`-5`-
+Rear Spin Kick`+`40`50`20`HL`-`10`3`11 + After landing 5`-5`-2
+Kintekishu`+`50`50`40`HL`-`9`4`16`-6`-3
+Tenkukyaku``50`50`20`HL`su`12`3`39`-28`-
+Tenshokyaku`+Kick.gif`20x5`50x5`20x5`HL`-`4`4(2)1(4)2(4)1(5)1`9 + After landing 15`-`-
+Kakusenshu`+`80`100`40`HL`-`15`3`13`-2`1
+Kakukyakuraku`+`100`200`60`H`-`37`7`After landing 5`2`6
+Neutral Jump LP`Neutral Jump`40`50`20`H`-`6`6`-`-`-
+Neutral Jump MP`Neutral Jump`70`100`40`H`-`4`3`-`-`-
+Neutral Jump HP`Neutral Jump`70*70`150*150`60*60`H`-`5`2(2)2`-`-`-
+Neutral Jump LK`Neutral Jump`50`50`20`H`-`3`7`-`-`-
+Neutral Jump MK`Neutral Jump`80`100`40`H`-`4`6`-`-`-
+Neutral Jump HK`Neutral Jump`90`200`60`H`-`4`8`-`-`-
+Angled Jump LP`Angled Jump`40`50`20`H`-`3`6`-`-`-
+Angled Jump MP`Angled Jump`70`100`40`H`-`5`3`-`-`-
+Angled Jump HP`Angled Jump`70`150`60`H`-`5`8`-`-`-
+Angled Jump LK`Angled Jump`30`50`20`H`-`4`10`-`-`-
+Angled Jump MK`Angled Jump`60`100`40`H`-`5`5`-`-`-
+Angled Jump HK`Angled Jump`100`200`60`H`-`4`5`-`-`-
+Yosokyaku (1)`Headstomp (1)`60`50`40`H`-`2`3`-`-`-
+Yosokyaku (2)`Headstomp (2)`60`50`40`H`-`3`3`-`-`-
+Yosokyaku (3)`Headstomp (3)`60`50`40`H`-`4`3`-`-`-
+Wall Jump`Wall Jump`-`-`-`-`-`-`-`-`-`-
+Target Combo` >`40`50`20`H`-`4`3`-`-`-
+Focus Attack (Level 1)`Level 1 Focus`60`100`20`HL`-`10+11`2`35`-21`-21
+Focus Attack (Level 2)`Level 2 Focus`80`150`40`HL`-`18+13`2`35`-15`-
+Focus Attack (Level 3)`Level 3 Focus`120`200`60`-`-`65`2`35`-`-
+Red Focus Attack (Level 1)`Level 1 Red Focus`90`100`20`HL`-`10+11`2`35`-21`-21
+Red Focus Attack (Level 2)`Level 2 Red Focus`120`150`40`HL`-`18+13`2`35`-15`-
+Red Focus Attack (Level 3)`Level 3 Red Focus`180`200`60`-`-`65`2`35`-`-
+EX Red Focus Attack (Level 1)`Level 1 EX Red Focus`90`100`20`HL`-`10+11`2`35`-15`-
+Koshuto`Forward Throw`140`100`40`1.01`-`3`2`20`-`-
+Kirinshu`Back Throw`140`100`40`1.01`-`3`2`20`-`-
+Ryuseiraku`Air Throw`150`150`40`1.1`-`3`2`-`-`-
+Kyakuretsukyaku`Lightning Kicks`15xN`20xN`20/10`HL`su`4`2(6)2(6)2(6)2 [(5)2(6)2(6)2(6)2] [(4)2(6)2(6)2(6)2]`17[19]`+2[0]`6[4]
+`Lightning Kicks`15xN`25xN`20/10`HL`su`7`1(4)2(4)1(4)1 [(4)1(4)2(4)1(4)1]`20[17]`0[3]`4[7]
+`Lightning Kicks`15XN`30xN`20/10`HL`su`7`1(4)1(4)1(3)1 [(4)1(4)1(4)1(3)1]`21[20]`-1[0]`3[4]
+EX Kyakuretsukyaku`Lightning Kicks`40x4`50x4`-250/0`HL`su`4`1(3)1(3)1(3)1`19`1`-
+Kikoken`Kikoken`50`50`20/20`HL`su`14`100`31`-4`0
+`Kikoken`60`75`20/20`HL`su`12`77`30`-3`1
+`Kikoken`70`100`20/20`HL`su`10`45`32`-5`-1
+EX Kikoken`Kikoken`50*50`50*50`-250/0`HL`su`10`49`39`-4`-
+Hazanshu`Hazanshu`90`100`30/40`H`su`23`2`20`-1`4[3]
+`Hazanshu`110`150`30/40`H`su`25`2`19`0`5[4]
+`Hazanshu`130`200`30/40`H`su`26`2`20`-1`4[3]
+EX Hazanshu`Hazanshu`170`200`-250/0`H`su`26`2`20`-1`-
+Spinning Bird Kick`Spinning Bird Kick`20x5`20x5`20/10x5`HL`-`13`2(2)1(5)2(4)2(4)2`10+10`-1`-
+`Spinning Bird Kick`25x6*30`28x6*32`20/10x7`HL`-`14`2(2)1(5)1(5)2(4)2(6)1(5)2`9+12`-2`2
+`Spinning Bird Kick`50*20x8`40*20x8`20/10x9`HL`-`22`1(2)1(5)2(4)2(4)2(6)2(3)2(5)2(4)2`11+16`-8[-6]`-
+EX Spinning Bird Kick`Spinning Bird Kick`30x4*50`50x4*60`-250/0`HL`-`6`2(1)2(3)2(4)2(3)2`9+9`-18`-
+Senretsukyaku`Super Combo`30x8*100`0`-1000/0`HL`-`1+1`2(13)1(3)1(5)1(3)1(5)1(3)1(5)1(17)2`50`-31`-
+`Super Combo`30x8*100`0`-1000/0`HL`-`1+1`2(13)1(3)1(5)1(3)1(5)1(3)1(5)1(17)2`63`-44`-
+`Super Combo`30x8*100`0`-1000/0`HL`-`1+1`1(14)1(3)1(5)1(2)2(5)1(3)1(5)1(17)2`86`-67`-
+Hosenka`Ultra Combo 1`30*20x8*190`0`0/0`HL`-`0+7`2(17)2(5)2(5)2(5)2(5)2(5)1(6)1(22)3`65`-47`-
+Kikosho`Ultra Combo 2`15x19*80`0`0/0`HL`-`0+9`6x20`80`-55`-
