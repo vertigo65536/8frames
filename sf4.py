@@ -121,8 +121,12 @@ def getPunishable(file, character, punishable = 0):
             if len(row) <= 0 or removePunctuation(row[oBKey]) in ["", None]:
                 continue
             oB = row[oBKey]
-            if int(oB) <= minimum and int(oB) >= maximum:
+            oB = oB.split("[")
+            for i in range(len(oB)):
+                oB[i].replace("]", "")
+                if int(oB[i]) <= minimum and int(oB[i]) >= maximum:
                     moves.append(row)
+                    break
     e = discord.Embed(title=character)
     headers = [titles[1], titles[oBKey]]
     embedArray = []
