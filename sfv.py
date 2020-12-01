@@ -37,14 +37,18 @@ def parseCommand(command):
         search = vtTest[1]
     else:
         return "Invalid vtrigger activation. Try vt1:<command> or remove colon"
-    dataKey = findByPlnCmd(search, frameData[character][dataType][vtrigger])
-    if dataKey == -1:
-        dataKey = findByPlnCmd(search, frameData[character][dataType]['normal'])
-        if dataKey == -1:
-            return "Could not find move"
-        else:
-            vtrigger = "normal"
-    return createMoveEmbed(frameData[character][dataType][vtrigger][dataKey], character, vtrigger)
+    dataRaw = []
+    dataRaw.append(findByMoveName(search, frameData[character][dataType][vtrigger]))
+    dataRaw.append(findByMoveName(search, frameData[character][dataType][vtrigger]))
+    dataKey = dataRaw[0]
+    for i in range(len(dataRaw)):
+        if dataRaw[i][1] > dataKey[1]:
+            dataKey = dataRaw[i]
+    if dataKey[1] < 0.25:
+        return "Could not find move"
+    else:
+        vtrigger = 'normal'
+    return createMoveEmbed(frameData[character][dataType][vtrigger][dataKey[0]], character, vtrigger)
 
 def fuzzyDict(search, d):
     keyArray = []
@@ -57,6 +61,15 @@ def fuzzyDict(search, d):
         return keyDict[selectedKey[0]]
     else:
         return -1
+
+def findByMoveName(search, d):
+    plnArray = []
+    keyDict = {}
+    for key in d.keys():
+        plnArray.append(removePunctuation(key))
+        keyDict[removePunctuation(key)] = key
+    selectedKey = match.extractOne(search, plnArray)
+    return [keyDict[selectedKey[0]], selectedKey[1]]
 
 def findByPlnCmd(search, d):
     search = removePunctuation(search).replace("st", "").replace("dp", "fddf")
@@ -71,10 +84,7 @@ def findByPlnCmd(search, d):
         plnArray.append(removePunctuation(d[key]['plnCmd']))
         keyDict[removePunctuation(d[key]['plnCmd'])] = key
     selectedKey = match.extractOne(search, plnArray)
-    if selectedKey[1] >= 0.7:
-        return keyDict[selectedKey[0]]
-    else:
-        return -1
+    return [keyDict[selectedKey[0]], selectedKey[1]]
 
 def getMinusMoves(character, punishable=0):
     array = getFrameDataArray()[character]['moves']
