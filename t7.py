@@ -18,7 +18,7 @@ def getColumnHeaders():
         ]
 
 def parseCommand(command):
-    character = parseAcronyms(tools.getMessagePrefix(command))
+    character = parseAlias(tools.getMessagePrefix(command))
     content = tools.getMessageContent(command)
     files = os.listdir(path)
 
@@ -103,10 +103,16 @@ def getMinusMovesEmbed(data, character):
             break
     return embedArray
 
-def parseAcronyms(name):
+def parseAlias(name):
     if name.lower() == "ak":
         return "Armor King"
     if name.lower() == "dj":
         return "Devil Jin"
+    if name.lower() == "violet":
+        return "Lee"
+    if name.lower() == "panda":
+        return "Kuma"
+    if name.lower() == "tiger":
+        return "Eddy"
     else:
         return name
