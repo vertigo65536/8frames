@@ -1,5 +1,5 @@
 import tools
-import os, discord, json, string
+import os, discord, json, string, numpy
 from fuzzy_match import match, algorithims
 from tabulate import tabulate
 
@@ -130,17 +130,28 @@ def getMinusMoves(character, punishable=0):
 def getMinusMovesEmbed(character, punishable=0):
     d = getMinusMoves(character, punishable)
     e = discord.Embed(title=character)
-    headers = ["Move", "On Block", "VTC On Block"]
+    headers = ["Move", "oB", "VTC oB"]
     string = []
     counter = 0
     for key, items in d.items():
         valuesArray = []
         for i in range(len(items)):
             try:
+                items[i]['move'] = items[i]['move'].replace("Install Art | ", "").replace(" - ", " ")
                 valuesArray.append([items[i]['move'], items[i]['onBlock'], items[i]['vtcOnBlock']])
             except:
                 valuesArray.append([items[i]['move'], items[i]['onBlock'], ""])
         if valuesArray != []:
+            thisTable = tabulate(valuesArray, headers=headers)
+        else:
+            continue
+        check = 2000
+        if len(thisTable) > check:
+            splitSize = (len(thisTable)//check)+1
+            tmpOutputString = numpy.array_split(valuesArray, splitSize)
+            for j in range(len(tmpOutputString)):
+                string.append("**" + key + "**\n" + "```" + tabulate(tmpOutputString[j], headers=headers) + "```")
+        else:
             string.append("**" + key + "**\n" + "```" + tabulate(valuesArray, headers=headers) + "```")
     return string
 

@@ -3,11 +3,11 @@ import tools, t7, sfv, sf4
 from dotenv import load_dotenv
 
 def getGame(string):
-    if string == "t7":
+    if string.lower() == "t7":
         return t7
-    if string == "sfv":
+    if string.lower() in ["sfv", "sf5"]:
         return sfv
-    if string == "sf4":
+    if string.lower() == "sf4":
         return sf4
 
 def getManPage():
@@ -22,7 +22,7 @@ async def handleMessage(message):
    prefix = tools.getMessagePrefix(message.content)
    content = tools.getMessageContent(message.content)
    commandSplit = prefix.split("!")
-   if commandSplit[0] in ["8frames", "8f"]:
+   if commandSplit[0].lower() in ["8frames", "8f"]:
        if commandSplit[1] in "man, help":
            return getManPage()
        return getGame(commandSplit[1]).parseCommand(content)
