@@ -38,7 +38,7 @@ def parseCommand(command):
     else:
         return "Invalid vtrigger activation. Try vt1:<command> or remove colon"
     dataRaw = []
-    dataRaw.append(findByMoveName(search, frameData[character][dataType][vtrigger]))
+    dataRaw.append(findByPlnCmd(search, frameData[character][dataType][vtrigger]))
     dataRaw.append(findByMoveName(search, frameData[character][dataType][vtrigger]))
     dataKey = dataRaw[0]
     for i in range(len(dataRaw)):
