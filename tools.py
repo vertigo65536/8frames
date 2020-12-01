@@ -4,12 +4,12 @@ from fuzzy_match import match, algorithims
 # Returns the first word from a string (Usually a bot command)
 
 def getMessagePrefix(message):
-    return message.split()[0]
+    return message.split(" ")[0]
 
 # Returns everything after the first word
 
 def getMessageContent(message):
-    split = message.split()
+    split = message.split(" ")
     content = ""
     if len(split) <= 1:
         return -1

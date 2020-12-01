@@ -28,6 +28,7 @@ def normalTranslator(string):
         'u +': 'jump.',
         'ub / uf +': 'forwardjump.'
     }
+    string = string.replace("(charge)", "")
     for key, item in buttons.items():
         string = string.replace(key, item)
     string = string.replace(" ", "")
