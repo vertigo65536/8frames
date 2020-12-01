@@ -1,4 +1,4 @@
-import requests, os
+import requests, os, shutil
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
@@ -7,6 +7,29 @@ url = baseUrl + "/Ultra_Street_Fighter_IV"
 headers={
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
         }
+
+def normalTranslator(string):
+    string = string.lower()
+    buttons = {
+        'jab': "lp",
+        'strong': "mp",
+        'fierce': "hp",
+        'short': "lk",
+        'forward': "mk",
+        'roundhouse': "hk",
+        'ex': "ex",
+        '3p': "3p",
+        '3k': "3k",
+        'close': 'cl.',
+        'd +': 'cr.',
+        'far': '',
+        'u +': 'jump.',
+        'ub / uf +': 'forwardjump.'
+    }
+    for key, item in buttons.items():
+        string = string.replace(key, item)
+    string = string.replace(" ", "")
+    return string
 
 def getPath(name):
     return os.path.join(os.path.dirname(os.path.abspath(__file__)), name)
@@ -52,11 +75,13 @@ def removeButton(string):
         ' Forward': "Mk",
         ' Roundhouse': "Hk",
         ' EX': "Ex",
-        ' 3p': "3p",
-        ' 3k': "3k"}
+        ' 3p': "ppp",
+        ' 3k': "kkk"}
     for key, value in buttons.items():
         string = string.replace(value + " Ex", value)
         if key in string:
+            if key in [' 3p', ' 3k']:
+                return [string.replace(key, value), key]
             return [string.replace(key, ""), value]
     return [string, ""]
 
@@ -70,63 +95,44 @@ def getMoveType(string, soup):
         return 'K'
     return -1
 
-def findSpecialCommand(string, soup):
-    buttonParse = removeButton(string)
-    string = buttonParse[0]
-    button = buttonParse[1]
+def newFindMoveCommand(string, soup, specialStrength = False):
+    string = string.replace("Angled", "Diagonal")
+    if "Red Focus" in string:
+        return "Lp+Mp+Mk"
     for td in soup.findAll("td"):
-        if string.lower().rstrip() not in  td.getText().lower().rstrip():
+        if string.lower() not in  td.getText().lower().rstrip() or 'colspan' in td.attrs:
             continue
         try:
             td.find('b').findNext('p').find('b')
         except:
             continue
-        nextTd = td.findNext("td").findNext("td")
-        if any(substring in nextTd.getText().lower().rstrip() for substring in ["-", "*"]) or nextTd.getText().lower().rstrip() == "":
+        nextTd = parseTableEntry(td.findNext("td").findNext("td"))
+        if any(substring in nextTd for substring in ["-", "*"]) or nextTd == "":
             continue
         try:
-            int(nextTd.getText().lower().rstrip())
+            int(nextTd)
             continue
         except:
             pass
-        if string.lower().rstrip() in nextTd.getText().lower().rstrip():
+        if string.lower() in nextTd:
             continue
-        moveInput = removeButton(parseTableEntry(nextTd))[0]
-        if button == "Ex":
-            moveInput = moveInput.replace("+ K", "+ 2K")
-            moveInput = moveInput.replace("+ P", "+ 2P")
-        else:
-            moveInput = moveInput.replace("+ K", "+ " + button)
-            moveInput = moveInput.replace("+ P", "+ " + button)
-        return moveInput
-    return "couldn't find move"
+        moveInput = removeButton(nextTd)[0]
+        if specialStrength != '':
+            if specialStrength == "Ex":
+                moveInput = moveInput.replace("+ K", "+ KK")
+                moveInput = moveInput.replace("+ P", "+ PP")
+            else:
+                moveInput = moveInput.replace("+ K", "+ " + specialStrength)
+                moveInput = moveInput.replace("+ P", "+ " + specialStrength)
+        return normalTranslator(moveInput)
+    return "Unknown Command"
 
-def findMoveCommand(string, soup):
-    string = string.replace("Ultra Combo 1", "Ultra Combo I")
-    string = string.replace("Ultra Combo 2", "Ultra Combo II")
-    string = string.replace("Angled", "Diagonal")
-    string = string + "\n"
-    if "Red Focus" in string:
-        return "Lp + Mp + Mk"
-    for td in soup.findAll("td", text=string):
-        nextTd = td.findNext("td")
-        if "Super Combo" in nextTd.getText():
-            continue
-        if nextTd.getText().lower().rstrip() == string.lower().rstrip():
-            nextTd = nextTd.findNext("td")
-        else:
-            try:
-                int(nextTd.getText().lower().rstrip())
-                continue
-            except:
-                pass
-        return parseTableEntry(nextTd).replace(" Armorbreak", "")
-    return findSpecialCommand(string, soup)
 
 characterLinks = {}
 folder = getPath("sf4")
-if not os.path.isdir(folder):
-    os.mkdir(folder)
+if os.path.isdir(folder):
+    shutil.rmtree(folder)
+os.mkdir(folder)
 
 page = requests.get(url, headers=headers)
 soup = BeautifulSoup(page.text, features='html.parser')
@@ -140,6 +146,8 @@ for tbody in soup.findAll("table"):
             if a.getText() != '':
                 characterLinks[a.getText()] = baseUrl + a['href']
 
+#characterLinks = {'Ryu': 'http://wiki.shoryuken.com/Ultra_Street_Fighter_IV/Ryu'}
+
 for character, link in characterLinks.items():
     print("Writing " + character + " file")
     page = requests.get(link, headers=headers)
@@ -150,19 +158,23 @@ for character, link in characterLinks.items():
     table = soup.find("h2", text="Frame Data (At A Glance)").findNext("table")
     tableArray = convertHtmlTableToArray(table)
     #headers = getTableHeader(table)
-    #try:
-    with open(os.path.join(folder, character + ".csv"), 'a') as csv_file:
-        for i in range(len(tableArray)):
-            if tableArray[i][0] == "":
-                tableArray[i][0] = tableArray[i-1][1]
-            if "Super Combo" in tableArray[i][1]:
-                moveName = tableArray[i][1].replace("Super Combo", tableArray[i][0])
-            else:
-                moveName = tableArray[i][0]
-            command = str(findMoveCommand(moveName, soup))
-            if command == "couldn't find move":
-                print(command + " - " + moveName)
-            tableArray[i].insert(0, command)
-            csv_file.write('`'.join(tableArray[i]) + "\n")
-    #except:
-    #    print("Failed to open " + os.path.join(folder, character + ".csv"))
+    try:
+        buttons = ['LP', 'MP', 'HP', 'LK', 'MK', 'HK']
+        with open(os.path.join(folder, character + ".csv"), 'a') as csv_file:
+            for i in range(len(tableArray)):
+                if tableArray[i][0] == "":
+                    tableArray[i][0] = tableArray[i-1][1]
+                if "Super Combo" in tableArray[i][1]:
+                    moveName = removeButton(tableArray[i][0])[0]
+                else:
+                    moveName = tableArray[i][0]
+                specialButton = ''
+                if not any(x in moveName for x in buttons):
+                    specialButton = removeButton(tableArray[i][1])[1]
+                command = str(newFindMoveCommand(moveName.replace("EX ", ""), soup, specialButton))
+                if command == "Unknown Command":
+                    print(command + " - " + moveName)
+                tableArray[i].insert(0, command)
+                csv_file.write('`'.join(tableArray[i]) + "\n")
+    except:
+        print("Failed to open " + os.path.join(folder, character + ".csv"))
