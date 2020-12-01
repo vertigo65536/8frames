@@ -89,7 +89,7 @@ def getMinusMovesEmbed(data, character):
     embedArray = []
     offset = 0
     finished = 0
-    listSize = 40
+    listSize = 30
     while(True):
         stringArray = []
         for i in range(offset, offset + listSize - 1):
