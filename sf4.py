@@ -55,26 +55,26 @@ def getMoveByNickname(id, file):
     return getMoveByNthKey(id, file, 2)
 
 def getMoveByNthKey(id, file, n):
-    #try:
-    with open(file) as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter='`')
-        line_count = 0
-        id = removePunctuation(str(id))
-        moveData = {}
-        moveKeys = []
-        counter = 0
-        for row in csv_reader:
-            if len(row) <= 0:
-                continue
-            moveKeys.append(removePunctuation(row[n]))
-            moveData[moveKeys[counter]] = row
-            #if moveKeys[counter] == id:
-            #    return row
-            counter += 1
-        matchOutput = match.extractOne(id, moveKeys)
-        return [moveData[matchOutput[0]], matchOutput[1]]
-    #except:
-    #    return -1
+    try:
+        with open(file) as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter='`')
+            line_count = 0
+            id = removePunctuation(str(id))
+            moveData = {}
+            moveKeys = []
+            counter = 0
+            for row in csv_reader:
+                if len(row) <= 0:
+                    continue
+                moveKeys.append(removePunctuation(row[n]))
+                moveData[moveKeys[counter]] = row
+                #if moveKeys[counter] == id:
+                #    return row
+                counter += 1
+            matchOutput = match.extractOne(id, moveKeys)
+            return [moveData[matchOutput[0]], matchOutput[1]]
+    except:
+        return -1
 
 def getMoveEmbed(moveRow, character):
     e = discord.Embed(title=character)
@@ -101,14 +101,13 @@ def getPunishable(file, character, punishable = 0):
         else:
            return -1
         for row in csv_reader:
-            print(row)
             if len(row) <= 0 or removePunctuation(row[oBKey]) in ["", None]:
                 continue
             oB = row[oBKey]
             if int(oB) <= minimum and int(oB) >= maximum:
                     moves.append(row)
     e = discord.Embed(title=character)
-    headers = [titles[0], titles[1], titles[oBKey]]
+    headers = [titles[1], titles[oBKey]]
     embedArray = []
     offset = 0
     finished = 0
@@ -119,7 +118,7 @@ def getPunishable(file, character, punishable = 0):
             if i >= len(moves):
                 finished = 1
                 break
-            stringArray.append([moves[i][0], moves[i][1], moves[i][oBKey]])
+            stringArray.append([moves[i][1], moves[i][oBKey]])
         embedArray.append("```" + tabulate(stringArray, headers=headers) + "```")
         offset += listSize
         if finished == 1:
