@@ -23,6 +23,8 @@ titles = [
 
 def parseCommand(command):
     character = tools.getMessagePrefix(command)
+    if character.lower() == "gen":
+        return "Use GenMantis or GenCrane"
     content = translateAcronym(tools.getMessageContent(command))
     files = os.listdir(path)
 

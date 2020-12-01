@@ -8,6 +8,8 @@ headers={
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
         }
 
+characterException = {'Gen': ['Mantis', 'Crane']}
+
 def normalTranslator(string):
     string = string.lower()
     buttons = {
@@ -146,7 +148,7 @@ for tbody in soup.findAll("table"):
             if a.getText() != '':
                 characterLinks[a.getText()] = baseUrl + a['href']
 
-#characterLinks = {'Ryu': 'http://wiki.shoryuken.com/Ultra_Street_Fighter_IV/Ryu'}
+#characterLinks = {'Gen': 'http://wiki.shoryuken.com/Ultra_Street_Fighter_IV/Gen'}
 
 for character, link in characterLinks.items():
     print("Writing " + character + " file")
@@ -156,25 +158,38 @@ for character, link in characterLinks.items():
     keyDict = {}
 
     table = soup.find("h2", text="Frame Data (At A Glance)").findNext("table")
-    tableArray = convertHtmlTableToArray(table)
+    tableRaw = convertHtmlTableToArray(table)
     #headers = getTableHeader(table)
-    try:
-        buttons = ['LP', 'MP', 'HP', 'LK', 'MK', 'HK']
-        with open(os.path.join(folder, character + ".csv"), 'a') as csv_file:
-            for i in range(len(tableArray)):
-                if tableArray[i][0] == "":
-                    tableArray[i][0] = tableArray[i-1][1]
-                if "Super Combo" in tableArray[i][1]:
-                    moveName = removeButton(tableArray[i][0])[0]
-                else:
-                    moveName = tableArray[i][0]
-                specialButton = ''
-                if not any(x in moveName for x in buttons):
-                    specialButton = removeButton(tableArray[i][1])[1]
-                command = str(newFindMoveCommand(moveName.replace("EX ", ""), soup, specialButton))
-                if command == "Unknown Command":
-                    print(command + " - " + moveName)
-                tableArray[i].insert(0, command)
-                csv_file.write('`'.join(tableArray[i]) + "\n")
-    except:
-        print("Failed to open " + os.path.join(folder, character + ".csv"))
+    tableArrays = {}
+    if character in characterException.keys():
+        cut = 0
+        for i in range(len(tableRaw)):
+            if i != 0 and tableRaw[i][0] == "Close LP":
+                cut = i
+                break
+        print(cut)
+        tableArrays[character+characterException[character][0]] = tableRaw[:cut]
+        tableArrays[character+characterException[character][1]] = tableRaw[cut-len(tableRaw):]
+    else:
+        tableArrays[character] = tableRaw
+    for key, tableArray in tableArrays.items():
+        try:
+            buttons = ['LP', 'MP', 'HP', 'LK', 'MK', 'HK']
+            with open(os.path.join(folder, key + ".csv"), 'a') as csv_file:
+                for i in range(len(tableArray)):
+                    if tableArray[i][0] == "":
+                        tableArray[i][0] = tableArray[i-1][1]
+                    if "Super Combo" in tableArray[i][1]:
+                        moveName = removeButton(tableArray[i][0])[0]
+                    else:
+                        moveName = tableArray[i][0]
+                    specialButton = ''
+                    if not any(x in moveName for x in buttons):
+                        specialButton = removeButton(tableArray[i][1])[1]
+                    command = str(newFindMoveCommand(moveName.replace("EX ", ""), soup, specialButton))
+                    if command == "Unknown Command":
+                        print(command + " - " + moveName)
+                    tableArray[i].insert(0, command)
+                    csv_file.write('`'.join(tableArray[i]) + "\n")
+        except:
+            print("Failed to open " + os.path.join(folder, key + ".csv"))
