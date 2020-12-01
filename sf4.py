@@ -21,6 +21,21 @@ titles = [
     'On Hit'
 ]
 
+def getButton(string):
+    buttons = {
+        ' Jab': "LP",
+        ' Strong': "MP",
+        ' Fierce': "HP",
+        ' Short': "LK",
+        ' Forward': "MK",
+        ' Roundhouse': "HK",
+        ' EX': "EX"}
+    for key, value in buttons.items():
+        string = string.replace(value + " Ex", value)
+        if any(x in string for x in [key, value]):
+            return value
+    return None
+
 def parseCommand(command):
     character = tools.getMessagePrefix(command)
     if character.lower() == "gen":
@@ -120,7 +135,11 @@ def getPunishable(file, character, punishable = 0):
             if i >= len(moves):
                 finished = 1
                 break
-            stringArray.append([moves[i][1], moves[i][oBKey]])
+            moveName = moves[i][1]
+            moveButton = getButton(moves[i][2])
+            if getButton(moveName) == None and moveButton != None:
+                moveName = moveButton + " " + moveName
+            stringArray.append([moveName, moves[i][oBKey]])
         embedArray.append("```" + tabulate(stringArray, headers=headers) + "```")
         offset += listSize
         if finished == 1:
