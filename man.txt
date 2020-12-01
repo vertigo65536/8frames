@@ -3,7 +3,7 @@
 Command syntax is 8f(rames)!<game> <character> <command>
 Valid games:
 > t7
-> sfv
+> sfv/sf5
 > sf4
 
 valid commands:
@@ -23,6 +23,6 @@ examples of valid commands:
 > 8frames!sfv bison punishable
 > 8f!sfv chunli vt1:sthp
 > 8f!sfv akuma vs1
-> 8f!sf4 ryu haduken
+> 8f!sf4 ryu hadoken
 
 report bugs to @Vertigo#2894
