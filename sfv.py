@@ -57,7 +57,7 @@ def fuzzyDict(search, d):
        keyArray.append(removePunctuation(key))
        keyDict[removePunctuation(key)] = key
     selectedKey = match.extractOne(search, keyArray)
-    if selectedKey[1] >= 0.7:
+    if selectedKey[1] >= 0.3:
         return keyDict[selectedKey[0]]
     else:
         return -1
