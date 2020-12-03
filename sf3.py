@@ -1,5 +1,5 @@
 import tools
-import os, discord, csv, string
+import os, discord, csv, string, re
 from fuzzy_match import match, algorithims
 from tabulate import tabulate
 
@@ -20,7 +20,7 @@ titles = [
 
 def parseCommand(command):
     character = tools.getMessagePrefix(command)
-    content = tools.getMessageContent(command)
+    content = translateAcronym(tools.getMessageContent(command))
     files = os.listdir(path)
 
     fuzzyMatch  = match.extractOne(character + ".csv", files)
@@ -57,7 +57,7 @@ def getStoredRowNthValue(search, file, n):
         with open(file) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter='`')
             line_count = 0
-            search = str(search).translate(str.maketrans('', '', string.punctuation)).lower()
+            search = tools.removePunctuation(str(search))
             moveData = {}
             moveKeys = []
             counter = 0
@@ -132,11 +132,18 @@ def getMinusMovesEmbed(data, character):
             if i >= len(data):
                 finished = 1
                 break
-            stringArray.append([data[i][0], data[i][5]])
+            stringArray.append([data[i][1], data[i][5]])
         embedArray.append("```" + tabulate(stringArray, headers=headers) + "```")
         offset += listSize
         if finished == 1:
             break
     return embedArray
 
+def translateAcronym(text):
+    text = text.lower()
+    if re.match(r"tc[0-9]+", text):
+        text = text.replace("tc", "Target Combo ")
+    if "dp " in text.lower():
+        text = text.replace("dp", "fddf")
+    return text
 
