@@ -60,7 +60,7 @@ for character, url in characters.items():
         currentElement = currentElement.findNext('img').findNext('table')
         tmpTable = getTableAsArray(currentElement)
         columns = [1, 0]
-        if tmpTable[0][0].rstrip().strip() == "Super Art":
+        if tmpTable[0][0].rstrip().strip() in ["Super Art", "Num."]:
             columns = [3, 1]
         for i in range(1, len(tmpTable)):
             p = re.compile("x[0-9]+")
