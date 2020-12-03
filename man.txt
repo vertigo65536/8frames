@@ -5,6 +5,7 @@ Valid games:
 > t7
 > sfv/sf5
 > sf4
+> sf3/3s
 
 valid commands:
 > punishable

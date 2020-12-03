@@ -1,5 +1,5 @@
 import discord, os
-import tools, t7, sfv, sf4
+import tools, t7, sfv, sf4, sf3
 from dotenv import load_dotenv
 
 def getGame(string):
@@ -9,6 +9,8 @@ def getGame(string):
         return sfv
     if string.lower() == "sf4":
         return sf4
+    if string.lower() in ["sf3", "3s"]:
+        return sf3
 
 def getManPage():
     f = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "man.txt"), "r")
