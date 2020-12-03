@@ -37,6 +37,8 @@ characters = {}
 for li in table.findAll('li'):
     characters[li.getText().rstrip().strip()] = origin_url + li.find('a')['href']
 
+characters = {"Ken": "http://wiki.shoryuken.com/Street_Fighter_3:_3rd_Strike/Ken"}
+
 for character, url in characters.items():
     if character == "Gill":
         continue
@@ -71,15 +73,14 @@ for character, url in characters.items():
         if currentElement.findNext('p').getText().rstrip() == "Frame Data":
             currentElement = currentElement.findNext('p').findNext('table')
             tmpTable = getTableAsArray(currentElement)
-            start = 0
-            if tmpTable[0][0].rstrip().strip() == 'Moves':
-                start = 1
             for i in range(1, len(tmpTable)):
                 try:
                     row[i-1]
                 except:
                     row.append(["", ""])
-                for j in range(start, len(tmpTable[i])):
+                for j in range(0, len(tmpTable[i])):
+                    if tmpTable[0][j].rstrip().strip() in ['Moves', 'Juggle Value']:
+                        continue
                     row[i-1].append(tmpTable[i][j].rstrip())
         if currentElement.findNext('p').getText().rstrip() == "Gauge Increase":
             currentElement = currentElement.findNext('p').findNext('table')
