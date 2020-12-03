@@ -37,7 +37,7 @@ characters = {}
 for li in table.findAll('li'):
     characters[li.getText().rstrip().strip()] = origin_url + li.find('a')['href']
 
-characters = {"Ken": "http://wiki.shoryuken.com/Street_Fighter_3:_3rd_Strike/Ken"}
+#characters = {"Ken": "http://wiki.shoryuken.com/Street_Fighter_3:_3rd_Strike/Ken"}
 
 for character, url in characters.items():
     if character == "Gill":
