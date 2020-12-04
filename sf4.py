@@ -156,8 +156,9 @@ def translateAcronym(text):
     text = str(text).lower()
     if re.match(r"tc[0-9]+", text):
         text = text.replace("tc", "target combo ")
-    if re.match("rekka [0-9]+", text) or  re.match(r"rekkaken [0-9]+", text):
+    if re.search(r"rekka [0-9]+", text) or  re.search(r"rekkaken [0-9]+", text):
         text = text.replace("rekka", "rekka part")
+        text = text.replace("rekkaken", "rekkaken part")
         text = text.replace("part 1", "")
     return text
 
