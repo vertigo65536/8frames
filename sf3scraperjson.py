@@ -111,3 +111,4 @@ for character, url in characters.items():
             break
     with open(os.path.join(folder, character + ".json"), 'w') as outfile:
         json.dump(frameData, outfile, indent=4)
+
