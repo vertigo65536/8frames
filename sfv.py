@@ -158,7 +158,7 @@ def getMinusMovesEmbed(character, punishable=0):
 def createMoveEmbed(dictionary, title, description):
     e = discord.Embed(title=title.title(), description=description.title())
     for key, value in dictionary.items():
-        if len(str(value)) > 1024:
+        if len(str(value)) > 1024 or key == 'i':
             continue
         e.add_field(
             name = key,
