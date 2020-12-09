@@ -1,28 +1,16 @@
 import tools
-import os, discord, csv
+import os, discord, json, re, string
 from fuzzy_match import match, algorithims
 from tabulate import tabulate
 
 path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "t7")
-
-def getColumnHeaders():
-    return [
-        "Command",
-        "Hit Level",
-        "Damage",
-        "Start up Frame",
-        "Block Frame",
-        "Hit Frame",
-        "Counter Hit Frame",
-        "Notes"
-        ]
 
 def parseCommand(command):
     character = parseAlias(tools.getMessagePrefix(command))
     content = tools.getMessageContent(command)
     files = os.listdir(path)
 
-    fuzzyMatch  = match.extractOne(character + ".csv", files)
+    fuzzyMatch  = match.extractOne(character + ".json", files)
     if fuzzyMatch[1] < 0.8:
         return "Could not find character '" + character + "'"
     file = path + "/" + fuzzyMatch[0]
@@ -31,20 +19,44 @@ def parseCommand(command):
     elif content == "lose turn":
         return getMinusMovesEmbed(getMinusMoves(file, 0), fuzzyMatch[0][:-4])
     else:
-        row = tools.getStoredRowByInput(content, file)
-        if row == -1:
-            return "Couldnt find move '" + content + "'"
-        return createSingleMoveEmbed(row, fuzzyMatch[0][:-4])
+        #row = tools.getStoredRowByInput(content, file)
+        searchOutput = []
+        searchOutput.append(findMoveByKey(content, file))
+        outputValue = searchOutput[0]
+        for i in range(len(searchOutput)):
+            if searchOutput[i][2] > outputValue[2]:
+                outputValue = searchOutput[i]
+        return createSingleMoveEmbed(outputValue[0], outputValue[1], fuzzyMatch[0][:-5])
 
-def createSingleMoveEmbed(dataArray, character):
+def findMoveByKey(query, f):
+#    try:
+    with open(f) as json_file:
+        moveList = json.load(json_file)
+        keyList = {}
+        keyArray = []
+        query = re.sub('['+string.punctuation.replace("+", "")+']', '', query).replace(" ", "")
+        for key, row in moveList.items():
+            editedKey = re.sub('['+string.punctuation.replace("+", "")+']', '', key).replace(" ", "")
+
+            keyArray.append(editedKey)
+            keyList[editedKey] = key
+        fuzzyMatch  = match.extractOne(query, keyArray)
+        return [moveList[keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
+#    except:
+        return -1
+ 
+def createSingleMoveEmbed(dataDict, moveName, character):
     e = discord.Embed(title=character)
-    titles = getColumnHeaders()
-    for i in range(len(dataArray)):
-        if dataArray[i] in ["", None]:
-            dataArray[i] = "n/a"
+    e.add_field(
+        name = "Move",
+        value = moveName
+    )
+    for key, value in dataDict.items():
+        if value in ['', None]:
+            value = 'n/a'
         e.add_field(
-            name = titles[i],
-            value = dataArray[i]
+            name = key,
+            value = value
         )
     return e
         
