@@ -38,8 +38,6 @@ def getButton(string):
 
 def parseCommand(command):
     character = tools.getMessagePrefix(command)
-    if character.lower() == "gen":
-        return "Use GenMantis or GenCrane"
     content = translateAcronym(tools.getMessageContent(command)).replace(" ", "")
     files = os.listdir(path)
 
