@@ -11,13 +11,15 @@ def parseCommand(command):
     files = os.listdir(path)
 
     fuzzyMatch  = match.extractOne(character + ".json", files)
+    character = fuzzyMatch[0][:-5]
+
     if fuzzyMatch[1] < 0.8:
         return "Could not find character '" + character + "'"
     file = path + "/" + fuzzyMatch[0]
     if content == "punishable":
-        return getMinusMovesEmbed(getMinusMoves(file, 1), fuzzyMatch[0][:-4]) 
+        return getMinusMoves(file, character, 1) 
     elif content == "lose turn":
-        return getMinusMovesEmbed(getMinusMoves(file, 0), fuzzyMatch[0][:-4])
+        return getMinusMoves(file, character, 0)
     else:
         #row = tools.getStoredRowByInput(content, file)
         searchOutput = []
@@ -26,7 +28,7 @@ def parseCommand(command):
         for i in range(len(searchOutput)):
             if searchOutput[i][2] > outputValue[2]:
                 outputValue = searchOutput[i]
-        return createSingleMoveEmbed(outputValue[0], outputValue[1], fuzzyMatch[0][:-5])
+        return createSingleMoveEmbed(outputValue[0], outputValue[1], character)
 
 def findMoveByKey(query, f):
 #    try:
@@ -60,10 +62,9 @@ def createSingleMoveEmbed(dataDict, moveName, character):
         )
     return e
         
-def getMinusMoves(file, punishable = 0):
-#try:
-    with open(file) as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter='`')
+def getMinusMoves(f, character, punishable = 0):
+    with open(f) as json_file:
+        moveList = json.load(json_file)
         moves = []
         minimum = 0
         maximum = 0
@@ -75,41 +76,38 @@ def getMinusMoves(file, punishable = 0):
             maximum = -200
         else:
             return -1
-        for row in csv_reader:
-            if len(row) <= 0 or row[4] in ["", None]:
-                continue
+        oBHeader = 'Block frame'
+        for key, move in moveList.items():
             try:
-                oB = row[4].split("~")
-                if (len(oB) == 1):
-                    continue
+                move[oBHeader]
             except:
-                oB = [row[4]]
+                continue
+            oB = move[oBHeader]
+            oB = str(oB).replace("~", "[").split("[")
             for i in range(len(oB)):
+                oB[i] = oB[i].replace("]", "")
                 try:
                     int(oB[i])
                 except:
                     continue
-                if int(oB[i]) < minimum and int(oB[i]) > maximum:
-                    moves.append(row)
+                if int(oB[i]) <= minimum and int(oB[i]) >= maximum:
+                    moves.append([key, move[oBHeader]])
                     break
-    return moves
-
-def getMinusMovesEmbed(data, character):
     e = discord.Embed(title=character)
-    titles = getColumnHeaders()
-    headers = [titles[0], titles[4]]
+    headers = ['Name', oBHeader]
     embedArray = []
     offset = 0
     finished = 0
-    listSize = 30
+    listSize = 41
     while(True):
         stringArray = []
-        for i in range(offset, offset + listSize - 1):
-            if i >= len(data):
+        for i in range(offset, offset + listSize):
+            if i >= len(moves):
                 finished = 1
                 break
-            stringArray.append([data[i][0], data[i][4]])
-        embedArray.append("```" + tabulate(stringArray, headers=headers) + "```")
+            stringArray.append([moves[i][0], moves[i][1]])
+        if stringArray != []:
+            embedArray.append("```" + tabulate(stringArray, headers=headers) + "```")
         offset += listSize
         if finished == 1:
             break
