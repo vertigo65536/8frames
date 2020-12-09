@@ -53,10 +53,8 @@ def parseCommand(command):
     if content.lower() == "loseturn":
         return getPunishable(file, character, 0)
     searchOutput = []
-    if "genei" not in content:
-        searchOutput.append(getMoveByValue(content, file, "Input"))
+    searchOutput.append(getMoveByValue(content, file, "input"))
     searchOutput.append(getMoveByName(content, file))
-    searchOutput.append(getMoveByValue(content, file, "Nickname"))
     outputValue = searchOutput[0]
     for i in range(len(searchOutput)):
         if searchOutput[i][2] > outputValue[2]:
@@ -69,13 +67,11 @@ def getMoveByName(query, f):
             moveList = json.load(json_file)
             keyList = {}
             keyArray = []
-            for key, row in moveList.items():
-                if "genei" not in query.lower() and "genei" in key.lower():
-                    continue
+            for key, row in moveList['moves'].items():
                 keyArray.append(tools.removePunctuation(key))
                 keyList[tools.removePunctuation(key)] = key
             fuzzyMatch  = match.extractOne(query, keyArray)
-            return [moveList[keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
+            return [moveList['moves'][keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
     except:
         return -1
    
@@ -86,13 +82,11 @@ def getMoveByValue(query, f, moveId):
             moveList = json.load(json_file)
             keyList = {}
             keyArray = []
-            for key, row in moveList.items():
-                if "genei" not in query.lower() and "genei" in key.lower():
-                    continue
+            for key, row in moveList['moves'].items():
                 keyArray.append(tools.removePunctuation(row[moveId]))
                 keyList[tools.removePunctuation(row[moveId])] = key
             fuzzyMatch  = match.extractOne(query, keyArray)
-            return [moveList[keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
+            return [moveList['moves'][keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
     except:
         return -1
 
@@ -108,7 +102,7 @@ def getMoveEmbed(moveRow, moveName, character):
 
 def getPunishable(f, character, punishable = 0):
     with open(f) as json_file:
-        moveList = json.load(json_file)
+        moveList = json.load(json_file)['moves']
         moves = []
         minimum = 0
         maximum = 0
@@ -120,10 +114,10 @@ def getPunishable(f, character, punishable = 0):
             maximum = -200
         else:
            return -1
-        oBHeader = 'Adv OnGuard'
+        oBHeader = 'onBlock'
         for key, move in moveList.items():
             oB = move[oBHeader]
-            oB = oB.split("[")
+            oB = str(oB).split("[")
             for i in range(len(oB)):
                 try:
                     int(oB[i])
