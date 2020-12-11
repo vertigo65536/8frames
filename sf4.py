@@ -55,35 +55,41 @@ def parseCommand(command):
     searchOutput.append(getMoveByName(content, file))
     outputValue = searchOutput[0]
     for i in range(len(searchOutput)):
+        if searchOutput[i] == -1:
+            continue
         if searchOutput[i][2] > outputValue[2]:
             outputValue = searchOutput[i]
     return getMoveEmbed(outputValue[0], outputValue[1], character)
 
 def getMoveByName(query, f):
+    query = removePunctuation(query)
     try:
         with open(f) as json_file:
             moveList = json.load(json_file)
             keyList = {}
             keyArray = []
             for key, row in moveList['moves'].items():
-                keyArray.append(tools.removePunctuation(key))
-                keyList[tools.removePunctuation(key)] = key
-            fuzzyMatch  = match.extractOne(query, keyArray)
+                keyArray.append(removePunctuation(key))
+                keyList[removePunctuation(key)] = key
+            fuzzyMatch  = match.extractOne(query, keyArray,  match_type='levenshtein')
             return [moveList['moves'][keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
     except:
         return -1
    
 
 def getMoveByValue(query, f, moveId):
+    query = removePunctuation(query)
     try:
         with open(f) as json_file:
             moveList = json.load(json_file)
             keyList = {}
             keyArray = []
             for key, row in moveList['moves'].items():
-                keyArray.append(tools.removePunctuation(row[moveId]))
-                keyList[tools.removePunctuation(row[moveId])] = key
-            fuzzyMatch  = match.extractOne(query, keyArray)
+                if moveId not in row:
+                    continue
+                keyArray.append(removePunctuation(row[moveId]))
+                keyList[removePunctuation(row[moveId])] = key
+            fuzzyMatch  = match.extractOne(query, keyArray, match_type='levenshtein')
             return [moveList['moves'][keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
     except:
         return -1
@@ -155,4 +161,4 @@ def translateAcronym(text):
     return text
 
 def removePunctuation(text):
-    return text.translate(str.maketrans('', '', string.punctuation)).rstrip().replace("+", "").lower().replace(" ", "")
+    return re.sub('['+string.punctuation.replace(">", "")+']', '', text).replace(" ", "")

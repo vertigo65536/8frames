@@ -23,6 +23,9 @@ for charName, character in data.items():
         moveInput = moveInput.replace("none", "").strip("+").strip()
         if moveInput == "":
             moveInput = "None"
-        character['moves'][key]['input'] = moveInput
+        if ">" in key:
+            print(key)
+        else:
+            character['moves'][key]['input'] = moveInput
     with open(os.path.join(folder, charName + ".json"), 'w') as outfile:
         json.dump(character, outfile, indent=4)
