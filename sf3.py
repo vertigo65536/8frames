@@ -88,6 +88,8 @@ def getPunishable(f, character, punishable = 0):
            return -1
         oBHeader = 'Blocked Advantage'
         for key, move in moveList.items():
+            if not oBHeader in move:
+                continue
             oB = move[oBHeader]
             oB = str(oB).split("[")
             for i in range(len(oB)):
