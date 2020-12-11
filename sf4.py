@@ -52,6 +52,7 @@ def parseCommand(command):
         return getPunishable(file, character, 0)
     searchOutput = []
     searchOutput.append(getMoveByValue(content, file, "input"))
+    searchOutput.append(getMoveByValue(content, file, "moveType"))
     searchOutput.append(getMoveByName(content, file))
     outputValue = searchOutput[0]
     for i in range(len(searchOutput)):
