@@ -161,4 +161,4 @@ def translateAcronym(text):
     return text
 
 def removePunctuation(text):
-    return re.sub('['+string.punctuation.replace(">", "")+']', '', text).replace(" ", "")
+    return re.sub('['+string.punctuation.replace(">", "")+']', '', text).replace(" ", "").lower()
