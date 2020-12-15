@@ -10,11 +10,11 @@ def parseCommand(command):
     content = tools.getMessageContent(command)
     files = os.listdir(path)
 
-    fuzzyMatch  = match.extractOne(character + ".json", files)
-    character = fuzzyMatch[0][:-5]
+    fuzzyMatch  = match.extractOne(character + ".json", files, match_type='levenshtein')
 
     if fuzzyMatch[1] < 0.8:
         return "Could not find character '" + character + "'"
+    character = fuzzyMatch[0][:-5]
     file = path + "/" + fuzzyMatch[0]
     if content == "punishable":
         return getMinusMoves(file, character, 1) 
@@ -36,13 +36,13 @@ def findMoveByKey(query, f):
         moveList = json.load(json_file)
         keyList = {}
         keyArray = []
-        query = re.sub('['+string.punctuation.replace("+", "")+']', '', query).replace(" ", "")
+        query = re.sub('['+string.punctuation.replace("+", "")+']', '', query).replace(" ", "").lower()
         for key, row in moveList.items():
-            editedKey = re.sub('['+string.punctuation.replace("+", "")+']', '', key).replace(" ", "")
+            editedKey = re.sub('['+string.punctuation.replace("+", "")+']', '', key).replace(" ", "").lower()
 
             keyArray.append(editedKey)
             keyList[editedKey] = key
-        fuzzyMatch  = match.extractOne(query, keyArray)
+        fuzzyMatch  = match.extractOne(query, keyArray, match_type='levenshtein')
         return [moveList[keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
 #    except:
         return -1
@@ -124,5 +124,7 @@ def parseAlias(name):
         return "Kuma"
     if name.lower() == "tiger":
         return "Eddy"
+    if name.lower() == "zaf":
+        return "Zafina"
     else:
         return name
