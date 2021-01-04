@@ -1,6 +1,6 @@
 import tools
 import os, discord, string, re, json
-from fuzzy_match import match, algorithims
+from fuzzywuzzy import process, fuzz
 from tabulate import tabulate
 
 path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sf4")
@@ -41,8 +41,8 @@ def parseCommand(command):
     content = translateAcronym(tools.getMessageContent(command)).replace(" ", "")
     files = os.listdir(path)
 
-    fuzzyMatch  = match.extractOne(character + ".json", files)
-    if fuzzyMatch[1] < 0.6:
+    fuzzyMatch  = process.extractOne(character, files, scorer=fuzz.partial_ratio)
+    if fuzzyMatch[1] < 60:
         return "Could not find character '" + character + "'"
     file = path + "/" + fuzzyMatch[0]
     character = fuzzyMatch[0].replace(".json", "")
@@ -72,7 +72,7 @@ def getMoveByName(query, f):
             for key, row in moveList['moves'].items():
                 keyArray.append(removePunctuation(key))
                 keyList[removePunctuation(key)] = key
-            fuzzyMatch  = match.extractOne(query, keyArray,  match_type='levenshtein')
+            fuzzyMatch  = process.extractOne(query, keyArray, scorer=fuzz.token_sort_ratio)
             return [moveList['moves'][keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
     except:
         return -1
@@ -90,7 +90,7 @@ def getMoveByValue(query, f, moveId):
                     continue
                 keyArray.append(removePunctuation(row[moveId]))
                 keyList[removePunctuation(row[moveId])] = key
-            fuzzyMatch  = match.extractOne(query, keyArray, match_type='levenshtein')
+            fuzzyMatch  = process.extractOne(query, keyArray, scorer=fuzz.token_sort_ratio)
             return [moveList['moves'][keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
     except:
         return -1
@@ -101,7 +101,7 @@ def getMoveEmbed(moveRow, moveName, character):
     for title, value in moveRow.items():
         e.add_field(
             name = title,
-            value = value
+            value = str(value).replace("*", "•")
         )
     return e
 
@@ -162,4 +162,4 @@ def translateAcronym(text):
     return text
 
 def removePunctuation(text):
-    return re.sub('['+string.punctuation.replace(">", "")+']', '', text).replace(" ", "").lower()
+    return re.sub('['+string.punctuation.replace(">", "")+']', '', text).lower()

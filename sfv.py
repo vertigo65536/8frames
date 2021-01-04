@@ -1,6 +1,6 @@
 import tools
 import os, discord, json, string, numpy
-from fuzzy_match import match, algorithims
+from fuzzywuzzy import process, fuzz
 from tabulate import tabulate
 
 sfvFile = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fatsfvframedatajson/sfv.json")
@@ -44,7 +44,7 @@ def parseCommand(command):
     for i in range(len(dataRaw)):
         if dataRaw[i][1] > dataKey[1]:
             dataKey = dataRaw[i]
-    if dataKey[1] < 0.25:
+    if dataKey[1] < 25:
         return "Could not find move"
     else:
         vtrigger = 'normal'
@@ -56,8 +56,8 @@ def fuzzyDict(search, d):
     for key in d.keys():
        keyArray.append(removePunctuation(key))
        keyDict[removePunctuation(key)] = key
-    selectedKey = match.extractOne(search, keyArray)
-    if selectedKey[1] >= 0.3:
+    selectedKey = process.extractOne(search, keyArray)
+    if selectedKey[1] >= 30:
         return keyDict[selectedKey[0]]
     else:
         return -1
@@ -68,7 +68,7 @@ def findByMoveName(search, d):
     for key in d.keys():
         plnArray.append(removePunctuation(key))
         keyDict[removePunctuation(key)] = key
-    selectedKey = match.extractOne(search, plnArray)
+    selectedKey = process.extractOne(search, plnArray, scorer=fuzz.token_sort_ratio)
     return [keyDict[selectedKey[0]], selectedKey[1]]
 
 def findByPlnCmd(search, d):
@@ -83,7 +83,7 @@ def findByPlnCmd(search, d):
     for key in d.keys():
         plnArray.append(removePunctuation(d[key]['plnCmd']))
         keyDict[removePunctuation(d[key]['plnCmd'])] = key
-    selectedKey = match.extractOne(search, plnArray)
+    selectedKey = process.extractOne(search, plnArray, scorer=fuzz.token_sort_ratio)
     return [keyDict[selectedKey[0]], selectedKey[1]]
 
 def getMinusMoves(character, punishable=0):

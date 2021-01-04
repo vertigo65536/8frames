@@ -68,4 +68,4 @@ def getUserId(user):
             return -1
 
 def removePunctuation(text):
-    return text.translate(str.maketrans('', '', string.punctuation)).rstrip().lower().replace(" ", "")
+    return text.translate(str.maketrans('', '', string.punctuation)).rstrip().lower()

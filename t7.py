@@ -1,6 +1,6 @@
 import tools
 import os, discord, json, re, string
-from fuzzy_match import match, algorithims
+from fuzzywuzzy import process, fuzz
 from tabulate import tabulate
 
 path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "t7")
@@ -10,9 +10,9 @@ def parseCommand(command):
     content = tools.getMessageContent(command)
     files = os.listdir(path)
 
-    fuzzyMatch  = match.extractOne(character + ".json", files, match_type='levenshtein')
+    fuzzyMatch  = process.extractOne(character, files)
 
-    if fuzzyMatch[1] < 0.8:
+    if fuzzyMatch[1] < 80:
         return "Could not find character '" + character + "'"
     character = fuzzyMatch[0][:-5]
     file = path + "/" + fuzzyMatch[0]
@@ -42,7 +42,7 @@ def findMoveByKey(query, f):
 
             keyArray.append(editedKey)
             keyList[editedKey] = key
-        fuzzyMatch  = match.extractOne(query, keyArray, match_type='levenshtein')
+        fuzzyMatch  = process.extractOne(query, keyArray, scorer=fuzz.ratio)
         return [moveList[keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
 #    except:
         return -1

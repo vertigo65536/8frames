@@ -1,6 +1,7 @@
 #!/bin/bash
 
-pip install fuzzy-match --user || pip3 install fuzzy-match --user
+pip install fuzzywuzzy --user || pip3 install fuzzywuzzy --user
+pip install python-Levenshtein --user || pip3 install python-Levenshtein --user
 pip install numpy --user || pip3 install numpy --user
 pip install tabulate --user || pip3 install tabulate --user
 pip install word2number --user || pip3 install word2number --user

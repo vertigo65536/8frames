@@ -1,6 +1,6 @@
 import tools
 import os, discord, string, re, json
-from fuzzy_match import match, algorithims
+from fuzzywuzzy import process, fuzz
 from tabulate import tabulate
 
 path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sf3")
@@ -10,8 +10,8 @@ def parseCommand(command):
     content = translateAcronym(tools.getMessageContent(command)).replace(" ", "")
     files = os.listdir(path)
 
-    fuzzyMatch  = match.extractOne(character + ".json", files)
-    if fuzzyMatch[1] < 0.6:
+    fuzzyMatch  = process.extractOne(character, files, scorer=fuzz.partial_ratio)
+    if fuzzyMatch[1] < 60:
         return "Could not find character '" + character + "'"
     file = path + "/" + fuzzyMatch[0]
     character = fuzzyMatch[0].replace(".json", "")
@@ -37,7 +37,7 @@ def getMoveByName(query, f):
             for key, row in moveList.items():
                 keyArray.append(tools.removePunctuation(key))
                 keyList[tools.removePunctuation(key)] = key
-            fuzzyMatch  = match.extractOne(query, keyArray)
+            fuzzyMatch  = process.extractOne(query, keyArray, scorer=fuzz.token_sort_ratio)
             return [moveList[keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
     except:
         return -1
@@ -52,7 +52,7 @@ def getMoveByValue(query, f, moveId):
             for key, row in moveList.items():
                 keyArray.append(tools.removePunctuation(row[moveId]))
                 keyList[tools.removePunctuation(row[moveId])] = key
-            fuzzyMatch  = match.extractOne(query, keyArray)
+            fuzzyMatch  = process.extractOne(query, keyArray, scorer=fuzz.token_sort_ratio)
             return [moveList[keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
     except:
         return -1
