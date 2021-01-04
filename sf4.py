@@ -40,9 +40,8 @@ def parseCommand(command):
     character = tools.getMessagePrefix(command)
     content = translateAcronym(tools.getMessageContent(command)).replace(" ", "")
     files = os.listdir(path)
-
-    fuzzyMatch  = process.extractOne(character, files, scorer=fuzz.partial_ratio)
-    if fuzzyMatch[1] < 60:
+    fuzzyMatch  = process.extractOne(character, files, scorer=fuzz.ratio)
+    if fuzzyMatch[1] < 40:
         return "Could not find character '" + character + "'"
     file = path + "/" + fuzzyMatch[0]
     character = fuzzyMatch[0].replace(".json", "")
