@@ -21,7 +21,6 @@ def parseCommand(command):
     elif content == "lose turn":
         return getMinusMoves(file, character, 0)
     else:
-        #row = tools.getStoredRowByInput(content, file)
         searchOutput = []
         searchOutput.append(findMoveByKey(content, file))
         outputValue = searchOutput[0]

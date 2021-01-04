@@ -1,5 +1,5 @@
 import csv, os, json, string
-from fuzzy_match import match, algorithims
+from fuzzywuzzy import process, fuzz
 
 # Returns the first word from a string (Usually a bot command)
 
@@ -23,26 +23,26 @@ def getMessageContent(message):
         
 #Returns a value from a CSV, from a given value
 
-def getStoredRowByInput(id, file):
-    try:
-        with open(file) as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter='`')
-            line_count = 0
-            id = str(id).translate(str.maketrans('', '', string.punctuation)).lower()
-            moveData = {}
-            moveKeys = []
-            counter = 0
-            for row in csv_reader:
-                if len(row) <= 0:
-                    continue
-                moveKeys.append(row[0].translate(str.maketrans('', '', string.punctuation)))
-                moveData[moveKeys[counter]] = row
-                if moveKeys[counter] == id:
-                    return row
-                counter += 1
-            return moveData[match.extractOne(id, moveKeys)[0]]
-    except:
-        return -1
+#def getStoredRowByInput(id, file):
+#    try:
+#        with open(file) as csv_file:
+#            csv_reader = csv.reader(csv_file, delimiter='`')
+#            line_count = 0
+#            id = str(id).translate(str.maketrans('', '', string.punctuation)).lower()
+#            moveData = {}
+#            moveKeys = []
+#            counter = 0
+#            for row in csv_reader:
+#                if len(row) <= 0:
+#                    continue
+#                moveKeys.append(row[0].translate(str.maketrans('', '', string.punctuation)))
+#                moveData[moveKeys[counter]] = row
+#                if moveKeys[counter] == id:
+#                    return row
+#                counter += 1
+#            return moveData[process.extractOne(id, moveKeys)[0]]
+#    except:
+#        return -1
 
 
 # Determines a user's colour and returns it
