@@ -10,9 +10,9 @@ def parseCommand(command):
     content = tools.getMessageContent(command)
     files = os.listdir(path)
 
-    fuzzyMatch  = process.extractOne(character, files)
+    fuzzyMatch  = process.extractOne(character, files, scorer=fuzz.ratio)
 
-    if fuzzyMatch[1] < 80:
+    if fuzzyMatch[1] < 50:
         return "Could not find character '" + character + "'"
     character = fuzzyMatch[0][:-5]
     file = path + "/" + fuzzyMatch[0]
