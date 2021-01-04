@@ -7,7 +7,7 @@ path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sf3")
 
 def parseCommand(command):
     character = tools.getMessagePrefix(command)
-    content = translateAcronym(tools.getMessageContent(command)).replace(" ", "")
+    content = translateAcronym(tools.getMessageContent(command))
     files = os.listdir(path)
 
     fuzzyMatch  = process.extractOne(character, files, scorer=fuzz.partial_ratio)
@@ -20,6 +20,7 @@ def parseCommand(command):
     if content.lower() == "loseturn":
         return getPunishable(file, character, 0)
     searchOutput = []
+    content = tools.removePunctuation(content)
     searchOutput.append(getMoveByValue(content, file, "Motion"))
     searchOutput.append(getMoveByName(content, file))
     outputValue = searchOutput[0]
@@ -45,13 +46,14 @@ def getMoveByName(query, f):
 
 def getMoveByValue(query, f, moveId):
     try:
+        query = query.replace(" ", "")
         with open(f) as json_file:
             moveList = json.load(json_file)
             keyList = {}
             keyArray = []
             for key, row in moveList.items():
-                keyArray.append(tools.removePunctuation(row[moveId]))
-                keyList[tools.removePunctuation(row[moveId])] = key
+                keyArray.append(tools.removePunctuation(row[moveId]).replace(" ", ""))
+                keyList[tools.removePunctuation(row[moveId]).replace(" ", "")] = key
             fuzzyMatch  = process.extractOne(query, keyArray, scorer=fuzz.token_sort_ratio)
             return [moveList[keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
     except:
@@ -124,6 +126,6 @@ def translateAcronym(text):
     text = str(text).lower()
     if re.match(r"tc[0-9]+", text):
         text = text.replace("tc", "target combo ")
-    if "dp " in text.lower():
+    if "dp" in text:
         text = text.replace("dp", "fddf")
     return text
