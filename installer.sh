@@ -7,6 +7,6 @@ pip install tabulate --user || pip3 install tabulate --user
 pip install word2number --user || pip3 install word2number --user
 pip install google_trans_new --user || pip3 install google_trans_new --user
 pip install discord --user || pip3 install discord --user
-
+pip install python-dotenv --user || pip3 install python-dotenv --user
 
 git clone https://github.com/D4RKONION/fatsfvframedatajson.git
