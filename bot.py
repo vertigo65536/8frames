@@ -1,6 +1,8 @@
-import discord, os
+import discord, os, numpy
 import tools, t7, sfv, sf4, sf3
+from fuzzywuzzy import process, fuzz
 from dotenv import load_dotenv
+from tabulate import tabulate
 
 def getGame(string):
     if string.lower() == "t7":
@@ -19,15 +21,64 @@ def getManPage():
     print("Failed to open man file")
     return
 
+def parseCommand(command, game):
+    character = tools.getMessagePrefix(command)
+    character = game.translateAlias(character)
+    content = game.translateAcronym(tools.getMessageContent(command))
+    files = os.listdir(game.getPath())
+    fuzzyMatch  = process.extractOne(character, files, scorer=fuzz.ratio)
+    if fuzzyMatch[1] < 40:
+        return "Could not find character '" + character + "'"
+    characterFile = game.getPath() + "/" + fuzzyMatch[0]
+    character = fuzzyMatch[0].replace(".json", "")
+    if content.lower() == "punishable":
+        moves = game.getPunishable(characterFile, character, 1)
+        return formatMoveList(moves, character)
+    if content.lower() == "lose turn":
+        moves = game.getPunishable(characterFile, character, 0)
+        return formatMoveList(moves, character)
+    searchOutput = game.getPossibleMoves(content, characterFile)
+    if isinstance(searchOutput, str):
+        return searchOutput
+    outputValue = searchOutput[0]
+    for i in range(len(searchOutput)):
+        if searchOutput[i] == -1:
+            continue
+        if searchOutput[i][2] > outputValue[2]:
+            outputValue = searchOutput[i]
+    return game.getMoveEmbed(outputValue[0], outputValue[1], character)
 
+def formatMoveList(moves, character):
+    if not isinstance(moves, list):
+        return
+    e = discord.Embed(title=character)
+    headers = moves[1]
+    moves = moves[0]
+    embedArray = []
+    offset = 0
+    finished = 0
+    listSize = 41
+    while(True):
+        stringArray = []
+        for i in range(offset, offset + listSize):
+            if i >= len(moves):
+                finished = 1
+                break
+            stringArray.append([moves[i][0], moves[i][1]])
+        embedArray.append("```" + tabulate(stringArray, headers=headers) + "```")
+        offset += listSize
+        if finished == 1:
+            break
+    return embedArray
+ 
 async def handleMessage(message):
    prefix = tools.getMessagePrefix(message.content)
    content = tools.getMessageContent(message.content)
    commandSplit = prefix.split("!")
    if commandSplit[0].lower() in ["8frames", "8f"]:
-       if commandSplit[1] in "man, help":
+       if commandSplit[1] in ["man", "help"]:
            return getManPage()
-       return getGame(commandSplit[1]).parseCommand(content)
+       return parseCommand(content, getGame(commandSplit[1]))
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')

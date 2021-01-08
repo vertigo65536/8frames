@@ -34,6 +34,31 @@ def getUserColour(message):
 
 # Returns the user ID for nickname
 
+def searchMove(query, f, moveId, punct, scorer, extraLevel=[]):
+    query = removePunctuation(query, punct)
+    try:
+        with open(f) as json_file:
+            moveList = json.load(json_file)
+            keyList = {}
+            keyArray = []
+            for i in range(len(extraLevel)):
+                moveList = moveList[extraLevel[i]]
+            if moveId != 'key':
+                for key, row in moveList.items():
+                    if moveId not in row:
+                        continue
+                    keyArray.append(removePunctuation(row[moveId], punct))
+                    keyList[removePunctuation(row[moveId], punct)] = key
+            else:
+                for key, row in moveList.items():
+                    keyArray.append(removePunctuation(key, punct))
+                    keyList[removePunctuation(key, punct)] = key
+            fuzzyMatch  = process.extractOne(query, keyArray, scorer=scorer)
+            return [moveList[keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
+    except:
+        return -1
+
+
 def getUserId(user):
     userPath = os.path.join(os.path.dirname(os.path.abspath(__file__)), "users.json")
     with open(userPath) as json_file:
@@ -43,6 +68,6 @@ def getUserId(user):
         except:
             return -1
 
-def removePunctuation(text):
-    #return text.translate(str.maketrans('', '', string.punctuation)).rstrip().lower()
-    return text.translate ({ord(c): " " for c in "!@#$%^&*()[]{};:,./<>?\|`~-=_+"}).rstrip().lower()
+def removePunctuation(text, punct):
+    text = text.translate ({ord(c): punct[1] for c in punct[0]}).rstrip().lower()
+    return text

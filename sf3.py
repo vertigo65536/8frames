@@ -1,78 +1,20 @@
-import tools
-import os, discord, string, re, json
-from fuzzywuzzy import process, fuzz
-from tabulate import tabulate
+import tools, os, re, discord, json
+from fuzzywuzzy import fuzz
 
 path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sf3")
+punct = "!@#$%^&*()[]{};:,./<>?\|`~-=_+"
+replacePunct = " "
 
-def parseCommand(command):
-    character = tools.getMessagePrefix(command)
-    content = translateAcronym(tools.getMessageContent(command))
-    files = os.listdir(path)
+def getPath():
+    return path
 
-    fuzzyMatch  = process.extractOne(character, files, scorer=fuzz.partial_ratio)
-    if fuzzyMatch[1] < 60:
-        return "Could not find character '" + character + "'"
-    file = path + "/" + fuzzyMatch[0]
-    character = fuzzyMatch[0].replace(".json", "")
-    if content.lower() == "punishable":
-        return getPunishable(file, character, 1)
-    if content.lower() == "loseturn":
-        return getPunishable(file, character, 0)
+def getPossibleMoves(content, characterFile, extraLevels=[]):
     searchOutput = []
-    content = tools.removePunctuation(content)
-    searchOutput.append(getMoveByValue(content, file, "Motion"))
-    searchOutput.append(getMoveByName(content, file))
-    outputValue = searchOutput[0]
-    for i in range(len(searchOutput)):
-        if searchOutput[i][2] > outputValue[2]:
-            outputValue = searchOutput[i]
-    return getMoveEmbed(outputValue[0], outputValue[1], character)
-
-def getMoveByName(query, f):
-    try:
-        with open(f) as json_file:
-            moveList = json.load(json_file)
-            keyList = {}
-            keyArray = []
-            for key, row in moveList.items():
-                keyArray.append(tools.removePunctuation(key))
-                keyList[tools.removePunctuation(key)] = key
-            fuzzyMatch  = process.extractOne(query, keyArray, scorer=fuzz.token_sort_ratio)
-            return [moveList[keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
-    except:
-        return -1
-   
-
-def getMoveByValue(query, f, moveId):
-    try:
-        query = query.replace(" ", "")
-        with open(f) as json_file:
-            moveList = json.load(json_file)
-            keyList = {}
-            keyArray = []
-            for key, row in moveList.items():
-                keyArray.append(tools.removePunctuation(row[moveId]).replace(" ", ""))
-                keyList[tools.removePunctuation(row[moveId]).replace(" ", "")] = key
-            fuzzyMatch  = process.extractOne(query, keyArray, scorer=fuzz.token_sort_ratio)
-            return [moveList[keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
-    except:
-        return -1
-
-def getMoveEmbed(moveRow, moveName, character):
-    e = discord.Embed(title=character)
-    e.add_field(name = "Name", value = moveName)
-    for title, value in moveRow.items():
-        if title != 'Image':
-            e.add_field(
-                name = title,
-                value = value
-            )
-    try:
-        e.set_image(url=moveRow['Image'])
-    except:
-        pass
-    return e
+    scorer = fuzz.token_sort_ratio
+    punctuation = [punct, replacePunct]
+    searchOutput.append(tools.searchMove(content, characterFile, "Motion", punctuation, scorer))
+    searchOutput.append(tools.searchMove(content, characterFile, "key", punctuation, scorer))
+    return searchOutput
 
 def getPunishable(f, character, punishable = 0):
     with open(f) as json_file:
@@ -103,25 +45,12 @@ def getPunishable(f, character, punishable = 0):
                 if int(oB[i]) <= minimum and int(oB[i]) >= maximum:
                     moves.append([key, move[oBHeader]])
                     break
-    e = discord.Embed(title=character)
-    headers = ['Name', oBHeader]
-    embedArray = []
-    offset = 0
-    finished = 0
-    listSize = 41
-    while(True):
-        stringArray = []
-        for i in range(offset, offset + listSize):
-            if i >= len(moves):
-                finished = 1
-                break
-            stringArray.append([moves[i][0], moves[i][1]])
-        embedArray.append("```" + tabulate(stringArray, headers=headers) + "```")
-        offset += listSize
-        if finished == 1:
-            break
-    return embedArray
- 
+    return [moves, ['Name', oBHeader]]
+
+
+def translateAlias(text):
+    return text
+
 def translateAcronym(text):
     text = str(text).lower()
     if re.match(r"tc[0-9]+", text):
@@ -129,3 +58,24 @@ def translateAcronym(text):
     if "dp" in text:
         text = text.replace("dp", "fddf")
     return text
+
+def getMoveEmbed(moveRow, moveName, character):
+    e = discord.Embed(title=character)
+    e.add_field(name = "Name", value = moveName)
+    for title, value in moveRow.items():
+        if title != 'Image':
+            e.add_field(
+                name = title,
+                value = value
+            )
+    try:
+        e.set_image(url=moveRow['Image'])
+    except:
+        pass
+    return e
+
+def getBadPunctuation():
+    return punct
+
+def getPunctReplacement():
+    return replacePunct
