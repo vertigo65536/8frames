@@ -26,7 +26,7 @@ def parseCommand(command, game):
     character = game.translateAlias(character)
     content = game.translateAcronym(tools.getMessageContent(command))
     files = os.listdir(game.getPath())
-    fuzzyMatch  = process.extractOne(character, files, scorer=fuzz.ratio)
+    fuzzyMatch  = process.extractOne(character + ".json", files, scorer=fuzz.ratio)
     if fuzzyMatch[1] < 40:
         return "Could not find character '" + character + "'"
     characterFile = game.getPath() + "/" + fuzzyMatch[0]
