@@ -57,6 +57,7 @@ def translateAcronym(text):
         text = text.replace("tc", "target combo ")
     if "dp" in text:
         text = text.replace("dp", "fddf")
+    text = text.replace("jump", "air")
     return text
 
 def getMoveEmbed(moveRow, moveName, character):
