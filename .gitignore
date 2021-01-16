@@ -5,4 +5,6 @@ __pycache__/
 fatsfvframedatajson
 sf4/
 sf3/
+sfv/
 frame-data/
+FrameDataScripts/sf3InputFixer.py

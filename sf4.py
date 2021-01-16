@@ -12,9 +12,10 @@ def getPossibleMoves(content, characterFile, extraLevels=['moves']):
     searchOutput = []
     scorer = fuzz.token_sort_ratio
     punctuation = [punct, replacePunct]
-    searchOutput.append(tools.searchMove(content, characterFile, "input", punctuation, scorer, extraLevels))
+    searchOutput.append(tools.searchMove(content, characterFile, "input", punctuation, fuzz.ratio, extraLevels))
     searchOutput.append(tools.searchMove(content, characterFile, "moveType", punctuation, scorer, extraLevels))
     searchOutput.append(tools.searchMove(content, characterFile, "key", punctuation, scorer, extraLevels))
+    searchOutput.append(tools.searchMove(content, characterFile, "key", punctuation, fuzz.ratio, extraLevels))
     return searchOutput
 
 def getPunishable(f, character, punishable = 0):
@@ -48,6 +49,8 @@ def getPunishable(f, character, punishable = 0):
 
 
 def translateAlias(text):
+    text = text.lower()
+    text = text.replace("eryu", "Evil Ryu")
     return text
 
 def translateAcronym(text):

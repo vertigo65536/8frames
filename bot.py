@@ -27,7 +27,7 @@ def parseCommand(command, game):
     content = game.translateAcronym(tools.getMessageContent(command))
     files = os.listdir(game.getPath())
     fuzzyMatch  = process.extractOne(character + ".json", files, scorer=fuzz.ratio)
-    if fuzzyMatch[1] < 40:
+    if fuzzyMatch[1] < 70:
         return "Could not find character '" + character + "'"
     characterFile = game.getPath() + "/" + fuzzyMatch[0]
     character = fuzzyMatch[0].replace(".json", "")
@@ -46,7 +46,10 @@ def parseCommand(command, game):
             continue
         if searchOutput[i][2] > outputValue[2]:
             outputValue = searchOutput[i]
-    return game.getMoveEmbed(outputValue[0], outputValue[1], character)
+    if outputValue[2] < 60:
+        return "Move not found"
+    else:
+        return game.getMoveEmbed(outputValue[0], outputValue[1], character)
 
 def formatMoveList(moves, character):
     if not isinstance(moves, list):
