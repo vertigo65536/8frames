@@ -53,11 +53,19 @@ def getPunishable(f, character, punishable=0):
         array = json.load(json_file)['moves']
         outputValues = {}
         if punishable == 1:
-            minimum = -3
-            maximum = -2000
+            minimum = -200
+            maximum = -3
+        elif punishable == 0:
+            minimum = -2
+            maximum = -1
+        elif punishable == 2:
+            minimum = -2
+            maximum = 200
+        elif punishable == 3:
+            minimum = 1
+            maximum = 200
         else:
-            minimum = -1
-            maximum = -2
+            return -1
         for vt, moves in array.items():
             outputValues[vt] = []
             for key, move in moves.items():
@@ -74,7 +82,7 @@ def getPunishable(f, character, punishable=0):
                         int(block[i])
                     except:
                         continue
-                    if int(block[i]) <= minimum and int(block[i]) >= maximum:
+                    if int(block[i]) >= minimum and int(block[i]) <= maximum:
                         try:
                             outputValues[vt].append({
                                 'move': key,

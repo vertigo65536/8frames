@@ -10,6 +10,8 @@ Valid games:
 valid commands:
 > punishable
 > lose turn
+> safe
+> plus
 > <move input>
 
 If you need to send a buff with a command, send the command as:

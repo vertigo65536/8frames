@@ -20,11 +20,17 @@ def getPunishable(f, character, punishable = 0):
         minimum = 0
         maximum = 0
         if punishable == 0:
-            minimum = 0
-            maximum = -9
-        elif punishable == 1:
             minimum = -9
-            maximum = -200
+            maximum = 0
+        elif punishable == 1:
+            minimum = -200
+            maximum = -9
+        elif punishable == 2:
+            minimum = -8
+            maximum = 200
+        elif punishable == 3:
+            minimum = 1
+            maximum = 200
         else:
             return -1
         oBHeader = 'Block frame'
@@ -41,7 +47,7 @@ def getPunishable(f, character, punishable = 0):
                     int(oB[i])
                 except:
                     continue
-                if int(oB[i]) <= minimum and int(oB[i]) >= maximum:
+                if int(oB[i]) >= minimum and int(oB[i]) <= maximum:
                     moves.append([key, move[oBHeader]])
                     break
     return [moves, ['Name', oBHeader]]

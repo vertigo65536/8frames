@@ -31,12 +31,17 @@ def parseCommand(command, game):
         return "Could not find character '" + character + "'"
     characterFile = game.getPath() + "/" + fuzzyMatch[0]
     character = fuzzyMatch[0].replace(".json", "")
-    if content.lower() == "punishable":
-        moves = game.getPunishable(characterFile, character, 1)
-        return formatMoveList(moves, character)
-    if content.lower() == "lose turn":
-        moves = game.getPunishable(characterFile, character, 0)
-        return formatMoveList(moves, character)
+    presetCmds = {
+        'lose turn': 0,
+        'punishable': 1,
+        'safe': 2,
+        'plus': 3
+    }
+    for key, value in presetCmds.items():
+        if content.lower() == key:
+            moves = game.getPunishable(characterFile, character, value)
+            return formatMoveList(moves, character)
+
     searchOutput = game.getPossibleMoves(content, characterFile)
     if isinstance(searchOutput, str):
         return searchOutput
