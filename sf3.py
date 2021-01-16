@@ -12,7 +12,8 @@ def getPossibleMoves(content, characterFile, extraLevels=[]):
     searchOutput = []
     scorer = fuzz.token_sort_ratio
     punctuation = [punct, replacePunct]
-    searchOutput.append(tools.searchMove(content, characterFile, "Motion", punctuation, scorer))
+    searchOutput.append(tools.searchMove(content, characterFile, "Motion", punctuation, fuzz.ratio))
+    searchOutput.append(tools.searchMove(formatAsInput(content), characterFile, "Motion", punctuation, fuzz.ratio))
     searchOutput.append(tools.searchMove(content, characterFile, "key", punctuation, scorer))
     return searchOutput
 
@@ -75,6 +76,30 @@ def getMoveEmbed(moveRow, moveName, character):
     except:
         pass
     return e
+
+def formatAsInput(string):
+    moveConversion = {
+        'cr': 'd+',
+        'j': '(air)',
+        'fierce': 'hp',
+        'strong': 'mp',
+        'jab': 'lp',
+        'short': 'lk',
+        'forward': 'mk',
+        'roundhouse': 'hk',
+        'light kick': 'lk',
+        'medium kick': 'mk',
+        'heavy kick': 'hk',
+        'light punch': 'lp',
+        'medium punch': 'mp',
+        'heavy punch': 'hp',
+        'crouch': 'cr',
+        'standing': '',
+        'far': ''
+    }
+    for key, value in moveConversion.items():
+        string = string.replace(key, value)
+    return string
 
 def getBadPunctuation():
     return punct
