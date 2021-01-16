@@ -15,6 +15,7 @@ def getPossibleMoves(content, characterFile, extraLevels=[]):
     searchOutput.append(tools.searchMove(content, characterFile, "Motion", punctuation, fuzz.ratio))
     searchOutput.append(tools.searchMove(formatAsInput(content), characterFile, "Motion", punctuation, fuzz.ratio))
     searchOutput.append(tools.searchMove(content, characterFile, "key", punctuation, scorer))
+    searchOutput.append(tools.searchMove(formatAsInput(content, 1), characterFile, "key", punctuation, scorer))
     return searchOutput
 
 def getPunishable(f, character, punishable = 0):
@@ -77,7 +78,7 @@ def getMoveEmbed(moveRow, moveName, character):
         pass
     return e
 
-def formatAsInput(string):
+def formatAsInput(string, reverse = 0):
     moveConversion = {
         'cr': 'd+',
         'j': '(air)',
@@ -98,7 +99,11 @@ def formatAsInput(string):
         'far': ''
     }
     for key, value in moveConversion.items():
-        string = string.replace(key, value)
+        if reverse == 0:
+            string = string.replace(key, value)
+        elif reverse == 1:
+            if value != '':
+                string = string.replace(value, key)
     return string
 
 def getBadPunctuation():
