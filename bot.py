@@ -1,4 +1,4 @@
-import discord, os, numpy
+import discord, os, numpy, re
 import tools, t7, sfv, sf4, sf3
 from fuzzywuzzy import process, fuzz
 from dotenv import load_dotenv
@@ -38,10 +38,14 @@ def parseCommand(command, game):
         'plus': 3
     }
     for key, value in presetCmds.items():
-        if content.lower() == key:
+        if content == key:
             moves = game.getPunishable(characterFile, character, value)
             return formatMoveList(moves, character)
-
+    if re.match('\d+f? punish', content):
+        punishValue = content.replace("f ", "").replace("punish", "")
+        punishValue = int(punishValue.rstrip().strip())
+        moves = game.getPunish(characterFile, character, punishValue)
+        return formatMoveList(moves, character)
     searchOutput = game.getPossibleMoves(content, characterFile)
     if isinstance(searchOutput, str):
         return searchOutput
@@ -57,6 +61,8 @@ def parseCommand(command, game):
         return game.getMoveEmbed(outputValue[0], outputValue[1], character)
 
 def formatMoveList(moves, character):
+    if moves[0] == []:
+        return 'None'
     if not isinstance(moves, list):
         return
     e = discord.Embed(title=character)

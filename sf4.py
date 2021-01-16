@@ -53,6 +53,31 @@ def getPunishable(f, character, punishable = 0):
                     break
     return [moves, ['Name', oBHeader]]
 
+def getPunish(f, character, startupQuery):
+    with open(f) as json_file:
+        moveList = json.load(json_file)['moves']
+        moves = []
+        startup = 'startup'
+        for key, move in moveList.items():
+            if 'Jump' in key:
+                continue
+            if not startup in move:
+                continue
+            startupVal = move[startup]
+            startupVal = str(startupVal).replace("~", "[").replace("/", "[").replace("～", "[")
+            startupVal = str(startupVal).split("[")
+            for i in range(len(startupVal)):
+                startupVal[i] = startupVal[i].rstrip().strip()
+                try:
+                    int(startupVal[i])
+                except:
+                    continue
+                startupVal[i].replace("]", "")
+                if int(startupVal[i]) <= startupQuery:
+                    moves.append([key, move[startup]])
+                    break
+    return [moves, ['Name', startup]]
+
 
 def translateAlias(text):
     text = text.lower()

@@ -109,6 +109,32 @@ def getPunishable(f, character, punishable=0):
             outputArray.append(tmpRow)
     return [outputArray, ['Name', 'oB', 'Vtc oB']]
 
+def getPunish(f, character, startupQuery):
+    with open(f) as json_file:
+        moveList = json.load(json_file)['moves']
+        moves = []
+        startup = 'startup'
+        for vt, moveSubList in moveList.items():
+            for key, move in moveSubList.items():
+                if 'Jump' in key:
+                    continue
+                if not startup in move:
+                    continue
+                startupVal = move[startup]
+                startupVal = str(startupVal).replace("~", "[").replace("/", "[").replace("～", "[")
+                startupVal = str(startupVal).split("[")
+                for i in range(len(startupVal)):
+                    startupVal[i] = startupVal[i].rstrip().strip()
+                    try:
+                        int(startupVal[i])
+                    except:
+                        continue
+                    startupVal[i].replace("]", "")
+                    if int(startupVal[i]) <= startupQuery:
+                        moves.append([key, move[startup]])
+                        break
+    return [moves, ['Name', startup]]
+
 
 def translateAlias(name):
     return name

@@ -12,6 +12,7 @@ valid commands:
 > lose turn
 > safe
 > plus
+> x(f) punish
 > <move input>
 
 If you need to send a buff with a command, send the command as:
@@ -27,5 +28,6 @@ examples of valid commands:
 > 8f!sfv chunli vt1:sthp
 > 8f!sfv akuma vs1
 > 8f!sf4 ryu hadoken
+> 8f!3s yun 5f punish
 
 report bugs to @Vertigo#2894
