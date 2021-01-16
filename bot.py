@@ -73,15 +73,25 @@ def formatMoveList(moves, character):
         if finished == 1:
             break
     return embedArray
- 
+
+def isAdmin(authorId):
+    admins = os.getenv('ADMIN_ID').split(" ")
+    if str(authorId) in admins:
+        return True
+    else:
+        return False
+
 async def handleMessage(message):
-   prefix = tools.getMessagePrefix(message.content)
-   content = tools.getMessageContent(message.content)
-   commandSplit = prefix.split("!")
-   if commandSplit[0].lower() in ["8frames", "8f"]:
-       if commandSplit[1] in ["man", "help"]:
-           return getManPage()
-       return parseCommand(content, getGame(commandSplit[1]))
+    prefix = tools.getMessagePrefix(message.content)
+    content = tools.getMessageContent(message.content)
+    commandSplit = prefix.split("!")
+    if commandSplit[0].lower() in ["8frames", "8f"]:
+        if commandSplit[1] in ["man", "help"]:
+            return getManPage()
+        if isAdmin(message.author.id):
+            if commandSplit[1] == 'servers':
+                return str(client.guilds)
+        return parseCommand(content, getGame(commandSplit[1]))
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
