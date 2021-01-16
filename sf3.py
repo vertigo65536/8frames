@@ -43,8 +43,10 @@ def getPunishable(f, character, punishable = 0):
             if not oBHeader in move:
                 continue
             oB = move[oBHeader]
+            oB = str(oB).replace("~", "[").replace("/", "[").replace("～", "[")
             oB = str(oB).split("[")
             for i in range(len(oB)):
+                oB[i] = oB[i].rstrip().strip()
                 try:
                     int(oB[i])
                 except:
