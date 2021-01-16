@@ -86,7 +86,7 @@ def getPunish(f, character, startupQuery):
                     continue
                 startupVal[i].replace("]", "")
                 if int(startupVal[i]) <= startupQuery-1:
-                    moves.append([key, move[startup]])
+                    moves.append([key, startupVal[0]])
                     break
     return [moves, ['Name', startup]]
   
@@ -139,14 +139,41 @@ def formatAsInput(string, reverse = 0):
         'heavy punch': 'hp',
         'crouch': 'cr',
         'standing': '',
-        'far': ''
+        'far': '',
+        'lp': ' lp',
+        'mp': ' mp',
+        'hp': ' hp',
+        'lk': ' lk',
+        'mk': ' mk',
+        'hk': ' hk',
+        'fddf': 'f d df'
     }
+    numberInputs = {
+        '63214': 'hcb',
+        '41236': 'hcf',
+        '236': 'qcf',
+        '214': 'qcb',
+        '623': 'f d df',
+        '421': 'b d db',
+        '1': 'db',
+        '2': 'd',
+        '3': 'df',
+        '4': 'b',
+        '5': 'n',
+        '6': 'f',
+        '7': 'ub',
+        '8': 'u',
+        '9': 'uf'
+    } 
     for key, value in moveConversion.items():
         if reverse == 0:
             string = string.replace(key, value)
         elif reverse == 1:
             if value != '':
                 string = string.replace(value, key)
+    for key,value in numberInputs.items():
+        if reverse == 0:
+            string = string.replace(key, value)
     return string
 
 def getBadPunctuation():
