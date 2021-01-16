@@ -16,7 +16,15 @@ def getPossibleMoves(content, characterFile, extraLevels=[]):
     searchOutput.append(tools.searchMove(formatAsInput(content), characterFile, "Motion", punctuation, fuzz.ratio))
     searchOutput.append(tools.searchMove(content, characterFile, "key", punctuation, scorer))
     searchOutput.append(tools.searchMove(formatAsInput(content, 1), characterFile, "key", punctuation, scorer))
+    if re.match('(super art|sa+) ?\d+$', content):
+        searchOutput.append(tools.searchMove(parseSa(content), characterFile, "Super Art", punctuation, scorer))
     return searchOutput
+
+def parseSa(string):
+    string = string.replace("sa", "").replace("super art", "")
+    string = string.rstrip().strip()
+    string = string.replace("3", "III").replace("2", "II").replace("1", "I")
+    return string
 
 def getPunishable(f, character, punishable = 0):
     with open(f) as json_file:
@@ -94,6 +102,8 @@ def translateAcronym(text):
         text = text.replace("dp", "fddf")
     text = text.replace('uoh', 'Universal Overhead')
     text = text.replace("jump", "air")
+    text = text.replace("raging demon", "shun goku satsu")
+    text = text.replace("kkz", "kongou kokuretsu zan")
     return text
 
 def getMoveEmbed(moveRow, moveName, character):
