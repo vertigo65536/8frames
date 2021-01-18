@@ -14,9 +14,13 @@ def getPossibleMoves(content, characterFile, extraLevels=['moves']):
     scorer = fuzz.token_sort_ratio
     punctuation = [punct, replacePunct]
     searchOutput.append(tools.searchMove(content, characterFile, "input", punctuation, fuzz.ratio, extraLevels))
-    searchOutput.append(tools.searchMove(content, characterFile, "moveType", punctuation, scorer, extraLevels))
     searchOutput.append(tools.searchMove(content, characterFile, "key", punctuation, scorer, extraLevels))
     searchOutput.append(tools.searchMove(content, characterFile, "key", punctuation, fuzz.ratio, extraLevels))
+    if 'super' in content:
+        searchOutput.append(tools.searchMove(content, characterFile, "moveType", punctuation, fuzz.ratio, extraLevels))
+    if re.match('(ultra|u+) ?\d+$', content):
+        content = content.replace("ultra", "").replace("u", "").rstrip().strip()
+        searchOutput.append(tools.searchMove(content, characterFile, "ultra", punctuation, fuzz.ratio, extraLevels))
     return searchOutput
 
 def getPunishable(f, character, punishable = 0):

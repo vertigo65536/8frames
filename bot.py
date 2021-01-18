@@ -22,6 +22,8 @@ def getManPage():
     return
 
 def parseCommand(command, game):
+    if command == -1:
+        return "Requres a character and a query. Consult 8f!man for more info"
     character = tools.getMessagePrefix(command)
     character = game.translateAlias(character)
     content = game.translateAcronym(tools.getMessageContent(command))
@@ -31,6 +33,8 @@ def parseCommand(command, game):
         return "Could not find character '" + character + "'"
     characterFile = game.getPath() + "/" + fuzzyMatch[0]
     character = fuzzyMatch[0].replace(".json", "")
+    if content == "-1":
+        return "Requires extra input: Either a move name or query such as 'punishable'. consult 8f!man for more info."
     with open("limitsKey.json") as json_file:
         presetCmds = json.load(json_file)
     for i in range(len(presetCmds)):
