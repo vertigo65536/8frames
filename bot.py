@@ -1,4 +1,4 @@
-import discord, os, numpy, re
+import discord, os, numpy, re, json
 import tools, t7, sfv, sf4, sf3
 from fuzzywuzzy import process, fuzz
 from dotenv import load_dotenv
@@ -31,15 +31,11 @@ def parseCommand(command, game):
         return "Could not find character '" + character + "'"
     characterFile = game.getPath() + "/" + fuzzyMatch[0]
     character = fuzzyMatch[0].replace(".json", "")
-    presetCmds = {
-        'lose turn': 0,
-        'punishable': 1,
-        'safe': 2,
-        'plus': 3
-    }
-    for key, value in presetCmds.items():
-        if content == key:
-            moves = game.getPunishable(characterFile, character, value)
+    with open("limitsKey.json") as json_file:
+        presetCmds = json.load(json_file)
+    for i in range(len(presetCmds)):
+        if content in presetCmds[i]:
+            moves = game.getPunishable(characterFile, character, i)
             return formatMoveList(moves, character)
     if re.match('\d+f? punish', content):
         punishValue = content.replace("f ", "").replace("punish", "")

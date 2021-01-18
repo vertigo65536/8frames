@@ -4,6 +4,7 @@ from fuzzywuzzy import fuzz
 path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sfv")
 punct = "!@#$%^&*()[]{};:,./<>?\|`~-=_"
 replacePunct = " "
+game = "sfv"
 
 def getPath():
     return path
@@ -52,19 +53,12 @@ def getPunishable(f, character, punishable=0):
     with open(f) as json_file:
         array = json.load(json_file)['moves']
         outputValues = {}
-        if punishable == 1:
-            minimum = -200
-            maximum = -3
-        elif punishable == 0:
-            minimum = -2
-            maximum = -1
-        elif punishable == 2:
-            minimum = -2
-            maximum = 200
-        elif punishable == 3:
-            minimum = 1
-            maximum = 200
-        else:
+        try:
+            limits = tools.getLimits(game)[punishable]
+            minimum = limits['min']
+            maximum = limits['max']
+            
+        except:
             return -1
         for vt, moves in array.items():
             outputValues[vt] = []

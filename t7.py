@@ -4,6 +4,7 @@ from fuzzywuzzy import fuzz
 path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "t7")
 punct = "!@#$%^&*()[]{};:,./<>?\|`~-=_ "
 replacePunct = ""
+game = "t7"
 
 def getPath():
     return path
@@ -17,21 +18,12 @@ def getPunishable(f, character, punishable = 0):
     with open(f) as json_file:
         moveList = json.load(json_file)
         moves = []
-        minimum = 0
-        maximum = 0
-        if punishable == 0:
-            minimum = -9
-            maximum = 0
-        elif punishable == 1:
-            minimum = -200
-            maximum = -9
-        elif punishable == 2:
-            minimum = -8
-            maximum = 200
-        elif punishable == 3:
-            minimum = 1
-            maximum = 200
-        else:
+        try:
+            limits = tools.getLimits(game)[punishable]
+            minimum = limits['min']
+            maximum = limits['max']
+            
+        except:
             return -1
         oBHeader = 'Block frame'
         for key, move in moveList.items():

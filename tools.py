@@ -68,6 +68,11 @@ def getUserId(user):
         except:
             return -1
 
+def getLimits(game):
+    with open("limits.json") as json_file:
+        allLimits = json.load(json_file)
+    return allLimits[game]
+
 def removePunctuation(text, punct):
     text = text.translate ({ord(c): punct[1] for c in punct[0]}).rstrip().lower()
     return text

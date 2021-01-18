@@ -4,6 +4,7 @@ from fuzzywuzzy import fuzz
 path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sf4")
 punct = string.punctuation.replace(">", "")
 replacePunct = " "
+game = "sf4"
 
 def getPath():
     return path
@@ -22,22 +23,13 @@ def getPunishable(f, character, punishable = 0):
     with open(f) as json_file:
         moveList = json.load(json_file)['moves']
         moves = []
-        minimum = 0
-        maximum = 0
-        if punishable == 0:
-            minimum = -2
-            maximum = -1
-        elif punishable == 1:
-            minimum = -200
-            maximum = -3
-        elif punishable == 2:
-            minimum = -2
-            maximum = 200
-        elif punishable == 3:
-            minimum = 1
-            maximum = 200
-        else:
-           return -1
+        try:
+            limits = tools.getLimits(game)[punishable]
+            minimum = limits['min']
+            maximum = limits['max']
+            
+        except:
+            return -1
         oBHeader = 'onBlock'
         for key, move in moveList.items():
             oB = move[oBHeader]
