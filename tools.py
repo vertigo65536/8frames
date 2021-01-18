@@ -8,6 +8,9 @@ def getMessagePrefix(message):
 
 # Returns everything after the first word
 
+def getAbsPath(filename):
+    return os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
+
 def getMessageContent(message):
     split = message.split(" ")
     content = ""
@@ -69,7 +72,7 @@ def getUserId(user):
             return -1
 
 def getLimits(game):
-    with open("limits.json") as json_file:
+    with open(getAbsPath("limits.json")) as json_file:
         allLimits = json.load(json_file)
     return allLimits[game]
 
