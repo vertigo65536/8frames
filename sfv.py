@@ -144,7 +144,11 @@ def getNote(f, character, query):
                     if searchQuery[j].lower() in move[header][i].lower():
                         if "not " + searchQuery[j].lower() in move[header][i].lower():
                             continue
-                        row = tools.correctTableWrap([key, move[header][i]])
+                        if vt != 'normal':
+                            name = vt + ": " + key
+                        else:
+                            name = key
+                        row = tools.correctTableWrap([name, move[header][i]])
                         for k in range(len(row)):
                             moves.append(row[k])
                         break
