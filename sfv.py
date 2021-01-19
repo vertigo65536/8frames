@@ -127,6 +127,29 @@ def getPunish(f, character, startupQuery):
                     break
     return [moves, ['Name', startup]]
 
+def getNote(f, character, query):
+    moveList = tools.loadJsonAsDict(f)['moves']
+    try:
+        searchQuery = tools.loadJsonAsDict('searchJsons/searchParam.json')[game][query]
+    except:
+        return -1
+    moves = []
+    header = "extraInfo"
+    for vt, moveSubList in moveList.items():
+        for key, move in moveSubList.items():
+            if not header in move:
+                continue
+            for i in range(len(move[header])):
+                for j in range(len(searchQuery)):
+                    if searchQuery[j].lower() in move[header][i].lower():
+                        if "not " + searchQuery[j].lower() in move[header][i].lower():
+                            continue
+                        row = tools.correctTableWrap([key, move[header][i]])
+                        for k in range(len(row)):
+                            moves.append(row[k])
+                        break
+    return [moves, ['Name', header]]
+
 
 def translateAlias(name):
     return name

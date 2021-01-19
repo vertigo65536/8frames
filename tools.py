@@ -69,6 +69,36 @@ def getUserId(user):
     except:
         return -1
 
+def correctTableWrap(array):
+    limit = 60
+    colWidth = limit//len(array)
+    output = []
+    for i in range(len(array)):
+        tmp = splitString(array[i], colWidth)
+        for j in range(len(tmp)):
+            try:
+                output[j][i]
+            except:
+                output.append([])
+                for k in range(len(array)):
+                    output[j].append("")
+            output[j][i] = tmp[j]
+    return output
+
+def splitString(string, limit):
+    stringArr = string.split(" ")
+    output = []
+    tmpString = ""
+    for i in range(len(stringArr)):
+        if len(stringArr[i]) > limit:
+            return [ stringArr[i][j:j+limit] for j in range(0, len(string), limit) ]
+        if len(tmpString + " " + stringArr[i]) > limit:
+            output.append(tmpString.strip())
+            tmpString = ""
+        tmpString = tmpString + " " + stringArr[i]
+    output.append(tmpString.strip())
+    return output
+
 def getLimits(game):
     allLimits = loadJsonAsDict("searchJsons/limits.json")
     return allLimits[game]

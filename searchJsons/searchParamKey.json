@@ -1,0 +1,20 @@
+[
+    [
+        "projectile invincible",
+        "fireball invincible"
+    ],
+    [
+        "strike invincible",
+        "hit invincible"
+    ],
+    [
+        "air invincible",
+        "jump invincible",
+        "airborne invincible"
+    ],
+    [
+        "invincible",
+        "fully invincible",
+        "full invincible"
+    ]
+]

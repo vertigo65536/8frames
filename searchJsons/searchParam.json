@@ -1,0 +1,19 @@
+{
+    "sfv": [
+        [
+            "projectile invincible",
+            "fully invincible"
+        ],
+        [
+            "strike invincible",
+            "fully invincible"
+        ],
+        [
+            "invincible to airborne",
+            "fully invincible"
+        ],
+        [
+            "fully invincible"
+        ]
+    ]
+}

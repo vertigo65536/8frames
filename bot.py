@@ -35,12 +35,20 @@ def parseCommand(command, game):
     character = fuzzyMatch[0].replace(".json", "")
     if content == "-1":
         return "Requires extra input: Either a move name or query such as 'punishable'. consult 8f!man for more info."
-    with open(tools.getAbsPath("searchJsons/limitsKey.json")) as json_file:
-        presetCmds = json.load(json_file)
+    presetCmds = tools.loadJsonAsDict("searchJsons/limitsKey.json")
     for i in range(len(presetCmds)):
         if content in presetCmds[i]:
             moves = game.getPunishable(characterFile, character, i)
             return formatMoveList(moves, character)
+    searchParams = tools.loadJsonAsDict("searchJsons/searchParamKey.json")
+    for i in range(len(searchParams)):
+        if content in searchParams[i]:
+            try:
+                moves = game.getNote(characterFile, character, i)
+            except:
+                return "Function not available for this game"
+            return formatMoveList(moves, character)
+
     if re.match('\d+f? punish', content):
         punishValue = content.replace("f ", "").replace("punish", "")
         punishValue = int(punishValue.rstrip().strip())
