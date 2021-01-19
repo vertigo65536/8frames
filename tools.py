@@ -70,7 +70,7 @@ def getUserId(user):
         return -1
 
 def correctTableWrap(array):
-    limit = 59
+    limit = 45
     averageColWidth = limit//len(array)
     colWidth = []
     lenSum = 0

@@ -79,7 +79,7 @@ def formatMoveList(moves, character):
     embedArray = []
     offset = 0
     finished = 0
-    listSize = 31
+    listSize = 36
     outputArray = []
     while(True):
         stringArray = []
