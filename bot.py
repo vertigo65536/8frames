@@ -87,6 +87,7 @@ def arrayToImage(array, title):
     path = tools.getAbsPath('media/image' + str(int(time.time())) + '.jpg')
     image = imgkit.from_string(str(soup), path, options=options)
     df = discord.File(path, filename=title + ".jpg")
+    os.remove(path)
     return df
 
 def formatMoveList(moves, character):
