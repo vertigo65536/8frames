@@ -75,17 +75,12 @@ def formatMoveList(moves, character):
         return
     e = discord.Embed(title=character)
     headers = moves[1]
-    moves = moves[0]
+    moves = tools.correctTableWrap(moves[0])
     embedArray = []
     offset = 0
     finished = 0
-    listSize = 25
+    listSize = 41
     outputArray = []
-    for i in range(len(moves)):
-        tmp = tools.correctTableWrap(moves[i])
-        for j in range(len(tmp)):
-            outputArray.append(tmp[j])
-    moves = outputArray
     while(True):
         stringArray = []
         for i in range(offset, offset + listSize):

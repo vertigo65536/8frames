@@ -70,36 +70,48 @@ def getUserId(user):
         return -1
 
 def correctTableWrap(array):
-    limit = 41
+    limit = 65
     averageColWidth = limit//len(array)
     colWidth = []
     lenSum = 0
     smallSum = 0
     smallKeys = []
+    for i in range(len(array[0])):
+        colWidth.append(0)
     for i in range(len(array)):
-        array[i] = str(array[i])
-        strLen = len(array[i])
-        colWidth.append(strLen)
-        lenSum += strLen
-        if strLen < averageColWidth:
-            smallKeys.append(i)
+        for j in range(len(array[i])):
+            array[i][j] = str(array[i][j])
+            tmpStrLen = len(array[i][j])
+            if colWidth[j] < tmpStrLen:
+                colWidth[j] = tmpStrLen
+    for i in range(len(colWidth)):
+        lenSum += colWidth[i]
+        if colWidth[i] < averageColWidth:
+            smallKeys.append(j)
             smallSum += strLen
+        strLen = 0
     if lenSum > limit:
         maxWidth = (limit - smallSum)//(len(colWidth) - len(smallKeys))
         for i in range(len(colWidth)):
             if i not in smallKeys:
                 colWidth[i] = maxWidth
     output = []
+    counter = 0
     for i in range(len(array)):
-        tmp = splitString(array[i], colWidth[i])
-        for j in range(len(tmp)):
-            try:
-                output[j][i]
-            except:
-                output.append([])
-                for k in range(len(array)):
-                    output[j].append("")
-            output[j][i] = tmp[j]
+        largestTmp = 0
+        for j in range(len(array[i])):
+            tmp = splitString(array[i][j], colWidth[j])
+            if len(tmp) > largestTmp:
+                largestTmp = len(tmp)
+            for k in range(len(tmp)):
+                try:
+                    output[counter + k][j]
+                except:
+                    output.append([])
+                    for l in range(len(array[i])):
+                        output[counter + k].append("")
+                output[counter + k][j] = tmp[k]
+        counter += largestTmp
     return output
 
 def splitString(string, limit):
