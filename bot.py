@@ -1,8 +1,9 @@
-import discord, os, numpy, re, json
+import discord, os, numpy, re, json, imgkit, time
 import tools, t7, sfv, sf4, sf3
 from fuzzywuzzy import process, fuzz
 from dotenv import load_dotenv
 from tabulate import tabulate
+from bs4 import BeautifulSoup
 
 def getGame(string):
     if string.lower() == "t7":
@@ -21,7 +22,7 @@ def getManPage():
     print("Failed to open man file")
     return
 
-def parseCommand(command, game):
+def parseCommand(command, game, mobile=False):
     if command == -1:
         return "Requres a character and a query. Consult 8f!man for more info"
     character = tools.getMessagePrefix(command)
@@ -39,7 +40,7 @@ def parseCommand(command, game):
     for i in range(len(presetCmds)):
         if content in presetCmds[i]:
             moves = game.getPunishable(characterFile, character, i)
-            return formatMoveList(moves, character)
+            return outputArray(moves, character+" "+content, mobile)
     searchParams = tools.loadJsonAsDict("searchJsons/searchParamKey.json")
     for i in range(len(searchParams)):
         if content in searchParams[i]:
@@ -47,13 +48,12 @@ def parseCommand(command, game):
                 moves = game.getNote(characterFile, character, i)
             except:
                 return "Function not available for this game"
-            return formatMoveList(moves, character)
-
+            return outputArray(moves, character+" "+content, mobile)
     if re.match('\d+f? punish', content):
         punishValue = content.replace("f ", "").replace("punish", "")
         punishValue = int(punishValue.rstrip().strip())
         moves = game.getPunish(characterFile, character, punishValue)
-        return formatMoveList(moves, character)
+        return outputArray(moves, character+" "+content, mobile)
     searchOutput = game.getPossibleMoves(content, characterFile)
     if isinstance(searchOutput, str):
         return searchOutput
@@ -68,6 +68,27 @@ def parseCommand(command, game):
     else:
         return game.getMoveEmbed(outputValue[0], outputValue[1], character)
 
+def outputArray(moves, character, mobile):
+    if mobile == True:
+        return arrayToImage(moves, character)
+    return formatMoveList(moves, character)
+
+def arrayToImage(array, title):
+    options = {'width': '400','disable-smart-width': ''}
+    tableString = tabulate(array[0], array[1], tablefmt="html").replace("<table>", "<table style=\"color:blue; width:100%;\">")
+    soup = BeautifulSoup(tableString, features='html.parser')
+    colours = ["#f2f2f2", "#d9d9d9"]
+    counter = 0
+    for table in soup.findAll('table'):
+        table['style'] = "border-collapse: collapse; width: 100%;"
+    for row in soup.findAll('tr'):
+        row['style'] = "background-color: " + colours[counter%2] + ";"
+        counter += 1
+    path = tools.getAbsPath('media/image' + str(int(time.time())) + '.jpg')
+    image = imgkit.from_string(str(soup), path, options=options)
+    df = discord.File(path, filename=title + ".jpg")
+    return df
+
 def formatMoveList(moves, character):
     if moves[0] == []:
         return 'None'
@@ -79,7 +100,7 @@ def formatMoveList(moves, character):
     embedArray = []
     offset = 0
     finished = 0
-    listSize = 36
+    listSize = 31
     outputArray = []
     while(True):
         stringArray = []
@@ -105,13 +126,16 @@ async def handleMessage(message):
     prefix = tools.getMessagePrefix(message.content)
     content = tools.getMessageContent(message.content)
     commandSplit = prefix.split("!")
-    if commandSplit[0].lower() in ["8frames", "8f"]:
+    if commandSplit[0].lower() in ["8frames", "8f", "8fm", "8framesm", "8framesmobile", "8fmobile"]:
+        mobile = False
+        if commandSplit[0].lower() in ["8fm", "8framesm", "8framesmobile", "8fmobile"]:
+            mobile = True
         if commandSplit[1] in ["man", "help"]:
             return getManPage()
         if isAdmin(message.author.id):
             if commandSplit[1] == 'servers':
                 return str(client.guilds)
-        return parseCommand(content, getGame(commandSplit[1]))
+        return parseCommand(content, getGame(commandSplit[1]), mobile)
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -131,12 +155,16 @@ async def on_message(message):
         response = [response]
     for i in range(len(response)):
         e = None
+        f = None
         content = response[i]
         if isinstance(response[i], discord.embeds.Embed):
             e = response[i]
             content = None
+        elif isinstance(response[i], discord.file.File):
+            f = response[i]
+            content = f.filename.replace(".jpg", "")
         if response[i] not in ["", None]:
-            await message.channel.send(content, embed=e)
+            await message.channel.send(content, embed=e, file=f)
         else:
             continue
     return

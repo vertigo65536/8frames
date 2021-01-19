@@ -1,6 +1,7 @@
 **8Frames bot Manual**
 
 Command syntax is 8f(rames)!<game> <character> <command>
+You can use 8f(rames)m(obile)!<game> <character> <command> for better mobile formatting
 Valid games:
 > t7
 > sfv/sf5
@@ -13,7 +14,7 @@ valid commands:
 > safe
 > plus
 > x(f) punish
-> fireball/air/hit/fully invincible
+> fireball/air/hit/fully invincible (sfv only)
 > <move input>
 
 If you need to send a buff with a command, send the command as:
