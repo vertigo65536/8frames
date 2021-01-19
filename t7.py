@@ -15,58 +15,56 @@ def getPossibleMoves(content, characterFile, extraLevels=[]):
     return searchOutput
 
 def getPunishable(f, character, punishable = 0):
-    with open(f) as json_file:
-        moveList = json.load(json_file)
-        moves = []
+    moveList = tools.loadJsonAsDict(f)
+    moves = []
+    try:
+        limits = tools.getLimits(game)[punishable]
+        minimum = limits['min']
+        maximum = limits['max']
+        
+    except:
+        return -1
+    oBHeader = 'Block frame'
+    for key, move in moveList.items():
         try:
-            limits = tools.getLimits(game)[punishable]
-            minimum = limits['min']
-            maximum = limits['max']
-            
+            move[oBHeader]
         except:
-            return -1
-        oBHeader = 'Block frame'
-        for key, move in moveList.items():
+            continue
+        oB = move[oBHeader]
+        oB = str(oB).replace("~", "[").split("[")
+        for i in range(len(oB)):
+            oB[i] = oB[i].replace("]", "")
             try:
-                move[oBHeader]
+                int(oB[i])
             except:
                 continue
-            oB = move[oBHeader]
-            oB = str(oB).replace("~", "[").split("[")
-            for i in range(len(oB)):
-                oB[i] = oB[i].replace("]", "")
-                try:
-                    int(oB[i])
-                except:
-                    continue
-                if int(oB[i]) >= minimum and int(oB[i]) <= maximum:
-                    moves.append([key, move[oBHeader]])
-                    break
+            if int(oB[i]) >= minimum and int(oB[i]) <= maximum:
+                moves.append([key, move[oBHeader]])
+                break
     return [moves, ['Name', oBHeader]]
 
 def getPunish(f, character, startupQuery):
-    with open(f) as json_file:
-        moveList = json.load(json_file)
-        moves = []
-        startup = 'Start up frame'
-        for key, move in moveList.items():
-            if 'Jump' in key:
+    moveList = tools.loadJsonAsDict(f)
+    moves = []
+    startup = 'Start up frame'
+    for key, move in moveList.items():
+        if 'Jump' in key:
+            continue
+        if not startup in move:
+            continue
+        startupVal = move[startup]
+        startupVal = str(startupVal).replace("~", "[").replace(",", "[")
+        startupVal = str(startupVal).split("(")
+        for i in range(len(startupVal)):
+            startupVal[i] = startupVal[i].rstrip().strip()
+            try:
+                int(startupVal[i])
+            except:
                 continue
-            if not startup in move:
-                continue
-            startupVal = move[startup]
-            startupVal = str(startupVal).replace("~", "[").replace(",", "[")
-            startupVal = str(startupVal).split("(")
-            for i in range(len(startupVal)):
-                startupVal[i] = startupVal[i].rstrip().strip()
-                try:
-                    int(startupVal[i])
-                except:
-                    continue
-                startupVal[i].replace(")", "")
-                if int(startupVal[i]) <= startupQuery:
-                    moves.append([key, move[startup]])
-                    break
+            startupVal[i].replace(")", "")
+            if int(startupVal[i]) <= startupQuery:
+                moves.append([key, move[startup]])
+                break
     return [moves, ['Name', startup]]
 
 

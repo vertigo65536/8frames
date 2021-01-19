@@ -50,46 +50,45 @@ def getPossibleMoves(content, characterFile, extraLevels=[]):
     return dataRaw
 
 def getPunishable(f, character, punishable=0):
-    with open(f) as json_file:
-        array = json.load(json_file)['moves']
-        outputValues = {}
-        try:
-            limits = tools.getLimits(game)[punishable]
-            minimum = limits['min']
-            maximum = limits['max']
-            
-        except:
-            return -1
-        for vt, moves in array.items():
-            outputValues[vt] = []
-            for key, move in moves.items():
+    array = tools.loadJsonAsDict(f)['moves']
+    outputValues = {}
+    try:
+        limits = tools.getLimits(game)[punishable]
+        minimum = limits['min']
+        maximum = limits['max']
+        
+    except:
+        return -1
+    for vt, moves in array.items():
+        outputValues[vt] = []
+        for key, move in moves.items():
+            try:
+                block = move['onBlock']
+                block = str(block).replace("/", "(").split("(")
+                if not isinstance(block, list):
+                    block = [block]
+            except:
+                continue
+            for i in range(len(block)):
+                block[i] = block[i].replace(")", "")
                 try:
-                    block = move['onBlock']
-                    block = str(block).replace("/", "(").split("(")
-                    if not isinstance(block, list):
-                        block = [block]
+                    int(block[i])
                 except:
                     continue
-                for i in range(len(block)):
-                    block[i] = block[i].replace(")", "")
+                if int(block[i]) >= minimum and int(block[i]) <= maximum:
                     try:
-                        int(block[i])
+                        outputValues[vt].append({
+                            'move': key,
+                            'onBlock': move['onBlock'],
+                            'vtcOnBlock': move['vtcOnBlock']
+                        })
                     except:
-                        continue
-                    if int(block[i]) >= minimum and int(block[i]) <= maximum:
-                        try:
-                            outputValues[vt].append({
-                                'move': key,
-                                'onBlock': move['onBlock'],
-                                'vtcOnBlock': move['vtcOnBlock']
-                            })
-                        except:
-                            outputValues[vt].append({
-                                'move': key,
-                                'onBlock': move['onBlock']
-                            })
+                        outputValues[vt].append({
+                            'move': key,
+                            'onBlock': move['onBlock']
+                        })
 
-                        break
+                    break
     outputArray = []
     for key, value in outputValues.items():
         if value == []:
@@ -104,29 +103,28 @@ def getPunishable(f, character, punishable=0):
     return [outputArray, ['Name', 'oB', 'Vtc oB']]
 
 def getPunish(f, character, startupQuery):
-    with open(f) as json_file:
-        moveList = json.load(json_file)['moves']
-        moves = []
-        startup = 'startup'
-        for vt, moveSubList in moveList.items():
-            for key, move in moveSubList.items():
-                if 'Jump' in key:
+    moveList = tools.loadJsonAsDict(f)['moves']
+    moves = []
+    startup = 'startup'
+    for vt, moveSubList in moveList.items():
+        for key, move in moveSubList.items():
+            if 'Jump' in key:
+                continue
+            if not startup in move:
+                continue
+            startupVal = move[startup]
+            startupVal = str(startupVal).replace("~", "[").replace("/", "[").replace("～", "[")
+            startupVal = str(startupVal).split("[")
+            for i in range(len(startupVal)):
+                startupVal[i] = startupVal[i].rstrip().strip()
+                try:
+                    int(startupVal[i])
+                except:
                     continue
-                if not startup in move:
-                    continue
-                startupVal = move[startup]
-                startupVal = str(startupVal).replace("~", "[").replace("/", "[").replace("～", "[")
-                startupVal = str(startupVal).split("[")
-                for i in range(len(startupVal)):
-                    startupVal[i] = startupVal[i].rstrip().strip()
-                    try:
-                        int(startupVal[i])
-                    except:
-                        continue
-                    startupVal[i].replace("]", "")
-                    if int(startupVal[i]) <= startupQuery:
-                        moves.append([key, move[startup]])
-                        break
+                startupVal[i].replace("]", "")
+                if int(startupVal[i]) <= startupQuery:
+                    moves.append([key, move[startup]])
+                    break
     return [moves, ['Name', startup]]
 
 

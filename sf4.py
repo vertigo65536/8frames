@@ -24,54 +24,52 @@ def getPossibleMoves(content, characterFile, extraLevels=['moves']):
     return searchOutput
 
 def getPunishable(f, character, punishable = 0):
-    with open(f) as json_file:
-        moveList = json.load(json_file)['moves']
-        moves = []
-        try:
-            limits = tools.getLimits(game)[punishable]
-            minimum = limits['min']
-            maximum = limits['max']
-            
-        except:
-            return -1
-        oBHeader = 'onBlock'
-        for key, move in moveList.items():
-            oB = move[oBHeader]
-            oB = str(oB).split("[")
-            for i in range(len(oB)):
-                try:
-                    int(oB[i])
-                except:
-                    continue
-                oB[i].replace("]", "")
-                if int(oB[i]) >= minimum and int(oB[i]) <= maximum:
-                    moves.append([key, move[oBHeader]])
-                    break
+    moveList = tools.loadJsonAsDict(f)['moves']
+    moves = []
+    try:
+        limits = tools.getLimits(game)[punishable]
+        minimum = limits['min']
+        maximum = limits['max']
+        
+    except:
+        return -1
+    oBHeader = 'onBlock'
+    for key, move in moveList.items():
+        oB = move[oBHeader]
+        oB = str(oB).split("[")
+        for i in range(len(oB)):
+            try:
+                int(oB[i])
+            except:
+                continue
+            oB[i].replace("]", "")
+            if int(oB[i]) >= minimum and int(oB[i]) <= maximum:
+                moves.append([key, move[oBHeader]])
+                break
     return [moves, ['Name', oBHeader]]
 
 def getPunish(f, character, startupQuery):
-    with open(f) as json_file:
-        moveList = json.load(json_file)['moves']
-        moves = []
-        startup = 'startup'
-        for key, move in moveList.items():
-            if 'Jump' in key:
+    moveList = tools.loadJsonAsDict(f)['moves']
+    moves = []
+    startup = 'startup'
+    for key, move in moveList.items():
+        if 'Jump' in key:
+            continue
+        if not startup in move:
+            continue
+        startupVal = move[startup]
+        startupVal = str(startupVal).replace("~", "[").replace("/", "[").replace("～", "[")
+        startupVal = str(startupVal).split("[")
+        for i in range(len(startupVal)):
+            startupVal[i] = startupVal[i].rstrip().strip()
+            try:
+                int(startupVal[i])
+            except:
                 continue
-            if not startup in move:
-                continue
-            startupVal = move[startup]
-            startupVal = str(startupVal).replace("~", "[").replace("/", "[").replace("～", "[")
-            startupVal = str(startupVal).split("[")
-            for i in range(len(startupVal)):
-                startupVal[i] = startupVal[i].rstrip().strip()
-                try:
-                    int(startupVal[i])
-                except:
-                    continue
-                startupVal[i].replace("]", "")
-                if int(startupVal[i]) <= startupQuery:
-                    moves.append([key, move[startup]])
-                    break
+            startupVal[i].replace("]", "")
+            if int(startupVal[i]) <= startupQuery:
+                moves.append([key, move[startup]])
+                break
     return [moves, ['Name', startup]]
 
 

@@ -28,58 +28,56 @@ def parseSa(string):
     return string
 
 def getPunishable(f, character, punishable = 0):
-    with open(f) as json_file:
-        moveList = json.load(json_file)
-        moves = []
-        try:
-            limits = tools.getLimits(game)[punishable]
-            minimum = limits['min']
-            maximum = limits['max']
-            
-        except:
-            return -1
-        oBHeader = 'Blocked Advantage'
-        for key, move in moveList.items():
-            if not oBHeader in move:
+    moveList = tools.loadJsonAsDict(f)
+    moves = []
+    try:
+        limits = tools.getLimits(game)[punishable]
+        minimum = limits['min']
+        maximum = limits['max']
+        
+    except:
+        return -1
+    oBHeader = 'Blocked Advantage'
+    for key, move in moveList.items():
+        if not oBHeader in move:
+            continue
+        oB = move[oBHeader]
+        oB = str(oB).replace("~", "[").replace("/", "[").replace("～", "[")
+        oB = str(oB).split("[")
+        for i in range(len(oB)):
+            oB[i] = oB[i].rstrip().strip()
+            try:
+                int(oB[i])
+            except:
                 continue
-            oB = move[oBHeader]
-            oB = str(oB).replace("~", "[").replace("/", "[").replace("～", "[")
-            oB = str(oB).split("[")
-            for i in range(len(oB)):
-                oB[i] = oB[i].rstrip().strip()
-                try:
-                    int(oB[i])
-                except:
-                    continue
-                oB[i].replace("]", "")
-                if int(oB[i]) >= minimum and int(oB[i]) <= maximum:
-                    moves.append([key, move[oBHeader]])
-                    break
+            oB[i].replace("]", "")
+            if int(oB[i]) >= minimum and int(oB[i]) <= maximum:
+                moves.append([key, move[oBHeader]])
+                break
     return [moves, ['Name', oBHeader]]
 
 def getPunish(f, character, startupQuery):
-    with open(f) as json_file:
-        moveList = json.load(json_file)
-        moves = []
-        startup = 'Startup'
-        for key, move in moveList.items():
-            if 'Jump' in key:
+    moveList = tools.loadJsonAsDict(f)
+    moves = []
+    startup = 'Startup'
+    for key, move in moveList.items():
+        if 'Jump' in key:
+            continue
+        if not startup in move:
+            continue
+        startupVal = move[startup]
+        startupVal = str(startupVal).replace("~", "[").replace("/", "[").replace("～", "[").replace("・", "[")
+        startupVal = str(startupVal).split("[")
+        for i in range(len(startupVal)):
+            startupVal[i] = startupVal[i].rstrip().strip()
+            try:
+                int(startupVal[i])
+            except:
                 continue
-            if not startup in move:
-                continue
-            startupVal = move[startup]
-            startupVal = str(startupVal).replace("~", "[").replace("/", "[").replace("～", "[").replace("・", "[")
-            startupVal = str(startupVal).split("[")
-            for i in range(len(startupVal)):
-                startupVal[i] = startupVal[i].rstrip().strip()
-                try:
-                    int(startupVal[i])
-                except:
-                    continue
-                startupVal[i].replace("]", "")
-                if int(startupVal[i]) <= startupQuery-1:
-                    moves.append([key, startupVal[0]])
-                    break
+            startupVal[i].replace("]", "")
+            if int(startupVal[i]) <= startupQuery-1:
+                moves.append([key, startupVal[0]])
+                break
     return [moves, ['Name', startup]]
   
 

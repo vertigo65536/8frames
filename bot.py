@@ -35,7 +35,7 @@ def parseCommand(command, game):
     character = fuzzyMatch[0].replace(".json", "")
     if content == "-1":
         return "Requires extra input: Either a move name or query such as 'punishable'. consult 8f!man for more info."
-    with open(tools.getAbsPath("limitsKey.json")) as json_file:
+    with open(tools.getAbsPath("searchJsons/limitsKey.json")) as json_file:
         presetCmds = json.load(json_file)
     for i in range(len(presetCmds)):
         if content in presetCmds[i]:
@@ -71,7 +71,7 @@ def formatMoveList(moves, character):
     embedArray = []
     offset = 0
     finished = 0
-    listSize = 36
+    listSize = 25
     while(True):
         stringArray = []
         for i in range(offset, offset + listSize):
