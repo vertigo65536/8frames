@@ -80,6 +80,12 @@ def formatMoveList(moves, character):
     offset = 0
     finished = 0
     listSize = 25
+    outputArray = []
+    for i in range(len(moves)):
+        tmp = tools.correctTableWrap(moves[i])
+        for j in range(len(tmp)):
+            outputArray.append(tmp[j])
+    moves = outputArray
     while(True):
         stringArray = []
         for i in range(offset, offset + listSize):

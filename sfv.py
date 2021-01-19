@@ -148,9 +148,7 @@ def getNote(f, character, query):
                             name = vt + ": " + key
                         else:
                             name = key
-                        row = tools.correctTableWrap([name, move[header][i]])
-                        for k in range(len(row)):
-                            moves.append(row[k])
+                        moves.append([name, move[header][i]])
                         break
     return [moves, ['Name', header]]
 

@@ -70,11 +70,28 @@ def getUserId(user):
         return -1
 
 def correctTableWrap(array):
-    limit = 60
-    colWidth = limit//len(array)
+    limit = 41
+    averageColWidth = limit//len(array)
+    colWidth = []
+    lenSum = 0
+    smallSum = 0
+    smallKeys = []
+    for i in range(len(array)):
+        array[i] = str(array[i])
+        strLen = len(array[i])
+        colWidth.append(strLen)
+        lenSum += strLen
+        if strLen < averageColWidth:
+            smallKeys.append(i)
+            smallSum += strLen
+    if lenSum > limit:
+        maxWidth = (limit - smallSum)//(len(colWidth) - len(smallKeys))
+        for i in range(len(colWidth)):
+            if i not in smallKeys:
+                colWidth[i] = maxWidth
     output = []
     for i in range(len(array)):
-        tmp = splitString(array[i], colWidth)
+        tmp = splitString(array[i], colWidth[i])
         for j in range(len(tmp)):
             try:
                 output[j][i]
@@ -86,7 +103,8 @@ def correctTableWrap(array):
     return output
 
 def splitString(string, limit):
-    stringArr = string.split(" ")
+    limit += 1
+    stringArr = str(string).split(" ")
     output = []
     tmpString = ""
     for i in range(len(stringArr)):
@@ -96,7 +114,8 @@ def splitString(string, limit):
             output.append(tmpString.strip())
             tmpString = ""
         tmpString = tmpString + " " + stringArr[i]
-    output.append(tmpString.strip())
+    if tmpString != "":
+        output.append(tmpString.strip())
     return output
 
 def getLimits(game):

@@ -2,18 +2,25 @@
     "sfv": [
         [
             "projectile invincible",
-            "fully invincible"
+            "fully invincible",
+            "completely invincible"
         ],
         [
             "strike invincible",
-            "fully invincible"
+            "fully invincible",
+            "completely invincible"
+
         ],
         [
             "invincible to airborne",
-            "fully invincible"
+            "fully invincible",
+            "completely invincible"
+
         ],
         [
-            "fully invincible"
+            "fully invincible",
+            "completely invincible"
+
         ]
     ]
 }
