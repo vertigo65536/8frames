@@ -54,7 +54,10 @@ async def wrongResultEdit(botMessage):
         counter = len(reducedDict)
     rankedList = rankedList[1:counter+1]
     await botMessage.edit(content = getCorrectionEmbed(rankedList), embed = None)
-    await botMessage.clear_reactions()
+    try:
+        await botMessage.clear_reactions()
+    except:
+        pass
     await tools.addReacts(botMessage, ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"])
 
 async def resultCorrection(message, emoji):
@@ -77,7 +80,10 @@ async def resultCorrection(message, emoji):
             if outputRow[i][j][1] == moveName:
                 e = game.getMoveEmbed(outputRow[i][j][0], outputRow[i][j][1], character)
                 await message.edit(content=None, embed=e)
-                await message.clear_reactions()
+                try:
+                    await message.clear_reactions()
+                except:
+                    pass
                 return
 
 def getCorrectionEmbed(array):
