@@ -9,3 +9,5 @@ pip install google_trans_new --user || pip3 install google_trans_new --user
 pip install discord --user || pip3 install discord --user
 pip install python-dotenv --user || pip3 install python-dotenv --user
 pip install imgkit --user || pip3 install imgkit --user
+pip install mysql-connector-python --user || pip3 install mysql-connector-python --user
+pip install pandas --user || pip3 install pandas --user

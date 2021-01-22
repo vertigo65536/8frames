@@ -41,22 +41,25 @@ def searchMove(query, f, moveId, punct, scorer, extraLevel=[]):
     query = removePunctuation(query, punct)
     try:
         moveList = loadJsonAsDict(f)
-        keyList = {}
         keyArray = []
         for i in range(len(extraLevel)):
             moveList = moveList[extraLevel[i]]
         if moveId != 'key':
+            i = 0
             for key, row in moveList.items():
                 if moveId not in row:
                     continue
-                keyArray.append(removePunctuation(row[moveId], punct))
-                keyList[removePunctuation(row[moveId], punct)] = key
+                keyArray.append([removePunctuation(row[moveId], punct), row, key])
         else:
             for key, row in moveList.items():
-                keyArray.append(removePunctuation(key, punct))
-                keyList[removePunctuation(key, punct)] = key
-        fuzzyMatch  = process.extractOne(query, keyArray, scorer=scorer)
-        return [moveList[keyList[fuzzyMatch[0]]], keyList[fuzzyMatch[0]], fuzzyMatch[1]]
+                keyArray.append([removePunctuation(key, punct), row, key])
+        outputArray = []
+        for i in range(len(keyArray)):
+            matchCheck = process.extract(query, [keyArray[i][0]], scorer=scorer)
+            outputArray.append([keyArray[i][1], keyArray[i][2], matchCheck[0][1]])
+        outputArray = sorted(outputArray, key=lambda x: x[2], reverse=True)
+        outputArray = outputArray[:5]
+        return outputArray
     except:
         return -1
 
@@ -128,6 +131,17 @@ def splitString(string, limit):
     if tmpString != "":
         output.append(tmpString.strip())
     return output
+
+async def addReacts(message, emojis):
+    if isinstance(emojis, list):
+        for i in range(len(emojis)):
+            try:
+                await message.add_reaction(emojis[i])
+            except:
+                print(emojis[i] + " is not an emoji")
+    else:
+        await message.add_reaction(emojis)
+    return 
 
 def getLimits(game):
     allLimits = loadJsonAsDict("searchJsons/limits.json")

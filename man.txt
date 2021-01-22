@@ -21,6 +21,8 @@ If you need to send a buff with a command, send the command as:
 > <buff>:<move input>
 for example ```vt1:stlp```
 
+use reactions to correct incorrect selections
+
 characters must be sent as a single word. If the name is multiple names either use an acronym, send 1 word of the name, or remove the space.
 
 examples of valid commands:

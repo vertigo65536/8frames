@@ -90,7 +90,8 @@ def translateAcronym(text):
         text = text.replace("tc", "target combo ")
     if "dp" in text:
         text = text.replace("dp", "fddf")
-    text = text.replace('uoh', 'Universal Overhead')
+    text = text.replace('uoh', 'mp+mk')
+    text = text.replace('throw', 'lp+lk')
     text = text.replace("jump", "air")
     text = text.replace("raging demon", "shun goku satsu")
     text = text.replace("kkz", "kongou kokuretsu zan")

@@ -39,14 +39,6 @@ def getPossibleMoves(content, characterFile, extraLevels=[]):
                 invalidCounter += 1
         if invalidCounter < len(dataRaw)-1:
             break
-    dataKey = dataRaw[0]
-    for i in range(len(dataRaw)):
-        if dataRaw[i][2] > dataKey[2]:
-            dataKey = dataRaw[i]
-    if dataKey == -1 or dataKey[2] < 25:
-        return "Could not find move"
-    else:
-        vtrigger = 'normal'
     return dataRaw
 
 def getPunishable(f, character, punishable=0):

@@ -1,9 +1,20 @@
 import discord, os, numpy, re, json, imgkit, time
 import tools, t7, sfv, sf4, sf3
+import db_bot as db
 from fuzzywuzzy import process, fuzz
 from dotenv import load_dotenv
 from tabulate import tabulate
 from bs4 import BeautifulSoup
+
+numbers = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
+
+
+def numberToEmoji(n):
+    numbers = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
+    try:
+        return numbers[n-1]
+    except:
+        return -1
 
 def getGame(string):
     if string.lower() == "t7":
@@ -22,18 +33,84 @@ def getManPage():
     print("Failed to open man file")
     return
 
-def parseCommand(command, game, mobile=False):
+async def wrongResultEdit(botMessage):
+    row = db.getRowByBotMessage(botMessage.id)
+    game = row[5]
+    character = row[6]
+    command = row[7]
+    game = getGame(game)
+    path = getCharacterPath(character, game.getPath())[0]
+    searchOutput = game.getPossibleMoves(command, path)
+    reducedDict = {}
+    for i in range(len(searchOutput)):
+        for j in range(len(searchOutput[i])):
+            reducedDict[searchOutput[i][j][1]] = searchOutput[i][j][2]
+    counter = 5
+    rankedList = []
+    for key, value in reducedDict.items():
+        rankedList.append([key, value])
+    rankedList = sorted(rankedList,key=lambda x: x[1], reverse=True)
+    if len(reducedDict) < 5+1:
+        counter = len(reducedDict)
+    rankedList = rankedList[1:counter+1]
+    await botMessage.edit(content = getCorrectionEmbed(rankedList), embed = None)
+    await botMessage.clear_reactions()
+    await tools.addReacts(botMessage, ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"])
+
+async def resultCorrection(message, emoji):
+    row = db.getRowByBotMessage(message.id)
+    content = message.content.split("\n")
+    moveName = None
+    for i in range(len(content)):
+        if emoji in content[i]:
+            moveName = content[i].replace(emoji, "").rstrip().strip()
+    if moveName == None:
+        return -1
+    game = row[5]
+    character = row[6]
+    command = row[7]
+    game = getGame(game)
+    path = getCharacterPath(character, game.getPath())[0]
+    outputRow = game.getPossibleMoves(command, path)
+    for i in range(len(outputRow)):
+        for j in range(len(outputRow[i])):
+            if outputRow[i][j][1] == moveName:
+                e = game.getMoveEmbed(outputRow[i][j][0], outputRow[i][j][1], character)
+                await message.edit(content=None, embed=e)
+                await message.clear_reactions()
+                return
+
+def getCorrectionEmbed(array):
+    string = "Did you mean:\n"
+    for i in range(len(array)):
+        string = string + numberToEmoji(i+1) + " " + array[i][0] + "\n"
+    return string.rstrip().strip()
+    
+def getCharacterPath(query, gamedir):
+    files = os.listdir(gamedir)
+    fuzzyMatch  = process.extractOne(query + ".json", files, scorer=fuzz.ratio)
+    if fuzzyMatch[1] < 70:
+        return -1
+    return [gamedir + "/" + fuzzyMatch[0], fuzzyMatch[0].replace(".json", "")]
+
+async def parseCommand(message, game):
+    prefix = tools.getMessagePrefix(message.content)
+    if prefix.split("!")[0].lower() in ["8fm", "8framesm", "8framesmobile", "8fmobile"]:
+        mobile = True
+    else:
+        mobile = False
+
+    command = tools.getMessageContent(message.content)
     if command == -1:
         return "Requres a character and a query. Consult 8f!man for more info"
     character = tools.getMessagePrefix(command)
     character = game.translateAlias(character)
     content = game.translateAcronym(tools.getMessageContent(command))
-    files = os.listdir(game.getPath())
-    fuzzyMatch  = process.extractOne(character + ".json", files, scorer=fuzz.ratio)
-    if fuzzyMatch[1] < 70:
+    getChar = getCharacterPath(character, game.getPath())
+    if getChar == -1:
         return "Could not find character '" + character + "'"
-    characterFile = game.getPath() + "/" + fuzzyMatch[0]
-    character = fuzzyMatch[0].replace(".json", "")
+    characterFile = getChar[0]
+    character = getChar[1]
     if content == "-1":
         return "Requires extra input: Either a move name or query such as 'punishable'. consult 8f!man for more info."
     presetCmds = tools.loadJsonAsDict("searchJsons/limitsKey.json")
@@ -57,16 +134,23 @@ def parseCommand(command, game, mobile=False):
     searchOutput = game.getPossibleMoves(content, characterFile)
     if isinstance(searchOutput, str):
         return searchOutput
-    outputValue = searchOutput[0]
+    outputValue = searchOutput[0][0]
     for i in range(len(searchOutput)):
         if searchOutput[i] == -1:
             continue
-        if searchOutput[i][2] > outputValue[2]:
-            outputValue = searchOutput[i]
+        if searchOutput[i][0][2] > outputValue[2]:
+            outputValue = searchOutput[i][0]
     if outputValue[2] < 60:
-        return "Move not found"
+        output = "Move not found"
+        e = None
     else:
-        return game.getMoveEmbed(outputValue[0], outputValue[1], character)
+        output = ""
+        e = game.getMoveEmbed(outputValue[0], outputValue[1], character)
+    postMessage = await message.channel.send(output, embed=e)
+    db.insertIntoBotPosts(postMessage.id, message.id, postMessage.channel.id, message.author.id, prefix.split("!")[1], character, content, mobile)
+    await tools.addReacts(postMessage, ["❌"])
+    return
+
 
 def outputArray(moves, character, mobile):
     if mobile == True:
@@ -128,15 +212,12 @@ async def handleMessage(message):
     content = tools.getMessageContent(message.content)
     commandSplit = prefix.split("!")
     if commandSplit[0].lower() in ["8frames", "8f", "8fm", "8framesm", "8framesmobile", "8fmobile"]:
-        mobile = False
-        if commandSplit[0].lower() in ["8fm", "8framesm", "8framesmobile", "8fmobile"]:
-            mobile = True
         if commandSplit[1] in ["man", "help"]:
             return getManPage()
         if isAdmin(message.author.id):
             if commandSplit[1] == 'servers':
                 return str(client.guilds)
-        return parseCommand(content, getGame(commandSplit[1]), mobile)
+        return await parseCommand(message, getGame(commandSplit[1]))
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -169,6 +250,27 @@ async def on_message(message):
         else:
             continue
     return
+
+@client.event
+async def on_reaction_add(reaction, user):
+    if reaction.me and reaction.count == 1:
+        return
+    if reaction.message.author == client.user:
+        results = db.getQueryAuthor(reaction.message.id)
+        try:
+            if results[0][0] != str(user.id):
+                return
+        except:
+            return
+        if reaction.emoji == '❌':
+            await wrongResultEdit(reaction.message)
+        elif reaction.emoji == '✅':
+            print('yep')
+        elif reaction.emoji in numbers:
+            await resultCorrection(reaction.message, reaction.emoji)
+        else:
+            print('nothing')
+
 
 @client.event
 async def on_message_delete(message):
