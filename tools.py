@@ -1,4 +1,4 @@
-import csv, os, json, string
+import csv, os, json, string, re
 from fuzzywuzzy import process, fuzz
 
 # Returns the first word from a string (Usually a bot command)
@@ -45,13 +45,14 @@ def searchMove(query, f, moveId, punct, scorer, extraLevel=[], prefix=""):
         for i in range(len(extraLevel)):
             moveList = moveList[extraLevel[i]]
         if moveId != 'key':
-            i = 0
             for key, row in moveList.items():
                 if moveId not in row:
                     continue
                 if row[moveId] == None:
                     continue
-                keyArray.append([removePunctuation(row[moveId], punct), row, key])
+                testString = row[moveId]
+                testString = re.sub('^.*\.\.\.+', "", testString).rstrip().strip()
+                keyArray.append([removePunctuation(testString, punct), row, key])
         else:
             for key, row in moveList.items():
                 keyArray.append([removePunctuation(key, punct), row, key])

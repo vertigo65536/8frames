@@ -17,6 +17,9 @@ def getPossibleMoves(content, characterFile):
     searchOutput = []
     searchOutput.append(tools.searchMove(content, characterFile, "notation", [punct, replacePunct], fuzz.ratio, extraLayer))
     searchOutput.append(tools.searchMove(content, characterFile, "move_name", [punct, replacePunct], fuzz.ratio, extraLayer))
+    for i in range(len(searchOutput)):
+        for j in range(len(searchOutput[i])):
+            searchOutput[i][j][1] = searchOutput[i][j][0]['notation']
     return searchOutput
 
 def getMoveByKey(content, characterFile):
@@ -98,12 +101,16 @@ def translateAcronym(text):
 def getMoveEmbed(moveRow, moveName, character):
     e = discord.Embed(title=character)
     for key, value in moveRow.items():
-        if key == 'preview_url':
+        if key in ['preview_url', 'id']:
             continue
-        if value in ['', None]:
-            value = 'n/a'
+        if value in ['', None, '-']:
+            continue
+        if key == 'speed':
+            name = 'Startup'
+        else:
+            name =  key.replace("_", " ").capitalize()
         e.add_field(
-            name = key,
+            name = name,
             value = value
         )
     try:
