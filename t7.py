@@ -100,12 +100,18 @@ def getMoveEmbed(moveRow, moveName, character):
         value = moveName
     )
     for key, value in moveRow.items():
+        if key == 'webm':
+            continue
         if value in ['', None]:
             value = 'n/a'
         e.add_field(
             name = key,
             value = value
         )
+    try:
+        e.set_image(url=moveRow['webm'])
+    except:
+        pass
     return e
 
 def getBadPunctuation():
