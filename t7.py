@@ -15,6 +15,7 @@ def getGame():
 def getPossibleMoves(content, characterFile):
     searchOutput = []
     searchOutput.append(tools.searchMove(content, characterFile, "key", [punct, replacePunct], fuzz.ratio))
+    searchOutput.append(tools.searchMove(content, characterFile, "Notes", [punct, replacePunct], fuzz.ratio))
     return searchOutput
 
 def getMoveByKey(content, characterFile):
