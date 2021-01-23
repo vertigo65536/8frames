@@ -34,4 +34,6 @@ examples of valid commands:
 > 8f!sf4 ryu hadoken
 > 8f!3s yun 5f punish
 
+Bot invite link: https://discord.com/api/oauth2/authorize?client_id=782432360666890281&permissions=10304&scope=bot
+
 report bugs to @Vertigo#2894
