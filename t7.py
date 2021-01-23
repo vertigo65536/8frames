@@ -26,7 +26,7 @@ def getMoveByKey(content, characterFile):
     return tools.getByKey(content, characterFile)
 
 def getPunishable(f, character, punishable = 0):
-    moveList = tools.loadJsonAsDict(f)
+    moveList = tools.loadJsonAsDict(f)['movelist']
     moves = []
     try:
         limits = tools.getLimits(game)[punishable]
@@ -35,7 +35,7 @@ def getPunishable(f, character, punishable = 0):
         
     except:
         return -1
-    oBHeader = 'Block frame'
+    oBHeader = 'on_block'
     for key, move in moveList.items():
         try:
             move[oBHeader]
@@ -50,16 +50,16 @@ def getPunishable(f, character, punishable = 0):
             except:
                 continue
             if int(oB[i]) >= minimum and int(oB[i]) <= maximum:
-                moves.append([key, move[oBHeader]])
+                moves.append([move['notation'], move[oBHeader]])
                 break
     return [moves, ['Name', oBHeader]]
 
 def getPunish(f, character, startupQuery):
-    moveList = tools.loadJsonAsDict(f)
+    moveList = tools.loadJsonAsDict(f)['movelist']
     moves = []
-    startup = 'Start up frame'
+    startup = 'speed'
     for key, move in moveList.items():
-        if 'Jump' in key:
+        if any(x in move['notation'] for x in ['Jump', 'DFLIP']):
             continue
         if not startup in move:
             continue
@@ -74,7 +74,7 @@ def getPunish(f, character, startupQuery):
                 continue
             startupVal[i].replace(")", "")
             if int(startupVal[i]) <= startupQuery:
-                moves.append([key, move[startup]])
+                moves.append([move['notation'], move[startup]])
                 break
     return [moves, ['Name', startup]]
 
