@@ -3,24 +3,25 @@
         [
             "projectile invincible",
             "fully invincible",
-            "completely invincible"
+            "completely invincible",
+            "projectile and"
         ],
         [
             "strike invincible",
             "fully invincible",
-            "completely invincible"
-
+            "completely invincible",
+            "strike and"
         ],
         [
             "invincible to airborne",
             "fully invincible",
-            "completely invincible"
-
+            "completely invincible",
+            "airborne invincible",
+            "airborne and"
         ],
         [
             "fully invincible",
             "completely invincible"
-
         ]
     ]
 }
