@@ -9,7 +9,10 @@ game = "sf3"
 def getPath():
     return path
 
-def getPossibleMoves(content, characterFile, extraLevels=[]):
+def getGame():
+    return game
+
+def getPossibleMoves(content, characterFile):
     searchOutput = []
     scorer = fuzz.token_sort_ratio
     punctuation = [punct, replacePunct]
@@ -20,6 +23,9 @@ def getPossibleMoves(content, characterFile, extraLevels=[]):
     if re.match('(super art|sa+) ?\d+$', content):
         searchOutput.append(tools.searchMove(parseSa(content), characterFile, "Super Art", punctuation, scorer))
     return searchOutput
+
+def getMoveByKey(content, characterFile):
+    return tools.getByKey(content, characterFile)
 
 def parseSa(string):
     string = string.replace("sa", "").replace("super art", "")

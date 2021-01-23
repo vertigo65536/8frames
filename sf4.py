@@ -5,11 +5,15 @@ path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sf4")
 punct = string.punctuation.replace(">", "")
 replacePunct = " "
 game = "sf4"
+extraLevels = ['moves']
 
 def getPath():
     return path
 
-def getPossibleMoves(content, characterFile, extraLevels=['moves']):
+def getGame():
+    return game
+
+def getPossibleMoves(content, characterFile):
     searchOutput = []
     scorer = fuzz.token_sort_ratio
     punctuation = [punct, replacePunct]
@@ -22,6 +26,9 @@ def getPossibleMoves(content, characterFile, extraLevels=['moves']):
         content = content.replace("ultra", "").replace("u", "").rstrip().strip()
         searchOutput.append(tools.searchMove(content, characterFile, "ultra", punctuation, fuzz.ratio, extraLevels))
     return searchOutput
+
+def getMoveByKey(content, characterFile):
+    return tools.getByKey(content, characterFile, extraLevels)
 
 def getPunishable(f, character, punishable = 0):
     moveList = tools.loadJsonAsDict(f)['moves']

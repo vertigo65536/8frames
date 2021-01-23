@@ -9,6 +9,9 @@ game = "sfv"
 def getPath():
     return path
 
+def getGame():
+    return game
+
 def getPossibleMoves(content, characterFile, extraLevels=[]):
     vtTest = content.split(":")
     vtrigger = 'normal'
@@ -26,13 +29,14 @@ def getPossibleMoves(content, characterFile, extraLevels=[]):
         search = vtTest[1]
     else:
         return "Invalid vtrigger activation. Try vt1:<command> or remove colon"
+    search = translateMoveAcronym(search)
     types = [vtrigger, 'normal']
     for i in range(len(types)):
         dataRaw = []
         punctuation = [punct, replacePunct]
         scorer = fuzz.token_sort_ratio
-        dataRaw.append(tools.searchMove(search, characterFile, 'plnCmd', punct, scorer, ['moves', types[i]]))
-        dataRaw.append(tools.searchMove(search, characterFile, 'key', punct, scorer, ['moves', types[i]]))
+        dataRaw.append(tools.searchMove(search, characterFile, 'plnCmd', punct, scorer, ['moves', types[i]], types[i]+":"))
+        dataRaw.append(tools.searchMove(search, characterFile, 'key', punct, scorer, ['moves', types[i]], types[i]+":"))
         invalidCounter = 0
         for j in range(len(dataRaw)):
             if dataRaw[j] == -1:
@@ -40,6 +44,9 @@ def getPossibleMoves(content, characterFile, extraLevels=[]):
         if invalidCounter < len(dataRaw)-1:
             break
     return dataRaw
+
+def getMoveByKey(content, characterFile):
+    return tools.getByKey(content, characterFile, ['moves'])
 
 def getPunishable(f, character, punishable=0):
     array = tools.loadJsonAsDict(f)['moves']
@@ -148,7 +155,10 @@ def getNote(f, character, query):
 def translateAlias(name):
     return name
 
-def translateAcronym(search):
+def translateAcronym(name):
+    return name
+
+def translateMoveAcronym(search):
     if any(x in search for x in ["vs1", "vs2"]):
         search = search.replace("vs", "mpmk vs")
     elif any(x in search for x in ["vt1", "vt2"]):
@@ -158,7 +168,7 @@ def translateAcronym(search):
 def getMoveEmbed(moveRow, moveName, character):
     e = discord.Embed(title=character)
     e.add_field(
-        name = "Move",
+        name = "Name",
         value = moveName
     )
     for key, value in moveRow.items():

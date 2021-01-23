@@ -9,10 +9,16 @@ game = "t7"
 def getPath():
     return path
 
-def getPossibleMoves(content, characterFile, extraLevels=[]):
+def getGame():
+    return game
+
+def getPossibleMoves(content, characterFile):
     searchOutput = []
     searchOutput.append(tools.searchMove(content, characterFile, "key", [punct, replacePunct], fuzz.ratio))
     return searchOutput
+
+def getMoveByKey(content, characterFile):
+    return tools.getByKey(content, characterFile)
 
 def getPunishable(f, character, punishable = 0):
     moveList = tools.loadJsonAsDict(f)
@@ -90,7 +96,7 @@ def translateAcronym(text):
 def getMoveEmbed(moveRow, moveName, character):
     e = discord.Embed(title=character)
     e.add_field(
-        name = "Move",
+        name = "Name",
         value = moveName
     )
     for key, value in moveRow.items():

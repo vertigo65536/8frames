@@ -10,7 +10,6 @@ numbers = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
 
 
 def numberToEmoji(n):
-    numbers = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
     try:
         return numbers[n-1]
     except:
@@ -35,9 +34,9 @@ def getManPage():
 
 async def wrongResultEdit(botMessage):
     row = db.getRowByBotMessage(botMessage.id)
-    game = row[5]
-    character = row[6]
-    command = row[7]
+    game = row[4]
+    character = row[5]
+    command = row[6]
     game = getGame(game)
     path = getCharacterPath(character, game.getPath())[0]
     searchOutput = game.getPossibleMoves(command, path)
@@ -50,9 +49,9 @@ async def wrongResultEdit(botMessage):
     for key, value in reducedDict.items():
         rankedList.append([key, value])
     rankedList = sorted(rankedList,key=lambda x: x[1], reverse=True)
-    if len(reducedDict) < 5+1:
+    if len(reducedDict) < 5:
         counter = len(reducedDict)
-    rankedList = rankedList[1:counter+1]
+    rankedList = rankedList[:counter]
     await botMessage.edit(content = getCorrectionEmbed(rankedList), embed = None)
     try:
         await botMessage.clear_reactions()
@@ -69,9 +68,9 @@ async def resultCorrection(message, emoji):
             moveName = content[i].replace(emoji, "").rstrip().strip()
     if moveName == None:
         return -1
-    game = row[5]
-    character = row[6]
-    command = row[7]
+    game = row[4]
+    character = row[5]
+    command = row[6]
     game = getGame(game)
     path = getCharacterPath(character, game.getPath())[0]
     outputRow = game.getPossibleMoves(command, path)
@@ -80,6 +79,7 @@ async def resultCorrection(message, emoji):
             if outputRow[i][j][1] == moveName:
                 e = game.getMoveEmbed(outputRow[i][j][0], outputRow[i][j][1], character)
                 await message.edit(content=None, embed=e)
+                db.correctQuery(character+command, game.getGame(), moveName, message.id)
                 try:
                     await message.clear_reactions()
                 except:
@@ -95,7 +95,7 @@ def getCorrectionEmbed(array):
 def getCharacterPath(query, gamedir):
     files = os.listdir(gamedir)
     fuzzyMatch  = process.extractOne(query + ".json", files, scorer=fuzz.ratio)
-    if fuzzyMatch[1] < 70:
+    if fuzzyMatch[1] < 60:
         return -1
     return [gamedir + "/" + fuzzyMatch[0], fuzzyMatch[0].replace(".json", "")]
 
@@ -137,23 +137,44 @@ async def parseCommand(message, game):
         punishValue = int(punishValue.rstrip().strip())
         moves = game.getPunish(characterFile, character, punishValue)
         return outputArray(moves, character+" "+content, mobile)
-    searchOutput = game.getPossibleMoves(content, characterFile)
-    if isinstance(searchOutput, str):
-        return searchOutput
-    outputValue = searchOutput[0][0]
-    for i in range(len(searchOutput)):
-        if searchOutput[i] == -1:
-            continue
-        if searchOutput[i][0][2] > outputValue[2]:
-            outputValue = searchOutput[i][0]
-    if outputValue[2] < 60:
-        output = "Move not found"
-        e = None
-    else:
-        output = ""
-        e = game.getMoveEmbed(outputValue[0], outputValue[1], character)
+    ratio = db.getMoveResultRatio(character+content, game.getGame())
+    e = None
+    if ratio != -1:
+        guessedKey = None
+        for key, value in ratio.items():
+            if value > 70:
+                guessedKey = key
+                break
+        if guessedKey != None:
+            row = game.getMoveByKey(guessedKey, characterFile)
+            if row != -1:
+                output = ""
+                e = game.getMoveEmbed(row, guessedKey, character)
+                finalMoveKey = guessedKey
+    if e == None:
+        searchOutput = game.getPossibleMoves(content, characterFile)
+        if isinstance(searchOutput, str):
+            return searchOutput
+        outputValue = searchOutput[0][0]
+        for i in range(len(searchOutput)):
+            if searchOutput[i] == -1:
+                continue
+            if searchOutput[i][0][2] > outputValue[2]:
+                outputValue = searchOutput[i][0]
+        if outputValue[2] < 60:
+            output = "Move not found"
+            e = None
+        else:
+            output = ""
+            e = game.getMoveEmbed(outputValue[0], outputValue[1], character)
+            finalMoveKey = outputValue[1]
     postMessage = await message.channel.send(output, embed=e)
-    db.insertIntoBotPosts(postMessage.id, message.id, postMessage.channel.id, message.author.id, prefix.split("!")[1], character, content, mobile)
+    db.insertIntoBotPosts(postMessage.id, message.id, postMessage.channel.id, message.author.id, prefix.split("!")[1], character, content, finalMoveKey, mobile)
+    queryId = character+content
+    db.createQueryRow(queryId, game.getGame())
+    db.updateQueryCount(queryId, game.getGame())
+    db.createQuerySelectionRow(queryId, game.getGame(), finalMoveKey)
+    db.updateQuerySelectionCount(queryId, game.getGame(), finalMoveKey)
     await tools.addReacts(postMessage, ["❌"])
     return
 
@@ -270,8 +291,6 @@ async def on_reaction_add(reaction, user):
             return
         if reaction.emoji == '❌':
             await wrongResultEdit(reaction.message)
-        elif reaction.emoji == '✅':
-            print('yep')
         elif reaction.emoji in numbers:
             await resultCorrection(reaction.message, reaction.emoji)
         else:

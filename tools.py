@@ -37,7 +37,7 @@ def getUserColour(message):
 
 # Returns the user ID for nickname
 
-def searchMove(query, f, moveId, punct, scorer, extraLevel=[]):
+def searchMove(query, f, moveId, punct, scorer, extraLevel=[], prefix=""):
     query = removePunctuation(query, punct)
     try:
         moveList = loadJsonAsDict(f)
@@ -56,13 +56,27 @@ def searchMove(query, f, moveId, punct, scorer, extraLevel=[]):
         outputArray = []
         for i in range(len(keyArray)):
             matchCheck = process.extract(query, [keyArray[i][0]], scorer=scorer)
-            outputArray.append([keyArray[i][1], keyArray[i][2], matchCheck[0][1]])
+            outputArray.append([keyArray[i][1], prefix + keyArray[i][2], matchCheck[0][1]])
         outputArray = sorted(outputArray, key=lambda x: x[2], reverse=True)
         outputArray = outputArray[:5]
         return outputArray
     except:
         return -1
 
+def getByKey(query, f, extraLevel = []):
+    moveList = loadJsonAsDict(f)
+    print(extraLevel)
+    for i in range(len(extraLevel)):
+        moveList = moveList[extraLevel[i]]
+    split = query.split(":")
+    if isinstance(split, list) and len(split) > 1:
+        for i in range(len(split) - 1):
+            moveList = moveList[split[i]]
+        query = split[len(split) - 1]
+    try:
+        return moveList[query]
+    except:
+        return -1
 
 def getUserId(user):
     userPath = os.path.join(os.path.dirname(os.path.abspath(__file__)), "users.json")
