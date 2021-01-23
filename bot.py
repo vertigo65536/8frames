@@ -157,7 +157,7 @@ async def parseCommand(message, game):
             return searchOutput
         outputValue = searchOutput[0][0]
         for i in range(len(searchOutput)):
-            if searchOutput[i] == -1:
+            if searchOutput[i] == -1 or searchOutput[i] == []:
                 continue
             if searchOutput[i][0][2] > outputValue[2]:
                 outputValue = searchOutput[i][0]
@@ -169,13 +169,16 @@ async def parseCommand(message, game):
             e = game.getMoveEmbed(outputValue[0], outputValue[1], character)
             finalMoveKey = outputValue[1]
     postMessage = await message.channel.send(output, embed=e)
-    db.insertIntoBotPosts(postMessage.id, message.id, postMessage.channel.id, message.author.id, prefix.split("!")[1], character, content, finalMoveKey, mobile)
-    queryId = character+content
-    db.createQueryRow(queryId, game.getGame())
-    db.updateQueryCount(queryId, game.getGame())
-    db.createQuerySelectionRow(queryId, game.getGame(), finalMoveKey)
-    db.updateQuerySelectionCount(queryId, game.getGame(), finalMoveKey)
-    await tools.addReacts(postMessage, ["❌"])
+    try:
+        db.insertIntoBotPosts(postMessage.id, message.id, postMessage.channel.id, message.author.id, prefix.split("!")[1], character, content, finalMoveKey, mobile)
+        queryId = character+content
+        db.createQueryRow(queryId, game.getGame())
+        db.updateQueryCount(queryId, game.getGame())
+        db.createQuerySelectionRow(queryId, game.getGame(), finalMoveKey)
+        db.updateQuerySelectionCount(queryId, game.getGame(), finalMoveKey)
+        await tools.addReacts(postMessage, ["❌"])
+    except:
+        pass
     return
 
 

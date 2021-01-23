@@ -5,6 +5,7 @@ path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "t7")
 punct = "!@#$%^&*()[]{};:,./<>?\|`~-=_ "
 replacePunct = ""
 game = "t7"
+extraLayer = ['movelist']
 
 def getPath():
     return path
@@ -14,8 +15,8 @@ def getGame():
 
 def getPossibleMoves(content, characterFile):
     searchOutput = []
-    searchOutput.append(tools.searchMove(content, characterFile, "key", [punct, replacePunct], fuzz.ratio))
-    searchOutput.append(tools.searchMove(content, characterFile, "Notes", [punct, replacePunct], fuzz.ratio))
+    searchOutput.append(tools.searchMove(content, characterFile, "notation", [punct, replacePunct], fuzz.ratio, extraLayer))
+    searchOutput.append(tools.searchMove(content, characterFile, "move_name", [punct, replacePunct], fuzz.ratio, extraLayer))
     return searchOutput
 
 def getMoveByKey(content, characterFile):
@@ -96,12 +97,8 @@ def translateAcronym(text):
 
 def getMoveEmbed(moveRow, moveName, character):
     e = discord.Embed(title=character)
-    e.add_field(
-        name = "Name",
-        value = moveName
-    )
     for key, value in moveRow.items():
-        if key == 'webm':
+        if key == 'preview_url':
             continue
         if value in ['', None]:
             value = 'n/a'
@@ -110,7 +107,7 @@ def getMoveEmbed(moveRow, moveName, character):
             value = value
         )
     try:
-        e.set_image(url=moveRow['webm'])
+        e.set_image(url=moveRow['preview_url'].replace("giant.", "thumbs.").replace(".gif", "-max-14mb.gif"))
     except:
         pass
     return e

@@ -49,6 +49,8 @@ def searchMove(query, f, moveId, punct, scorer, extraLevel=[], prefix=""):
             for key, row in moveList.items():
                 if moveId not in row:
                     continue
+                if row[moveId] == None:
+                    continue
                 keyArray.append([removePunctuation(row[moveId], punct), row, key])
         else:
             for key, row in moveList.items():
@@ -167,5 +169,7 @@ def loadJsonAsDict(filename):
     return jsonDict
 
 def removePunctuation(text, punct):
+    if text == None or punct == None:
+        return text
     text = text.translate ({ord(c): punct[1] for c in punct[0]}).rstrip().lower()
     return text
