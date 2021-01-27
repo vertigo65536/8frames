@@ -5,6 +5,26 @@ path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sfv")
 punct = "!@#$%^&*()[]{};:,./<>?\|`~-=_"
 replacePunct = " "
 game = "sfv"
+headers = {
+    'moveName': 'Name',
+    'plnCmd': 'Input',
+    'startup': 'Startup',
+    'active': 'Active',
+    'recovery': 'Recovery',
+    'total': 'Total Frames',
+    'onHit': 'On Hit',
+    'onBlock': 'On Block',
+    'vtc1OnHit': 'Frames oH VT1 Cancel',
+    'vtc1OnBlock': 'Frames oB VT1 Cancel',
+    'vtc2OnHit': 'Frames oH VT2 Cancel',
+    'vtc2OnBlock': 'Frames oB VT2 Cancel',
+    'stun': 'Stun',
+    'attackLevel': 'Attack Level',
+    'damage': 'Damage',
+    'cancelsTo': 'Cancels To',
+    'extraInfo': 'Extra Info'
+    }
+
 
 def getPath():
     return path
@@ -172,10 +192,16 @@ def getMoveEmbed(moveRow, moveName, character):
         value = moveName
     )
     for key, value in moveRow.items():
+        if key in ['moveName', 'numCmd', 'cmnName', 'moveMotion', 'moveButton', 'i', 'followUp', 'airmove', 'projectile', 'moveType']:
+            continue
         if value in ['', None]:
             value = 'n/a'
+        try:
+            header = headers[key]
+        except:
+            header = key
         e.add_field(
-            name = key,
+            name = header,
             value = value
         )
     return e
