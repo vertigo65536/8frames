@@ -15,8 +15,8 @@ def getGame():
 
 def getPossibleMoves(content, characterFile):
     searchOutput = []
-    searchOutput.append(tools.searchMove(content, characterFile, "notation", [punct, replacePunct], fuzz.ratio, extraLayer))
-    searchOutput.append(tools.searchMove(content, characterFile, "move_name", [punct, replacePunct], fuzz.ratio, extraLayer))
+    searchOutput.append(tools.searchMove(content, characterFile, "notation", [punct, replacePunct], fuzz.ratio, extraLayer, removeBrackets=True))
+    searchOutput.append(tools.searchMove(content, characterFile, "move_name", [punct, replacePunct], fuzz.ratio, extraLayer, removeBrackets=True))
     for i in range(len(searchOutput)):
         for j in range(len(searchOutput[i])):
             searchOutput[i][j][1] = searchOutput[i][j][0]['notation']

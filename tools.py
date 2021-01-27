@@ -37,7 +37,7 @@ def getUserColour(message):
 
 # Returns the user ID for nickname
 
-def searchMove(query, f, moveId, punct, scorer, extraLevel=[], prefix=""):
+def searchMove(query, f, moveId, punct, scorer, extraLevel=[], prefix="", removeBrackets=False):
     query = removePunctuation(query, punct)
     try:
         moveList = loadJsonAsDict(f)
@@ -52,7 +52,8 @@ def searchMove(query, f, moveId, punct, scorer, extraLevel=[], prefix=""):
                     continue
                 testString = row[moveId]
                 testString = re.sub('^.*\.\.\.+', "", testString)
-                testString = re.sub(r'\([^)]*\)', '', testString).rstrip().strip()
+                if removeBrackets == True:
+                    testString = re.sub(r'\([^)]*\)', '', testString).rstrip().strip()
                 keyArray.append([removePunctuation(testString, punct), row, key])
         else:
             for key, row in moveList.items():
