@@ -51,7 +51,8 @@ def searchMove(query, f, moveId, punct, scorer, extraLevel=[], prefix=""):
                 if row[moveId] == None:
                     continue
                 testString = row[moveId]
-                testString = re.sub('^.*\.\.\.+', "", testString).rstrip().strip()
+                testString = re.sub('^.*\.\.\.+', "", testString)
+                testString = re.sub(r'\([^)]*\)', '', testString).rstrip().strip()
                 keyArray.append([removePunctuation(testString, punct), row, key])
         else:
             for key, row in moveList.items():
