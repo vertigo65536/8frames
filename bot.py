@@ -107,6 +107,7 @@ async def parseCommand(message, game):
         mobile = False
 
     command = tools.getMessageContent(message.content)
+    command = ' '.join(command.split())
     if command == -1:
         return "Requres a character and a query. Consult 8f!man for more info"
     character = tools.getMessagePrefix(command)
