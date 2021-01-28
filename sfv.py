@@ -54,10 +54,10 @@ def getPossibleMoves(content, characterFile, extraLevels=[]):
     for i in range(len(types)):
         dataRaw = []
         punctuation = [punct, replacePunct]
-        scorer = fuzz.token_sort_ratio
+        scorer = fuzz.ratio
         dataRaw.append(tools.searchMove(search, characterFile, 'plnCmd', punct, scorer, ['moves', types[i]], types[i]+":"))
         dataRaw.append(tools.searchMove(tools.formatAsSFInput(search), characterFile, 'plnCmd', punct, scorer, ['moves', types[i]], types[i]+":"))
-        dataRaw.append(tools.searchMove(search, characterFile, 'key', punct, scorer, ['moves', types[i]], types[i]+":"))
+        dataRaw.append(tools.searchMove(search, characterFile, 'key', punct, fuzz.token_sort_ratio, ['moves', types[i]], types[i]+":"))
         invalidCounter = 0
         for j in range(len(dataRaw)):
             if dataRaw[j] == -1:
