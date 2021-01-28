@@ -171,7 +171,7 @@ def loadJsonAsDict(filename):
         jsonDict = json.load(json_file)
     return jsonDict
 
-def formatSFAsInput(string, reverse = 0):
+def formatAsSFInput(string, reverse = 0):
     moveConversion = {
         'cr': 'd+',
         'j': '(air)',
