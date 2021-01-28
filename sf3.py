@@ -17,9 +17,9 @@ def getPossibleMoves(content, characterFile):
     scorer = fuzz.token_sort_ratio
     punctuation = [punct, replacePunct]
     searchOutput.append(tools.searchMove(content, characterFile, "Motion", punctuation, fuzz.ratio))
-    searchOutput.append(tools.searchMove(formatAsInput(content), characterFile, "Motion", punctuation, fuzz.ratio))
+    searchOutput.append(tools.searchMove(tools.formatAsSFInput(content), characterFile, "Motion", punctuation, fuzz.ratio))
     searchOutput.append(tools.searchMove(content, characterFile, "key", punctuation, scorer))
-    searchOutput.append(tools.searchMove(formatAsInput(content, 1), characterFile, "key", punctuation, scorer))
+    searchOutput.append(tools.searchMove(tools.formatAsSFInput(content, 1), characterFile, "key", punctuation, scorer))
     if re.match('(super art|sa+) ?\d+$', content):
         searchOutput.append(tools.searchMove(parseSa(content), characterFile, "Super Art", punctuation, scorer))
     return searchOutput
@@ -98,6 +98,7 @@ def translateAcronym(text):
         text = text.replace("dp", "fddf")
     text = text.replace('uoh', 'mp+mk')
     text = text.replace('throw', 'lp+lk')
+    text = text.replace('grab', 'lp+lk')
     text = text.replace("jump", "air")
     text = text.replace("raging demon", "shun goku satsu")
     text = text.replace("kkz", "kongou kokuretsu zan")
@@ -117,61 +118,6 @@ def getMoveEmbed(moveRow, moveName, character):
     except:
         pass
     return e
-
-def formatAsInput(string, reverse = 0):
-    moveConversion = {
-        'cr': 'd+',
-        'j': '(air)',
-        'fierce': 'hp',
-        'strong': 'mp',
-        'jab': 'lp',
-        'short': 'lk',
-        'forward': 'mk',
-        'roundhouse': 'hk',
-        'light kick': 'lk',
-        'medium kick': 'mk',
-        'heavy kick': 'hk',
-        'light punch': 'lp',
-        'medium punch': 'mp',
-        'heavy punch': 'hp',
-        'crouch': 'cr',
-        'standing': '',
-        'far': '',
-        'lp': ' lp',
-        'mp': ' mp',
-        'hp': ' hp',
-        'lk': ' lk',
-        'mk': ' mk',
-        'hk': ' hk',
-        'fddf': 'f d df'
-    }
-    numberInputs = {
-        '63214': 'hcb',
-        '41236': 'hcf',
-        '236': 'qcf',
-        '214': 'qcb',
-        '623': 'f d df',
-        '421': 'b d db',
-        '1': 'db',
-        '2': 'd',
-        '3': 'df',
-        '4': 'b',
-        '5': 'n',
-        '6': 'f',
-        '7': 'ub',
-        '8': 'u',
-        '9': 'uf'
-    } 
-    for key, value in moveConversion.items():
-        if reverse == 0:
-            string = string.replace(key, value)
-        elif reverse == 1:
-            if value != '':
-                string = string.replace(value, key)
-    for key,value in numberInputs.items():
-        if reverse == 0:
-            string = string.replace(key, value)
-    return string
 
 def getBadPunctuation():
     return punct

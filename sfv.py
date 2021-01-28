@@ -56,6 +56,7 @@ def getPossibleMoves(content, characterFile, extraLevels=[]):
         punctuation = [punct, replacePunct]
         scorer = fuzz.token_sort_ratio
         dataRaw.append(tools.searchMove(search, characterFile, 'plnCmd', punct, scorer, ['moves', types[i]], types[i]+":"))
+        #dataRaw.append(tools.searchMove(tools.formatSFAsInput(search), characterFile, 'plnCmd', punct, scorer, ['moves', types[i]], types[i]+":"))
         dataRaw.append(tools.searchMove(search, characterFile, 'key', punct, scorer, ['moves', types[i]], types[i]+":"))
         invalidCounter = 0
         for j in range(len(dataRaw)):
