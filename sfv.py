@@ -195,6 +195,8 @@ def getMoveEmbed(moveRow, moveName, character):
     for key, value in moveRow.items():
         if key in ['moveName', 'numCmd', 'cmnName', 'moveMotion', 'moveButton', 'i', 'followUp', 'airmove', 'projectile', 'moveType']:
             continue
+        if len(str(value)) > 1024:
+            continue
         if value in ['', None]:
             value = 'n/a'
         try:
