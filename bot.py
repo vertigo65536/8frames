@@ -229,7 +229,11 @@ def formatMoveList(moves, character):
             if i >= len(moves):
                 finished = 1
                 break
-            stringArray.append([moves[i][0], moves[i][1]])
+            row = []
+            for j in range(len(moves[i])):
+                row.append(moves[i][j])
+            stringArray.append(row)
+            #stringArray.append([moves[i][0], moves[i][1]])
         embedArray.append("```" + tabulate(stringArray, headers=headers) + "```")
         offset += listSize
         if finished == 1:
@@ -254,9 +258,8 @@ async def handleMessage(message):
             if commandSplit[1] == 'servers':
                 serverList = []
                 for i in range(len(client.guilds)):
-                    print(client.guilds[i])
-                    serverList.append(client.guilds[i]['name'], client.guilds[i]['member_count'], client.guilds[i]['id'])
-                    return formatMoveList([serverList, ['Name', 'Size', 'id']], 'Servers')
+                    serverList.append([client.guilds[i].name, client.guilds[i].member_count, str(client.guilds[i].id)])
+                return formatMoveList([serverList, ['Name', 'Size', 'id']], 'Servers')
         return await parseCommand(message, getGame(commandSplit[1]))
 
 load_dotenv()
