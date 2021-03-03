@@ -252,7 +252,11 @@ async def handleMessage(message):
             return getManPage()
         if isAdmin(message.author.id):
             if commandSplit[1] == 'servers':
-                return str(client.guilds)
+                serverList = []
+                for i in range(len(client.guilds)):
+                    print(client.guilds[i])
+                    serverList.append(client.guilds[i]['name'], client.guilds[i]['member_count'], client.guilds[i]['id'])
+                    return formatMoveList([serverList, ['Name', 'Size', 'id']], 'Servers')
         return await parseCommand(message, getGame(commandSplit[1]))
 
 load_dotenv()
