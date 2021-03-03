@@ -19,7 +19,17 @@ def getFieldTitle(field):
         'meterOppHit': 'Meter Build on Opponent Hit',
         'onBlock': 'On Block',
         'onHit': 'On Hit',
-        'onHitCrouch': 'On Crouching Hit'
+        'onHitCrouch': 'On Crouching Hit',
+        'nJump': 'Neutral Jump',
+        'fJump': 'Forward Jump',
+        'bJump': 'Backward Jump',
+        'nSuperJump': 'Neutral Super Jump',
+        'fSuperJump': 'Forward Super Jump',
+        'bSuperJump': 'Backward Super Jump',
+        'fDash': 'Forward Dash',
+        'bDash': 'Back Dash',
+        'wakeupNormal': 'Normal Wakeup',
+        'wakeupQuick': 'Quick Getup'
     }
     try:
         return fieldTitles[field]
@@ -31,6 +41,11 @@ def getPath():
 
 def getGame():
     return game
+
+def getStats(characterFile):
+    with open(characterFile) as json_file:
+        data = json.load(json_file)
+    return data['stats']
 
 def getPossibleMoves(content, characterFile):
     searchOutput = []
@@ -139,7 +154,7 @@ def getMoveEmbed(moveRow, moveName, character):
     e = discord.Embed(title=character)
     e.add_field(name = "Name", value = moveName)
     for title, value in moveRow.items():
-        if title not in ['image', 'moveName', 'numCmd', 'moveType', 'moveMotion', 'moveButton', 'nonHittingMove']:
+        if title not in ['image', 'moveName', 'numCmd', 'moveType', 'moveMotion', 'moveButton', 'nonHittingMove', 'threeLetterCode', 'color']:
             e.add_field(
                 name = getFieldTitle(title),
                 value = value

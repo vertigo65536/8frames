@@ -136,6 +136,8 @@ async def parseCommand(message, game):
             except:
                 return "Function not available for this game"
             return outputArray(moves, character+" "+content, mobile)
+    if content == 'stats':
+        return game.getMoveEmbed(game.getStats(characterFile), 'Stats', character)
     if re.match('\d+f? punish', content):
         punishValue = content.replace("f ", "").replace("punish", "")
         punishValue = int(punishValue.rstrip().strip())
