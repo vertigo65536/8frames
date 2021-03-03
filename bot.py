@@ -43,6 +43,9 @@ async def wrongResultEdit(botMessage):
     reducedDict = {}
     for i in range(len(searchOutput)):
         for j in range(len(searchOutput[i])):
+            if searchOutput[i][j][1] in reducedDict:
+                if reducedDict[searchOutput[i][j][1]] > searchOutput[i][j][2]:
+                    continue
             reducedDict[searchOutput[i][j][1]] = searchOutput[i][j][2]
     counter = 5
     rankedList = []

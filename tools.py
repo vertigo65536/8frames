@@ -189,7 +189,6 @@ def formatAsSFInput(string, reverse = 0):
         'heavy punch': 'hp',
         'crouch': 'cr',
         'standing': '',
-        'far': '',
         'lp': ' lp',
         'mp': ' mp',
         'hp': ' hp',

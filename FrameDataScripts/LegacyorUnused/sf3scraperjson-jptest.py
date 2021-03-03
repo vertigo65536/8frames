@@ -474,7 +474,7 @@ for li in table.findAll('li'):
 #characters = {"Hugo": "http://wiki.shoryuken.com/Street_Fighter_3:_3rd_Strike/Hugo"}
 
 for character, url in characters.items():
-    if character == "Gill":
+    if character in ["Gill"]:
         continue
     print("Writing " + character + " file")
     page = requests.get(url, headers=headers)

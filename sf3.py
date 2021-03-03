@@ -5,6 +5,26 @@ path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sf3")
 punct = "!@#$%^&*()[]{};:,./<>?\|`~-=_+"
 replacePunct = " "
 game = "sf3"
+extraLevels = ['moves', 'normal']
+
+def getFieldTitle(field):
+    fieldTitles = {
+        'plnCmd': 'Move Input',
+        'cmnName': 'Common Name',
+        'karaRange': 'Kara Range',
+        'meterAtkWhiff': 'Meter Build on Whiff',
+        'meterAtkBlk': 'Meter Build on Block',
+        'meterAtkHit': 'Meter Build on Hit',
+        'meterOppBlk': 'Meter Build on Block Opponent',
+        'meterOppHit': 'Meter Build on Opponent Hit',
+        'onBlock': 'On Block',
+        'onHit': 'On Hit',
+        'onHitCrouch': 'On Crouching Hit'
+    }
+    try:
+        return fieldTitles[field]
+    except:
+        return field.capitalize()
 
 def getPath():
     return path
@@ -16,12 +36,11 @@ def getPossibleMoves(content, characterFile):
     searchOutput = []
     scorer = fuzz.token_sort_ratio
     punctuation = [punct, replacePunct]
-    searchOutput.append(tools.searchMove(content, characterFile, "Motion", punctuation, fuzz.ratio))
-    searchOutput.append(tools.searchMove(tools.formatAsSFInput(content), characterFile, "Motion", punctuation, fuzz.ratio))
-    searchOutput.append(tools.searchMove(content, characterFile, "key", punctuation, scorer))
-    searchOutput.append(tools.searchMove(tools.formatAsSFInput(content, 1), characterFile, "key", punctuation, scorer))
-    if re.match('(super art|sa+) ?\d+$', content):
-        searchOutput.append(tools.searchMove(parseSa(content), characterFile, "Super Art", punctuation, scorer))
+    searchOutput.append(tools.searchMove(content, characterFile, "plnCmd", punctuation, fuzz.ratio, extraLevels))
+    searchOutput.append(tools.searchMove(tools.formatAsSFInput(content), characterFile, "plnCmd", punctuation, fuzz.ratio, extraLevels))
+    searchOutput.append(tools.searchMove(content, characterFile, "key", punctuation, scorer, extraLevels))
+    searchOutput.append(tools.searchMove(tools.formatAsSFInput(content, 1), characterFile, "key", punctuation, scorer, extraLevels))
+    searchOutput.append(tools.searchMove(content, characterFile, "cmnName", punctuation, scorer, extraLevels))
     return searchOutput
 
 def getMoveByKey(content, characterFile):
@@ -35,6 +54,8 @@ def parseSa(string):
 
 def getPunishable(f, character, punishable = 0):
     moveList = tools.loadJsonAsDict(f)
+    for i in range(len(extraLevels)):
+        moveList = moveList[extraLevels[i]]
     moves = []
     try:
         limits = tools.getLimits(game)[punishable]
@@ -43,7 +64,7 @@ def getPunishable(f, character, punishable = 0):
         
     except:
         return -1
-    oBHeader = 'Blocked Advantage'
+    oBHeader = 'onBlock'
     for key, move in moveList.items():
         if not oBHeader in move:
             continue
@@ -64,8 +85,10 @@ def getPunishable(f, character, punishable = 0):
 
 def getPunish(f, character, startupQuery):
     moveList = tools.loadJsonAsDict(f)
+    for i in range(len(extraLevels)):
+        moveList = moveList[extraLevels[i]]
     moves = []
-    startup = 'Startup'
+    startup = 'startup'
     for key, move in moveList.items():
         if 'Jump' in key:
             continue
@@ -102,19 +125,27 @@ def translateAcronym(text):
     text = text.replace("jump", "air")
     text = text.replace("raging demon", "shun goku satsu")
     text = text.replace("kkz", "kongou kokuretsu zan")
+    text = text.replace('taunt', 'hp+hk')
+
+    text = text.replace('fierce', 'hp')
+    text = text.replace('strong', 'mp')
+    text = text.replace('jab', 'lp')
+    text = text.replace('roundhouse', 'hk')
+    text = text.replace('forward', 'mk')
+    text = text.replace('short', 'lk')
     return text
 
 def getMoveEmbed(moveRow, moveName, character):
     e = discord.Embed(title=character)
     e.add_field(name = "Name", value = moveName)
     for title, value in moveRow.items():
-        if title != 'Image':
+        if title not in ['image', 'moveName', 'numCmd', 'moveType', 'moveMotion', 'moveButton', 'nonHittingMove']:
             e.add_field(
-                name = title,
+                name = getFieldTitle(title),
                 value = value
             )
     try:
-        e.set_image(url=moveRow['Image'])
+        e.set_image(url=moveRow['image'])
     except:
         pass
     return e

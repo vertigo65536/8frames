@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 
 
-origin_url = "http://wiki.shoryuken.com"
-character_extension = "/Street_Fighter_3:_3rd_Strike"
+origin_url = "http://srk.shib.live"
+character_extension = "/w/Street_Fighter_3:_3rd_Strike"
 
 headers={
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
@@ -45,7 +45,7 @@ for li in table.findAll('li'):
 #characters = {"Ken": "http://wiki.shoryuken.com/Street_Fighter_3:_3rd_Strike/Ken"}
 
 for character, url in characters.items():
-    if character == "Gill":
+    if character in ["Gill", "Akuma"]:
         continue
     print("Writing " + character + " file")
     page = requests.get(url, headers=headers)
