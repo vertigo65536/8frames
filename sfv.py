@@ -143,7 +143,11 @@ def getPunish(f, character, startupQuery):
                     continue
                 startupVal[i].replace("]", "")
                 if int(startupVal[i]) <= startupQuery:
-                    moves.append([key, move[startup]])
+                    if vt == 'normal':
+                        moveName = key
+                    else:
+                        moveName = vt + " " + key
+                    moves.append([moveName, move[startup]])
                     break
     return [moves, ['Name', startup]]
 
