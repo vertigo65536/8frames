@@ -116,6 +116,7 @@ async def parseCommand(message, game):
     character = tools.getMessagePrefix(command)
     character = game.translateAlias(character)
     content = game.translateAcronym(tools.getMessageContent(command))
+    print(content)
     getChar = getCharacterPath(character, game.getPath())
     if getChar == -1:
         return "Could not find character '" + character + "'"

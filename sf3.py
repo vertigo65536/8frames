@@ -126,6 +126,8 @@ def getPunish(f, character, startupQuery):
   
 
 def translateAlias(text):
+    text = text.lower()
+    text = text.replace("gouki", "akuma")
     return text
 
 def translateAcronym(text):

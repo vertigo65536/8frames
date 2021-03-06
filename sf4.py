@@ -83,6 +83,9 @@ def getPunish(f, character, startupQuery):
 def translateAlias(text):
     text = text.lower()
     text = text.replace("eryu", "Evil Ryu")
+    text = text.replace("claw", "Vega")
+    text = text.replace("dictator", "Bison")
+    text = text.replace("boxer", "Balrog")
     return text
 
 def translateAcronym(text):
@@ -93,6 +96,16 @@ def translateAcronym(text):
         text = text.replace("rekka", "rekka part")
         text = text.replace("rekkaken", "rekkaken part")
         text = text.replace("part 1", "")
+    text = text.replace("qcfqcf", "dqcf")
+    text = text.replace("qcf qcf", "dqcf")
+    text = text.replace("qcbqcb", "dqcb")
+    text = text.replace("qcb qcb", "dqcb")
+    text = text.replace("hcbhcb", "dhcb")
+    text = text.replace("hcb hcb", "dhcb")
+    text = text.replace("pp", "2p")
+    text = text.replace("ppp", "3p")
+    text = text.replace("kk", "2k")
+    text = text.replace("kkk", "3k")
     return text
 
 def getMoveEmbed(moveRow, moveName, character):
