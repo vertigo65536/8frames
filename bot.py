@@ -235,7 +235,7 @@ def formatMoveList(moves, character):
                 row.append(moves[i][j])
             stringArray.append(row)
             #stringArray.append([moves[i][0], moves[i][1]])
-        embedArray.append("```" + tabulate(stringArray, headers=headers) + "```")
+        embedArray.append("```\n" + tabulate(stringArray, headers=headers) + "```")
         offset += listSize
         if finished == 1:
             break
