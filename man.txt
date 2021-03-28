@@ -36,4 +36,6 @@ examples of valid commands:
 
 Bot invite link: <https://discord.com/api/oauth2/authorize?client_id=782432360666890281&permissions=10304&scope=bot>
 
+SF5, SF4, SF3 frame data is taken from FAT, and T7 frame data is taken from Tekken Chicken. Thanks to all the work both those teams do!
+
 report bugs to @Vertigo#2894
